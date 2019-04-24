@@ -13,10 +13,10 @@ const firebaseConfig = {
   storageBucket: 'awk-dating.appspot.com',
   messagingSenderId: '188664002086'
 };
-const firebase = firebase.initializeApp(firebaseConfig);
+const fb = firebase.initializeApp(firebaseConfig);
 
 export default {
-  auth: firebase.auth(),
-  db: firebase.firestore(),
-  storage: firebase.storage()
+  auth: fb.auth(),
+  db: fb.firestore(),
+  storage: fb.storage()
 };
