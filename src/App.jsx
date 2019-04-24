@@ -1,10 +1,15 @@
 import React from 'react';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Login from './components/Login';
 const App = () => {
   return (
-    <div>
-      <h1>Awkward Dating</h1>
-    </div>
+    <BrowserRouter>
+      <div>
+        <Switch>
+          <Route path="/login" component={Login} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 };
 
