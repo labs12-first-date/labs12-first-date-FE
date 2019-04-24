@@ -5,8 +5,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <div>
+        <h1>The Most Awkward Dating</h1>
         <Switch>
-          <Route path="/login" component={Login} />
+          <Route path='/login' component={Login} />
         </Switch>
       </div>
     </BrowserRouter>
