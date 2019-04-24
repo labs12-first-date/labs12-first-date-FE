@@ -8,8 +8,7 @@ branches:
   only:
     - master
 install:
-  - npm install -g firebase-tools
-build:
   - yarn build
+  - npm install -g firebase-tools
 after_success:
   - firebase deploy --project awk-dating --token $FIREBASE_TOKEN
