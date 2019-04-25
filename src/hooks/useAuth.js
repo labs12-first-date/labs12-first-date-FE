@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 // need to add local storage for user
 
 const useAuth = () => {
+  const [initialized, setInitialized] = useState(false);
   const [user, setUser] = useState(auth.getCurrentUser());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -49,6 +50,7 @@ const useAuth = () => {
   };
 
   return {
+    initialized,
     isLoading,
     error,
     loginWithEmail,
