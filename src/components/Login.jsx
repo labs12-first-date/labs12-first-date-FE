@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import useForm from '../hooks/useForm';
 import { AuthContext } from '../contexts/AuthContext';
 
-const Login = () => {
+const Login = ({ history }) => {
   const { user, loginWithEmail, error } = useContext(AuthContext);
 
   const { values: login, handleChange, handleSubmit } = useForm(async () => {
     loginWithEmail(login.email, login.password);
-    // redirect
+    // where to next?
+    history.replace('/now-logged-in');
   });
 
-  // change later
-  if (user) return <Redirect to="/" />;
+  // are we already logged in?
+  if (user) return <Redirect to="/now-logged-in" />;
 
   return (
     <div className="container">
@@ -26,6 +27,7 @@ const Login = () => {
             name="email"
             onChange={handleChange}
             value={login.email || ''}
+            autoFocus
           />
         </div>
         <div className="input-field">
@@ -46,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);
