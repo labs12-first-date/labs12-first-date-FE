@@ -6,7 +6,7 @@ import Logout from './components/Logout';
 import { AuthContext } from './contexts/AuthContext';
 
 const App = () => {
-  const { isInitialized } = useContext(AuthContext);
+  const { isInitialized, user } = useContext(AuthContext);
 
   // change this to something more user-friendly, e.g. a nice spinner
   if (!isInitialized) return <div>Loading...</div>;
@@ -16,6 +16,11 @@ const App = () => {
       <div>
         <Navigation />
         <h1>The Most Awkward Dating</h1>
+        {user && (
+          <p>
+            Signed in as <em>{user.email}</em>
+          </p>
+        )}
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
