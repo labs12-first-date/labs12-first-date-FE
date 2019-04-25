@@ -3,11 +3,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import { UserProvider } from './contexts/UserContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
   return (
-    <UserProvider>
+    <AuthProvider>
       <BrowserRouter>
         <div>
           <Navigation />
@@ -17,7 +17,7 @@ const App = () => {
           </Switch>
         </div>
       </BrowserRouter>
-    </UserProvider>
+    </AuthProvider>
   );
 };
 

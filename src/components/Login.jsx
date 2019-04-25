@@ -1,25 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import useForm from '../hooks/useForm';
-import { auth } from '../firebase';
-import { UserContext } from '../contexts/UserContext';
+// import { auth } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
-  const [loginError, setLoginError] = useState(null);
-  const loggedInUser = useContext(UserContext);
+  const { user, loginWithEmail, error } = useContext(AuthContext);
 
   const { values: login, handleChange, handleSubmit } = useForm(async () => {
-    setLoginError(null);
-    try {
-      await auth.loginWithEmail(login.email, login.password);
-    } catch (error) {
-      setLoginError(error.message);
-      console.log(error);
-    }
+    loginWithEmail(login.email, login.password);
   });
 
   // change later
-  if (loggedInUser) return <Redirect to="/" />;
+  if (user) return <Redirect to="/" />;
 
   return (
     <div className="container">
@@ -47,7 +40,7 @@ const Login = () => {
         </div>
         <button className="btn pink lighten-1 Z-depth-0">Login</button>
 
-        {loginError && <p>{loginError}</p>}
+        {error && <p>{error}</p>}
       </form>
     </div>
   );

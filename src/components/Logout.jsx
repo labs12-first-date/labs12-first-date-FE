@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { auth } from '../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Logout = () => {
-  auth.logout();
+  const { logout } = useContext(AuthContext);
+
+  logout();
 
   return <Redirect to="/" />;
 };
