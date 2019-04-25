@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import useForm from '../hooks/useForm';
-// import { auth } from '../firebase';
 import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
@@ -9,6 +8,7 @@ const Login = () => {
 
   const { values: login, handleChange, handleSubmit } = useForm(async () => {
     loginWithEmail(login.email, login.password);
+    // redirect
   });
 
   // change later
