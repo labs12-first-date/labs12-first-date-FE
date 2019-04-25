@@ -4,12 +4,12 @@ import useAuth from '../hooks/useAuth';
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-  const { initialized, user, isLoading, error, loginWithEmail, logout } = useAuth();
+  const { isInitialized, user, isLoading, error, loginWithEmail, logout } = useAuth();
 
   return (
     <AuthContext.Provider
       value={{
-        initialized,
+        isInitialized,
         user,
         isLoading,
         error,

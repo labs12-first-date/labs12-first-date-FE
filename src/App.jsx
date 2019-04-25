@@ -6,10 +6,10 @@ import Logout from './components/Logout';
 import { AuthContext } from './contexts/AuthContext';
 
 const App = () => {
-  const { initialized } = useContext(AuthContext);
+  const { isInitialized } = useContext(AuthContext);
 
   // change this to something more user-friendly, e.g. a nice spinner
-  if (!initialized) return <div>Loading...</div>;
+  if (!isInitialized) return <div>Loading...</div>;
 
   return (
     <BrowserRouter>

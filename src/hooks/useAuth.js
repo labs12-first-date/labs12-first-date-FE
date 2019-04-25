@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 // need to add local storage for user
 
 const useAuth = () => {
-  const [initialized, setInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [user, setUser] = useState(auth.getCurrentUser());
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ const useAuth = () => {
   useEffect(() => {
     const cancelListener = auth.onUserChange(user => {
       setUser(user);
-      setInitialized(true);
+      setIsInitialized(true);
     });
 
     // clean up on unmount
@@ -50,7 +50,7 @@ const useAuth = () => {
   };
 
   return {
-    initialized,
+    isInitialized,
     isLoading,
     error,
     loginWithEmail,
