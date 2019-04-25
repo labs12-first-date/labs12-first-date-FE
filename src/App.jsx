@@ -15,6 +15,7 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Navigation />
+        <h1>The Most Awkward Dating</h1>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
