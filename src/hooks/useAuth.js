@@ -10,7 +10,15 @@ const useAuth = () => {
 
   // CDM
   useEffect(() => {
-    auth.onUserChange(user => setUser(user));
+    const cancelListener = auth.onUserChange(user => {
+      setUser(user);
+      setInitialized(true);
+    });
+
+    // clean up on unmount
+    return () => {
+      cancelListener();
+    };
   }, []);
 
   // logging
