@@ -1,18 +1,26 @@
-import { auth } from './index';
+import fb from './config';
 
-function signInWithEmailAndPassword(email, password) {
+const loginWithEmail = async (email, password) => {
+  await fb.auth().signInWithEmailAndPassword(email, password);
+};
+
+const logout = () => {
   try {
-    auth.signInWithEmailAndPassword(email, password);
+    fb.auth().signOut();
   } catch (error) {
     console.log(error);
   }
-}
+};
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    // User is signed in.
-    console.log(user);
-  } else {
-    // User is signed out.
-  }
-});
+const getCurrentUser = () => fb.auth().currentUser;
+
+const onUserChange = callback => {
+  fb.auth().onAuthStateChanged(callback);
+};
+
+export default {
+  loginWithEmail,
+  logout,
+  getCurrentUser,
+  onUserChange
+};
