@@ -17,9 +17,7 @@ const useAuth = () => {
     });
 
     // clean up on unmount
-    return () => {
-      cancelListener();
-    };
+    return cancelListener;
   }, []);
 
   // logging
