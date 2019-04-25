@@ -1,3 +1,45 @@
+# Awk-Dating*
+###### *(working name)
+
+
+## Description
+---
+Awk-Dating* is a online-dating application available on Web and iOS. While other dating apps may focus on matching partners based off of interests or characteristics that matches might discuss on the first date, Awk-Dating* matches people based off something people might not want to share on the first date, STDs. With 1 in three people in the US contracting an STD before the age of 25, STDs are much more common than the average person would think. Our dating app allows users to disclose their condition(s) and list the condition(s) that they are open to a potential match having. By allowing users to disclose this taboo information upfront, the stigma of having an STD and fear of judgement is removed and you can focus on actually getting to know your matches.
+
+## Features
+---
+### Free Users
+- Sign up via email or Google Account
+- Upload images to Profile
+- Add bio information
+- Check off which STD(s) the user has
+- Check off which STD(s) the user is open to a partner having
+- Match recomendations based off user's disclosed/"open to" STD(s)
+- Swipe yes/no on other users' profiles resulting in a match if a yes is reciprocated
+- In-App chat once users are matched
+- Report other users for inappropriate profiles/behavior
+
+### Premium Users
+- All free user features
+- Unlimited swipes
+- Super-likes
+- Back-swipes(see user's profiles you had previously swiped no to)
+- See list of users who have already "liked" your profile
+
+### Administrators
+- Will be notified when a user is reported
+- View a list of reported users with ability to ban/remove accounts
+
+
+## Tech Stack
+---
+- Front End: __React w/ React Hooks__ [https://reactjs.org/]
+- Design Framework: __Blueprint__ [https://blueprintjs.com/]
+- Back End: __Firebase/Cloud Firestore__ [https://firebase.google.com/products/]
+- Testing: __Jest__ [https://jestjs.io/]
+
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +108,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+
+## License
+----
+- MIT [https://opensource.org/licenses/MIT]
