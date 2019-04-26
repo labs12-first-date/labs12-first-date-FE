@@ -508,7 +508,7 @@ export default function ProfileSeeds() {
     ];
 
     users.forEach(element => {
-      fb.collection('profiles').add(element);
+      fb.firestore().collection('profiles').add(element);
     });
   };
   

@@ -19,7 +19,7 @@ export default function SeedUser() {
     ];
 
     aids.forEach(element => {
-      fb.collection('stds').add(element);
+      fb.firestore().collection('stds').add(element);
     });
   };
   
