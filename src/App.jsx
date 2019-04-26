@@ -4,8 +4,7 @@ import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import { AuthContext } from './contexts/AuthContext';
-import SeedUser from './components/UserSeeds';
-import Profiles from './components/ProfileSeeds';
+
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -27,8 +26,6 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
         </Switch>
-        <SeedUser />
-        <Profiles />
       </div>
     </BrowserRouter>
   );
