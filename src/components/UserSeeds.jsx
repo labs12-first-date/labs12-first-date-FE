@@ -1,4 +1,4 @@
-import db from '../firebase/index';
+import fb from '../firebase/config';
 
 import React from 'react';
 
@@ -19,29 +19,14 @@ export default function SeedUser() {
     ];
 
     aids.forEach(element => {
-      db.db.collection('stds').add(element);
+      fb.collection('stds').add(element);
     });
   };
-  let data = [];
-  db.db
-    .collection('stds')
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => data.push(doc.data()));
-      // data = snapshot.getData();
-    });
-  console.log(data);
+  
 
   return (
     <div>
       <button onClick={seed}>hay</button>
-      {/* {data.map(seed => {
-        return <p>{seed}</p>;
-      })} */}
-
-      {data.map(seed => (
-        <p>{seed.condition}</p>
-      ))}
     </div>
   );
 }
