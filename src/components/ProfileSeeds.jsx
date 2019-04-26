@@ -3,7 +3,7 @@ import fb from '../firebase/config';
 import React from 'react';
 
 export default function ProfileSeeds() {
-  const profile = () => {
+  const seeds = () => {
     const users = [
 {"first_name":"Marie-jeanne","last_name":"Sanford","DOB":"2/5/1981","gender":"Female","looking_for":"Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.","bio":"Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.","what ails you":"nulla elit","what floats your boat":"pede","condition details":"magnis dis parturient","zip_code":32944},
 {"first_name":"Karoly","last_name":"Klaes","DOB":"6/8/1987","gender":"Female","looking_for":"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.","bio":"Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.","what ails you":"eu magna vulputate","what floats your boat":"dui","condition details":"erat","zip_code":45804},
@@ -515,7 +515,7 @@ export default function ProfileSeeds() {
 
   return (
     <div>
-      <button onClick={profile}>Profile</button>
+      <button onClick={seeds}>Profile</button>
     </div>
   );
 }
