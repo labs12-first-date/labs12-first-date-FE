@@ -21,8 +21,8 @@ const Profile = () => {
             <Loading />
           ) : (
             <div className="container">
-              <div className="card grey ">
-                <div class="card-content white-text">
+              <div className="card grey lighten-1  ">
+                <div class="card-content black-text">
                   <span class="card-title">Profile</span>
                   <ul className="row">
                     <li className="col s12">
