@@ -2,12 +2,8 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 
-// Configure Firebase.
-const config = {
-  apiKey: 'AIzaSyCh8HsamWff6ZKG1i-1FLvpdkOCHL3EdWA',
-  authDomain: 'awk-dating.firebaseapp.com'
-  // ...
-};
+
+
 
 // Configure FirebaseUI.
 const uiConfig = {

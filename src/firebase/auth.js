@@ -30,5 +30,6 @@ export default {
   loginWithEmail,
   logout,
   getCurrentUser,
-  onUserChange
+  onUserChange,
+  createUserWithEmail
 };

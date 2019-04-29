@@ -7,7 +7,7 @@ import Loading from './Loading';
 import React from 'react';
 
 const Profile = () => {
-  const [user, setUser] = useState(auth.getCurrentUser());
+  const [user] = useState(auth.getCurrentUser());
   console.log(`this one => ${user.uid}`);
 
   return (

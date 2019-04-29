@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
-          <Route path="/signup" component={Signup} /> 
+          <Route path="/signup" component={Signup} />
         </Switch>
       </div>
     </BrowserRouter>
