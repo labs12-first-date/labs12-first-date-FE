@@ -13,8 +13,7 @@ const uiConfig = {
   // We will display Google and Github + Email as auth providers.
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    firebase.auth.GithubAuthProvider.PROVIDER_ID
   ]
 };
 
