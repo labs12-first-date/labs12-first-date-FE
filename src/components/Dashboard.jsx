@@ -3,11 +3,11 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 
 // Configure Firebase.
-const config = {
-  apiKey: 'AIzaSyCh8HsamWff6ZKG1i-1FLvpdkOCHL3EdWA',
-  authDomain: 'awk-dating.firebaseapp.com'
-  // ...
-};
+// const config = {
+//   apiKey: 'AIzaSyCh8HsamWff6ZKG1i-1FLvpdkOCHL3EdWA',
+//   authDomain: 'awk-dating.firebaseapp.com'
+//   // ...
+// };
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -23,7 +23,7 @@ const uiConfig = {
   ]
 };
 
-const Login = () => {
+const Dashboard = () => {
   return (
     <div>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
@@ -31,4 +31,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Dashboard;
