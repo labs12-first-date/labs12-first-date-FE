@@ -3,10 +3,12 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import useForm from '../hooks/useForm';
 import { auth } from '../firebase';
+import { withRouter } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const { values, handleChange, handleSubmit } = useForm(() => {
     auth.createUserWithEmail(values.email, values.password);
+    history.replace('/swipe');
   });
   return (
     <>
@@ -30,4 +32,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default withRouter(Signup);
