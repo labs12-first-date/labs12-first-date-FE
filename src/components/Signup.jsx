@@ -2,10 +2,11 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 import useForm from '../hooks/useForm';
+import { auth } from '../firebase';
 
 const Signup = () => {
   const { values, handleChange, handleSubmit } = useForm(() => {
-    // on submit
+    auth.createUserWithEmail(values.email, values.password);
   });
   return (
     <>

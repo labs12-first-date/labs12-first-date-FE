@@ -12,6 +12,14 @@ const logout = () => {
   }
 };
 
+const createUserWithEmail = async (email, password) => {
+  try {
+    await fb.auth().createUserWithEmailAndPassword(email, password);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getCurrentUser = () => fb.auth().currentUser;
 
 const onUserChange = callback => {
