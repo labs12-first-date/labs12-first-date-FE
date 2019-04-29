@@ -8,32 +8,37 @@ const Navigation = () => {
   return (
     <nav>
       <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to='/'>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to='/swipe'>Deck</NavLink>
+          </li>
+        </>
         {user ? (
           <li>
-            <NavLink to="/logout">Log out</NavLink>
+            <NavLink to='/logout'>Log out</NavLink>
           </li>
         ) : (
           <>
-          <li>
-            <NavLink to="/login">Log in</NavLink>
-          </li> 
-          <li>
-            <NavLink to="/signup">Sign Up</NavLink>
-          </li>
+            <li>
+              <NavLink to='/login'>Log in</NavLink>
+            </li>
+            <li>
+              <NavLink to='/signup'>Sign Up</NavLink>
+            </li>
           </>
         )}
         {user ? (
           <li>
-            <NavLink to="/profile">profile</NavLink>
+            <NavLink to='/profile'>profile</NavLink>
           </li>
         ) : (
           <li>
             <NavLink />
           </li>
-        ) }
+        )}
       </ul>
     </nav>
   );
