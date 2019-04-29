@@ -16,9 +16,14 @@ const Navigation = () => {
             <NavLink to="/logout">Log out</NavLink>
           </li>
         ) : (
+          <>
           <li>
             <NavLink to="/login">Log in</NavLink>
+          </li> 
+          <li>
+            <NavLink to="/signup">Sign Up</NavLink>
           </li>
+          </>
         )}
         {user ? (
           <li>
@@ -28,7 +33,7 @@ const Navigation = () => {
           <li>
             <NavLink />
           </li>
-        )}
+        ) }
       </ul>
     </nav>
   );
