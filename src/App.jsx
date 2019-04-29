@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import { AuthContext } from './contexts/AuthContext';
+// import Dashboard from './components/Dashboard';
 
+import Profile from './components/Profile';
+import { AuthContext } from './contexts/AuthContext';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -14,17 +16,19 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div>
+      <div className="container">
         <Navigation />
-        <h1>The Most Awkward Dating</h1>
+        <h1 className="center">The Most Awkward Dating</h1>
         {user && (
-          <p>
+          <p className="center">
             Signed in as <em>{user.email}</em>
           </p>
         )}
         <Switch>
+          {/* <Route exact path="/" component={Dashboard} /> */}
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
+          <Route path="/profile" component={Profile} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -20,6 +20,15 @@ const Navigation = () => {
             <NavLink to="/login">Log in</NavLink>
           </li>
         )}
+        {user ? (
+          <li>
+            <NavLink to="/profile">profile</NavLink>
+          </li>
+        ) : (
+          <li>
+            <NavLink />
+          </li>
+        )}
       </ul>
     </nav>
   );
