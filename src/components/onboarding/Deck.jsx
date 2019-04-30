@@ -85,7 +85,14 @@ const data = [
         inputPlaceholder: 'Gender',
         fieldName: 'matchGender',
         inputType: 'multiSelect',
-        choices: ['female', 'male', 'trans', 'non-binary', 'questioning', 'other']
+        choices: [
+          { value: 'female', label: 'female' },
+          { value: 'male', label: 'male' },
+          { value: 'trans', label: 'trans' },
+          { value: 'non-binary', label: 'non-binary' },
+          { value: 'questioning', label: 'questioning' },
+          { value: 'other', label: 'other' }
+        ]
       },
       {
         prompt: 'Distance',
@@ -141,7 +148,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
   const [gone] = useState(() => new Set());
@@ -152,7 +160,14 @@ function Deck() {
   }));
 
   const bind = useGesture(
-    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
+    ({
+      args: [index],
+      down,
+      delta: [xDelta],
+      distance,
+      direction: [xDir],
+      velocity
+    }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -183,7 +198,9 @@ function Deck() {
       });
 
       if (!down && gone.size === data.length)
-        console.log('Cards are done. Let the DB know this person is ready to date!');
+        console.log(
+          'Cards are done. Let the DB know this person is ready to date!'
+        );
     }
   );
 
@@ -199,7 +216,6 @@ function Deck() {
       data={data}
       bind={bind}
     />
-
   ));
 }
 
