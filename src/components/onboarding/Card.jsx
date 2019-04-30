@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 // import Carousel from 'nuka-carousel';
 
+
 class Card extends React.Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
-    const { questionOne, questionTwo, questionThree } = data[i];
+    const { cardTitle, onboardingStep, prompts, inputPlaceholder } = data[i];
     return (
       <animated.div
         key={i}
@@ -30,12 +31,19 @@ class Card extends React.Component {
               ))}
             </Carousel> */}
             <form>
-              <h2>{questionOne}</h2>
+              <h2>{cardTitle}</h2>
+              {prompts.map(p => (
+                <>
+                <h3>{p.prompt}</h3>
+                <input placeholder={p.inputPlaceholder} name={p.fieldName}/>
+                </>
+              ))}
+              {/* <h3>{}</h3>
               <input placeholder='first Name' />
-              <h2>{questionTwo}</h2>
+              <h3>{}</h3>
               <input placeholder='last Name' />
-              <h2>{questionThree}</h2>
-              <input placeholder='Age' />
+              <h3>{}</h3>
+              <input placeholder='Age' /> */}
             </form>
             {/* <h5>{distance}</h5>
             <h5>{text}</h5> */}
