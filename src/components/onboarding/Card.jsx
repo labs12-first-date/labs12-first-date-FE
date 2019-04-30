@@ -1,21 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
+// import { MenuItem } from '@blueprintjs/core';
+import { DateInput } from '@blueprintjs/datetime';
+// import { IListItemsProps, MultiSelect } from '@blueprintjs/select';
 // import Carousel from 'nuka-carousel';
+
+
+const jsDateFormatter = {
+  formatDate: date => date.toLocaleDateString(),
+  parseDate: str => new Date(str),
+  placeholder: 'M/D/YYYY'
+};
+
+const renderInput = p => {
+  switch (p.inputType) {
+    case 'text':
+      return <input type="text" placeholder={p.inputPlaceholder} name={p.fieldName} />;
+    case 'number':
+      return <input type="number" placeholder={p.inputPlaceholder} name={p.fieldName} />;
+    case 'multiSelect':
+      return (
+        <div>MultiSelect here for "{p.fieldName}"</div>
+        /* <MultiSelect
+          items={p.choices}
+          itemRenderer={(item, { handleClick, modifiers, query }) => (
+            <div
+              active={modifiers.active}
+              disabled={modifiers.disabled}
+              label={item}
+              key={item}
+              // replace later
+              onClick={e => console.log(`Clicked ${e.target}`)}
+              text={item}
+            >
+              {item}
+            </div>
+          )}
+          onItemSelect={e => console.log(`Selected ${e.target}`)}
+          tagRenderer={item => <span>{item}</span>}
+        /> */
+      );
+    case 'dateInput':
+      return (
+        <DateInput
+          formatDate={date => date.toLocaleString()}
+          //  onChange={this.handleDateChange}
+          parseDate={str => new Date(str)}
+          placeholder={'M/D/YYYY'}
+          {...jsDateFormatter}
+          //  value={this.state.date}
+        />
+      );
+    default:
+      return <div>No renderer for "{p.fieldName}"</div>;
+  }
+};
 
 class Card extends React.Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
-    const { cardTitle, onboardingStep, prompts, inputPlaceholder } = data[i];
+    const { cardTitle, onboardingStep, prompts } = data[i];
+
     return (
       <animated.div
         className='ani1'
         key={i}
         style={{
-          transform: interpolate(
-            [x, y],
-            (x, y) => `translate3d(${x}px,${y}px,0)`
-          )
+          transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
         }}
       >
         <animated.div
@@ -25,33 +77,27 @@ class Card extends React.Component {
             transform: interpolate([rot, scale], trans)
           }}
         >
-          <div className='card'>
+          <div className="card">
             {/* <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt='profilePicture' />
               ))}
             </Carousel> */}
+
             <form>
               <h2>{cardTitle}</h2>
               {prompts.map(p => (
                 <>
                   <h3>{p.prompt}</h3>
-                  <input placeholder={p.inputPlaceholder} name={p.fieldName} />
 
-                  <p>
-                    {onboardingStep} out of {data.length}
-                  </p>
+                  {renderInput(p)}
                 </>
               ))}
-              {/* <h3>{}</h3>
-              <input placeholder='first Name' />
-              <h3>{}</h3>
-              <input placeholder='last Name' />
-              <h3>{}</h3>
-              <input placeholder='Age' /> */}
+
+              <p>
+                {onboardingStep} out of {data.length}
+              </p>
             </form>
-            {/* <h5>{distance}</h5>
-            <h5>{text}</h5> */}
           </div>
         </animated.div>
       </animated.div>
