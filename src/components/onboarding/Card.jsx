@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 // import Carousel from 'nuka-carousel';
 
-
 class Card extends React.Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
     const { cardTitle, onboardingStep, prompts, inputPlaceholder } = data[i];
     return (
       <animated.div
+        className='ani1'
         key={i}
         style={{
           transform: interpolate(
@@ -19,6 +19,7 @@ class Card extends React.Component {
         }}
       >
         <animated.div
+          className='ani2'
           {...bind(i)}
           style={{
             transform: interpolate([rot, scale], trans)
@@ -34,11 +35,12 @@ class Card extends React.Component {
               <h2>{cardTitle}</h2>
               {prompts.map(p => (
                 <>
-                <h3>{p.prompt}</h3>
-                <input placeholder={p.inputPlaceholder} name={p.fieldName}/>
-                
+                  <h3>{p.prompt}</h3>
+                  <input placeholder={p.inputPlaceholder} name={p.fieldName} />
 
-                <p>{onboardingStep} out of {data.length}</p>
+                  <p>
+                    {onboardingStep} out of {data.length}
+                  </p>
                 </>
               ))}
               {/* <h3>{}</h3>
