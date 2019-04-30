@@ -7,7 +7,6 @@ class Card extends React.Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
     const { questionOne, questionTwo, questionThree } = data[i];
-    console.log('BIND', bind(i));
     return (
       <animated.div
         key={i}
