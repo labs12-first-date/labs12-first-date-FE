@@ -52,7 +52,7 @@ function Deck() {
       const dir = xDir < 0 ? -1 : 1;
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
-
+      console.log(index);
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
@@ -62,6 +62,11 @@ function Deck() {
         const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
 
         const scale = down ? 1.1 : 1;
+        if (dir === 1) {
+          console.log('Direction: right index:', index);
+        } else {
+          console.log('Direction: left index:', index);
+        }
         return {
           x,
           rot,
@@ -72,7 +77,9 @@ function Deck() {
       });
 
       if (!down && gone.size === data.length)
-        setTimeout(() => gone.clear() || set(i => to(i)), 600);
+        console.log(
+          'Cards are done. Let the DB know this person is ready to date!'
+        );
     }
   );
 
