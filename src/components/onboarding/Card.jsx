@@ -6,6 +6,7 @@ import { DateInput } from '@blueprintjs/datetime';
 // import { IListItemsProps, MultiSelect } from '@blueprintjs/select';
 // import Carousel from 'nuka-carousel';
 
+
 const jsDateFormatter = {
   formatDate: date => date.toLocaleDateString(),
   parseDate: str => new Date(str),
@@ -55,6 +56,7 @@ const renderInput = p => {
       return <div>No renderer for "{p.fieldName}"</div>;
   }
 };
+
 class Card extends React.Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
@@ -62,12 +64,14 @@ class Card extends React.Component {
 
     return (
       <animated.div
+        className='ani1'
         key={i}
         style={{
           transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
         }}
       >
         <animated.div
+          className='ani2'
           {...bind(i)}
           style={{
             transform: interpolate([rot, scale], trans)
@@ -85,6 +89,7 @@ class Card extends React.Component {
               {prompts.map(p => (
                 <>
                   <h3>{p.prompt}</h3>
+
                   {renderInput(p)}
                 </>
               ))}

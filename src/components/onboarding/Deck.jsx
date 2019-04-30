@@ -188,7 +188,18 @@ function Deck() {
   );
 
   return props.map(({ x, y, rot, scale }, i) => (
-    <Card i={i} x={x} y={y} rot={rot} scale={scale} trans={trans} data={data} bind={bind} />
+    <Card
+      className='card'
+      i={i}
+      x={x}
+      y={y}
+      rot={rot}
+      scale={scale}
+      trans={trans}
+      data={data}
+      bind={bind}
+    />
+
   ));
 }
 
