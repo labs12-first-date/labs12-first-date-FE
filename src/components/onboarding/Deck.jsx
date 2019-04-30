@@ -5,15 +5,51 @@ import { useGesture } from 'react-with-gesture';
 import Card from './Card';
 import './Deck.css';
 
+
+//Questions
+//1. Intro(first and last name,)
+//2. Intro2( gender, birthday, interests/bio)
+//3. General(zip code, age)
+//4. Looking for(match gender, ideal match, match distance)
+//5. Conditions(what you are open to)
+//6. Conditions2(what you have, description)
+//7. Add a picture
+
 const data = [
+  // card objects
   {
-    questionOne: 'What is your first name?',
-    questionTwo: 'What is your last name?',
-    questionThree: 'What is your age?'
+    cardTitle: 'Basic Info',
+    onboardingStep: 1,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "What's your first name?",
+        inputPlaceholder: 'First Name',
+        fieldName: 'firstName'
+      },
+      {
+        prompt: "What's your last name?",
+        inputPlaceholder: 'Last Name',
+        fieldName: 'lastName'
+      }
+    ]
   },
   {
-    questionOne: 'What ails you?',
-    questionTwo: 'How serious?'
+    cardTitle: 'Basic Info continued',
+    onboardingStep: 2,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "What is your gender?",
+        inputPlaceholder: 'Gender',
+        fieldName: 'gender'
+      },
+      {
+        prompt: "When's your birthday?",
+        inputPlaceholder: 'MM/DD/YYYY',
+        fieldName: 'dateOfBirth'
+      }
+    ]
   }
 ];
 
