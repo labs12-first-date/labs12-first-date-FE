@@ -15,6 +15,7 @@ import './Deck.css';
 //6. Conditions2(what you have, description)
 //7. Add a picture
 
+//dummyData will be moved into firestore db
 const data = [
   // card objects
   {
@@ -35,7 +36,7 @@ const data = [
     ]
   },
   {
-    cardTitle: 'Basic Info continued',
+    cardTitle: 'Basic Info II',
     onboardingStep: 2,
     // questions, array of whatever length
     prompts: [
@@ -50,7 +51,70 @@ const data = [
         fieldName: 'dateOfBirth'
       }
     ]
-  }
+  },
+  {
+    cardTitle: 'Basic Info III',
+    onboardingStep: 3,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "What is your zip code",
+        inputPlaceholder: 'Zip Code',
+        fieldName: 'zipCode'
+      },
+      {
+        prompt: "How old are you?",
+        inputPlaceholder: 'Age',
+        fieldName: 'age'
+      }
+    ]
+  },
+  {
+    cardTitle: 'Looking For',
+    onboardingStep: 4,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "Gender",
+        inputPlaceholder: 'Gender',
+        fieldName: 'matchGender'
+      },
+      {
+        prompt: "Distance",
+        inputPlaceholder: 'Distance Range',
+        fieldName: 'matchDistance'
+      }
+    ]
+  },
+  {
+    cardTitle: 'What conditions are you open to',
+    onboardingStep: 5,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "I am open to...",
+        inputPlaceholder: 'Match Conditions',
+        fieldName: 'matchConditions'
+      },
+    ]
+  },
+  {
+    cardTitle: 'What conditions do you have',
+    onboardingStep: 1,
+    // questions, array of whatever length
+    prompts: [
+      {
+        prompt: "I have...",
+        inputPlaceholder: 'Condition(s)',
+        fieldName: 'conditions'
+      },
+      {
+        prompt: "Condition(s) Description",
+        inputPlaceholder: 'Description',
+        fieldName: 'conditionDescription'
+      }
+    ]
+  },
 ];
 
 const to = i => ({
