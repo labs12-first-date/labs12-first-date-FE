@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Signup from './components/Signup';
 // import Dashboard from './components/Dashboard';
-import Swipe from './components/Deck';
+import Swipe from './components/onboarding/Deck';
 
 import Profile from './components/Profile';
 import { AuthContext } from './contexts/AuthContext';
