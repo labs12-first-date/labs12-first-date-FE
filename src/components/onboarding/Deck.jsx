@@ -5,7 +5,6 @@ import { useGesture } from 'react-with-gesture';
 import Card from './Card';
 import './Deck.css';
 
-
 //Questions
 //1. Intro(first and last name,)
 //2. Intro2( gender, birthday, interests/bio)
@@ -26,12 +25,14 @@ const data = [
       {
         prompt: "What's your first name?",
         inputPlaceholder: 'First Name',
-        fieldName: 'firstName'
+        fieldName: 'firstName',
+        inputType: 'text'
       },
       {
         prompt: "What's your last name?",
         inputPlaceholder: 'Last Name',
-        fieldName: 'lastName'
+        fieldName: 'lastName',
+        inputType: 'text'
       }
     ]
   },
@@ -41,14 +42,17 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: "What is your gender?",
+        prompt: 'What is your gender?',
         inputPlaceholder: 'Gender',
-        fieldName: 'gender'
+        fieldName: 'gender',
+        inputType: 'multiSelect',
+        choices: ['choice1', 'choice2', 'choice3']
       },
       {
         prompt: "When's your birthday?",
         inputPlaceholder: 'MM/DD/YYYY',
-        fieldName: 'dateOfBirth'
+        fieldName: 'dateOfBirth',
+        inputType: 'dateInput'
       }
     ]
   },
@@ -58,14 +62,16 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: "What is your zip code",
+        prompt: 'What is your zip code',
         inputPlaceholder: 'Zip Code',
-        fieldName: 'zipCode'
+        fieldName: 'zipCode',
+        inputType: 'number'
       },
       {
-        prompt: "How old are you?",
+        prompt: 'How old are you?',
         inputPlaceholder: 'Age',
-        fieldName: 'age'
+        fieldName: 'age',
+        inputType: 'number'
       }
     ]
   },
@@ -75,14 +81,17 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: "Gender",
+        prompt: 'Gender',
         inputPlaceholder: 'Gender',
-        fieldName: 'matchGender'
+        fieldName: 'matchGender',
+        inputType: 'multiSelect',
+        choices: ['female', 'male', 'trans', 'non-binary', 'questioning', 'other']
       },
       {
-        prompt: "Distance",
+        prompt: 'Distance',
         inputPlaceholder: 'Distance Range',
-        fieldName: 'matchDistance'
+        fieldName: 'matchDistance',
+        inputType: 'number'
       }
     ]
   },
@@ -92,10 +101,12 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: "I am open to...",
+        prompt: 'I am open to...',
         inputPlaceholder: 'Match Conditions',
-        fieldName: 'matchConditions'
-      },
+        fieldName: 'matchConditions',
+        inputType: 'multiSelect',
+        choices: ['choice1', 'choice2', 'choice3']
+      }
     ]
   },
   {
@@ -104,17 +115,20 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: "I have...",
+        prompt: 'I have...',
         inputPlaceholder: 'Condition(s)',
-        fieldName: 'conditions'
+        fieldName: 'conditions',
+        inputType: 'multiSelect',
+        choices: ['choice1', 'choice2', 'choice3']
       },
       {
-        prompt: "Condition(s) Description",
+        prompt: 'Condition(s) Description',
         inputPlaceholder: 'Description',
-        fieldName: 'conditionDescription'
+        fieldName: 'conditionDescription',
+        inputType: 'text'
       }
     ]
-  },
+  }
 ];
 
 const to = i => ({
@@ -127,8 +141,7 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
   const [gone] = useState(() => new Set());
@@ -139,14 +152,7 @@ function Deck() {
   }));
 
   const bind = useGesture(
-    ({
-      args: [index],
-      down,
-      delta: [xDelta],
-      distance,
-      direction: [xDir],
-      velocity
-    }) => {
+    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -177,23 +183,12 @@ function Deck() {
       });
 
       if (!down && gone.size === data.length)
-        console.log(
-          'Cards are done. Let the DB know this person is ready to date!'
-        );
+        console.log('Cards are done. Let the DB know this person is ready to date!');
     }
   );
 
   return props.map(({ x, y, rot, scale }, i) => (
-    <Card
-      i={i}
-      x={x}
-      y={y}
-      rot={rot}
-      scale={scale}
-      trans={trans}
-      data={data}
-      bind={bind}
-    />
+    <Card i={i} x={x} y={y} rot={rot} scale={scale} trans={trans} data={data} bind={bind} />
   ));
 }
 
