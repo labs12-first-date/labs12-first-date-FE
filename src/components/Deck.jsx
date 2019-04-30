@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSprings } from 'react-spring/hooks';
+import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 
 import Card from './Card';
@@ -24,7 +24,7 @@ const to = i => ({
   rot: -10 + Math.random() * 20,
   delay: i * 100
 });
-const from = i => ({ rot: 0, scale: 2, y: -1000 });
+const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
   `perspective(1500px) rotateX(20deg) rotateY(${r /

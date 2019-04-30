@@ -14,8 +14,8 @@
     "react-firestore": "^1.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
-    "react-spring": "^7.2.8",
-    "react-with-gesture": "^4.0.2"
+    "react-spring": "^8.0.19",
+    "react-with-gesture": "^4.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

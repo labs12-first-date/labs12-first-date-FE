@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { animated, interpolate } from 'react-spring/hooks';
+import { animated, interpolate } from 'react-spring';
 // import Carousel from 'nuka-carousel';
 
 class Card extends React.Component {
