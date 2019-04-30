@@ -100,7 +100,7 @@ const data = [
   },
   {
     cardTitle: 'What conditions do you have',
-    onboardingStep: 1,
+    onboardingStep: 6,
     // questions, array of whatever length
     prompts: [
       {

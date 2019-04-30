@@ -36,6 +36,9 @@ class Card extends React.Component {
                 <>
                 <h3>{p.prompt}</h3>
                 <input placeholder={p.inputPlaceholder} name={p.fieldName}/>
+                
+
+                <p>{onboardingStep} out of {data.length}</p>
                 </>
               ))}
               {/* <h3>{}</h3>
