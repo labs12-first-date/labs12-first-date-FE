@@ -42,11 +42,18 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: 'What is your gender?',
+        prompt: 'How do you define your gender?',
         inputPlaceholder: 'Gender',
         fieldName: 'gender',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'female', label: 'female' },
+          { value: 'male', label: 'male' },
+          { value: 'trans', label: 'trans' },
+          { value: 'non-binary', label: 'non-binary' },
+          { value: 'The', label: 'The' },
+          { value: 'other', label: 'other' }
+        ]
       },
       {
         prompt: "When's your birthday?",
@@ -68,15 +75,15 @@ const data = [
         inputType: 'number'
       },
       {
-        prompt: 'How old are you?',
-        inputPlaceholder: 'Age',
-        fieldName: 'age',
-        inputType: 'number'
+        prompt: 'Whats your story?',
+        inputPlaceholder: 'Bio',
+        fieldName: 'bio',
+        inputType: 'textarea'
       }
     ]
   },
   {
-    cardTitle: 'Looking For',
+    cardTitle: 'Looking For...',
     onboardingStep: 4,
     // questions, array of whatever length
     prompts: [
@@ -95,6 +102,7 @@ const data = [
         ]
       },
       {
+        // this should be moved to settings
         prompt: 'Distance',
         inputPlaceholder: 'Distance Range',
         fieldName: 'matchDistance',
@@ -112,7 +120,20 @@ const data = [
         inputPlaceholder: 'Match Conditions',
         fieldName: 'matchConditions',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'AIDS', label: 'AIDS' },
+          { value: 'HIV', label: 'HIV' },
+          { value: 'Herpes', label: 'Herpes' },
+          { value: 'Clamydia', label: 'Clamydia' },
+          { value: 'The Clap', label: 'The Clap' },
+          { value: 'Hep C', label: 'Hep C' },
+          { value: 'Hep B', label: 'Hep B' },
+          { value: 'Hep D', label: 'Hep D' },
+          { value: 'Genital Warts', label: 'Genital Warts' },
+          { value: 'Crabs', label: 'Crabs' },
+          { value: 'Gonorrhea', label: 'Gonorrhea' },
+          { value: 'Syphyllis', label: 'Syphyllis' }
+        ]
       }
     ]
   },
@@ -126,13 +147,26 @@ const data = [
         inputPlaceholder: 'Condition(s)',
         fieldName: 'conditions',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'AIDS', label: 'AIDS' },
+          { value: 'HIV', label: 'HIV' },
+          { value: 'Herpes', label: 'Herpes' },
+          { value: 'Clamydia', label: 'Clamydia' },
+          { value: 'The Clap', label: 'The Clap' },
+          { value: 'Hep C', label: 'Hep C' },
+          { value: 'Hep B', label: 'Hep B' },
+          { value: 'Hep D', label: 'Hep D' },
+          { value: 'Genital Warts', label: 'Genital Warts' },
+          { value: 'Crabs', label: 'Crabs' },
+          { value: 'Gonorrhea', label: 'Gonorrhea' },
+          { value: 'Syphyllis', label: 'Syphyllis' }
+        ]
       },
       {
         prompt: 'Condition(s) Description',
         inputPlaceholder: 'Description',
         fieldName: 'conditionDescription',
-        inputType: 'text'
+        inputType: 'textarea'
       }
     ]
   }

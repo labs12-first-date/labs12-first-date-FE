@@ -21,6 +21,14 @@ const renderInput = (p, handleChange, formVals) => {
           name={p.fieldName}
         />
       );
+    case 'textarea':
+      return (
+        <input
+          type='textarea'
+          placeholder={p.inputPlaceholder}
+          name={p.fieldName}
+        />
+      );
     case 'number':
       return (
         <input
