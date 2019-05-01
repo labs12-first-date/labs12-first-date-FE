@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 // import useForm from '../../hooks/useForm';
-// import { MenuItem } from '@blueprintjs/core';
+import { ProgressBar } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
@@ -52,7 +52,17 @@ const Card = props => {
       case 'number':
         return (
           <input
-            type="number"
+            type="text"
+            placeholder={p.inputPlaceholder}
+            name={p.fieldName}
+            value={formValues[p.fieldName] || ''}
+            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+          />
+        );
+      case 'textarea':
+        return (
+          <input
+            type="textarea"
             placeholder={p.inputPlaceholder}
             name={p.fieldName}
             value={formValues[p.fieldName] || ''}
@@ -117,7 +127,8 @@ const Card = props => {
             ))}
 
             <p>
-              {onboardingStep} out of {data.length}
+              <br />
+              <ProgressBar animate={false} stripes={false} value={onboardingStep / data.length} />
             </p>
           </form>
         </div>
