@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-html,
+/* html,
 body {
   background: grey;
   overscroll-behavior-y: contain;
@@ -83,4 +83,4 @@ body {
 
 .slider-control-bottomcenter > ul > li > button {
   color: salmon !important;
-}
+} */
