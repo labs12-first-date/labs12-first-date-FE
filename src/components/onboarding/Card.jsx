@@ -13,8 +13,44 @@ const jsDateFormatter = {
   placeholder: 'M/D/YYYY'
 };
 
+// const debouncer = (func, waitMS = 150) => {
+// 	var timeout;
+// 	return function() {
+// 		var context = this, args = arguments;
+// 		var later = function() {
+// 			timeout = null;
+// 			if (!immediate) func.apply(context, args);
+// 		};
+// 		// var callNow = immediate && !timeout;
+// 		clearTimeout(timeout);
+// 		timeout = setTimeout(later, waitMS);
+// 		// if (callNow) func.apply(context, args);
+// 	};
+// };
+
+function debounce(func, waitMS = 250) {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      timeout = null;
+      func();
+    }, waitMS);
+  };
+}
+
+const once = debounce(() => {
+  console.log('running!');
+}, 0);
+
+once();
+once();
+once();
+
 const Card = props => {
   const [formValues, setFormValues] = useState({});
+  const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
+  const { cardTitle, onboardingStep, prompts } = data;
 
   // just for logging / sanity
   useEffect(() => {
@@ -34,19 +70,16 @@ const Card = props => {
   //   });
   // };
 
-  const { i, x, y, rot, scale, trans, bind, data } = props;
-  const { cardTitle, onboardingStep, prompts } = data[i];
-
   const renderInput = p => {
-    switch (p.inputType) {
+    switch (p.input_type) {
       case 'text':
         return (
           <input
             type="text"
-            placeholder={p.inputPlaceholder}
-            name={p.fieldName}
-            value={formValues[p.fieldName] || ''}
-            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
@@ -120,16 +153,14 @@ const Card = props => {
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
-              <div key={p.fieldName}>
+              <div key={p.id}>
                 <h3>{p.prompt}</h3>
-                {renderInput(p)}
+                {p.field_name && renderInput(p)}
               </div>
             ))}
 
-            <p>
-              <br />
-              <ProgressBar animate={false} stripes={false} value={onboardingStep / data.length} />
-            </p>
+            <br />
+            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
           </form>
         </div>
       </animated.div>
