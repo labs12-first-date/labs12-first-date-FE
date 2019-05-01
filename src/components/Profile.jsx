@@ -5,13 +5,13 @@ import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
-import { Button, Card, Elevation, Overlay } from '@blueprintjs/core';
+import { Button, Card, Elevation, Overlay, Portal } from '@blueprintjs/core';
 
 const Profile = () => {
   const [user] = useState(auth.getCurrentUser());
   console.log(`this one => ${user.uid}`);
 
-  const [formState, setformState] = useState();
+  const [formState, setformState] = useState({});
   const [toggleState, settoggleState] = useState(false);
   useEffect(() => {
     const docRef = firebase
@@ -42,7 +42,7 @@ const Profile = () => {
   const showForm = () => {
     toggleState ? settoggleState(false) : settoggleState(true);
   };
-  console.log('This is the state', formState);
+  console.log('This is the state', formState.DOB);
   console.log('This value ======>', values);
 
   return (
@@ -92,61 +92,69 @@ const Profile = () => {
                     <Button onClick={showForm}>Update</Button>
                   </div>
                 </div>
-                <Overlay isOpen={toggleState}>
+
+                <Overlay usePortal={true} isOpen={toggleState}>
                   <Card elevation={Elevation.TWO}>
                     <form id="profileForm" onSubmit={handleSubmit}>
                       <input
                         name="first_name"
                         placeholder="First Name"
-                        value={values.first_name || ''}
+                        value={values.first_name || ` ${formState.first_name}`}
                         onChange={handleChange}
                       />
                       <input
                         name="last_name"
                         placeholder="Last Name"
-                        value={values.last_name || ''}
+                        value={values.last_name || ` ${formState.last_name}`}
                         onChange={handleChange}
                       />
                       <input
                         name="DOB"
                         placeholder="DOB"
-                        value={values.DOB || ''}
+                        value={values.DOB || ` ${formState.DOB}`}
                         onChange={handleChange}
                       />
                       <input
                         name="bio"
                         placeholder="Bio"
-                        value={values.bio || ''}
+                        value={values.bio || ` ${formState.bio}`}
                         onChange={handleChange}
                       />
                       <input
                         name="condition_details"
                         placeholder="Condition Details"
-                        value={values.condition_details || ''}
+                        value={
+                          values.condition_details ||
+                          ` ${formState.condition_details}`
+                        }
                         onChange={handleChange}
                       />
                       <input
                         name="likes"
                         placeholder="Likes"
-                        value={values.likes || ''}
+                        value={values.likes || ` ${formState.likes}`}
                         onChange={handleChange}
                       />
                       <input
                         name="looking_for"
                         placeholder="Looking For"
-                        value={values.looking_for || ''}
+                        value={
+                          values.looking_for || ` ${formState.looking_for}`
+                        }
                         onChange={handleChange}
                       />
                       <input
                         name="what_ails_you"
                         placeholder="Your Condition"
-                        value={values.what_ails_you || ''}
+                        value={
+                          values.what_ails_you || ` ${formState.what_ails_you}`
+                        }
                         onChange={handleChange}
                       />
                       <input
-                        name="zipcode"
+                        name="zip_code"
                         placeholder="Zip Code"
-                        value={values.zipcode || ''}
+                        value={values.zip_code || ` ${formState.zip_code}`}
                         onChange={handleChange}
                       />
                       <Button onClick={showForm} type="submit">
