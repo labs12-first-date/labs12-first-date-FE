@@ -27,14 +27,16 @@ const Signup = ({ history }) => {
       <h1>Sign up now to find the love of your life!</h1>
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          placeholder="Email"
+          name='email'
+          type='email'
+          placeholder='Email'
           value={values.email || ''}
           onChange={handleChange}
         />
         <input
-          type="password"
-          placeholder="Password"
+          name='password'
+          type='password'
+          placeholder='Password'
           value={values.password || ''}
           onChange={handleChange}
         />
