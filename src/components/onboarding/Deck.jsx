@@ -182,8 +182,7 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
   const [gone] = useState(() => new Set());
@@ -194,14 +193,7 @@ function Deck() {
   }));
 
   const bind = useGesture(
-    ({
-      args: [index],
-      down,
-      delta: [xDelta],
-      distance,
-      direction: [xDir],
-      velocity
-    }) => {
+    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -218,9 +210,9 @@ function Deck() {
 
         const scale = down ? 1.1 : 1;
         if (dir === 1) {
-          console.log('Direction: right index:', index);
+          // console.log('Direction: right index:', index);
         } else {
-          console.log('Direction: left index:', index);
+          // console.log('Direction: left index:', index);
         }
         return {
           x,
@@ -232,15 +224,13 @@ function Deck() {
       });
 
       if (!down && gone.size === data.length)
-        console.log(
-          'Cards are done. Let the DB know this person is ready to date!'
-        );
+        console.log('Cards are done. Let the DB know this person is ready to date!');
     }
   );
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className='card'
+      className="card"
       i={i}
       x={x}
       y={y}

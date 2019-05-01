@@ -8,6 +8,7 @@ const useForm = (onSubmit, initialValues) => {
   }, [initialValues]);
 
   const handleChange = e => {
+    console.log('useform e', e);
     const { name, value } = e.target;
     setValues(prevValues => ({ ...prevValues, [name]: value }));
   };
