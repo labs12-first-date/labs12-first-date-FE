@@ -47,12 +47,12 @@ const data = [
         fieldName: 'gender',
         inputType: 'multiSelect',
         choices: [
-          { value: 'female', label: 'female' },
-          { value: 'male', label: 'male' },
-          { value: 'trans', label: 'trans' },
-          { value: 'non-binary', label: 'non-binary' },
-          { value: 'The', label: 'The' },
-          { value: 'other', label: 'other' }
+          { value: 'Female', label: 'Female' },
+          { value: 'Male', label: 'Male' },
+          { value: 'Trans', label: 'Trans' },
+          { value: 'Non-binary', label: 'Non-binary' },
+          { value: 'Questioning', label: 'Questioning' },
+          { value: 'Other', label: 'Other' }
         ]
       },
       {
@@ -93,12 +93,12 @@ const data = [
         fieldName: 'matchGender',
         inputType: 'multiSelect',
         choices: [
-          { value: 'female', label: 'female' },
-          { value: 'male', label: 'male' },
-          { value: 'trans', label: 'trans' },
-          { value: 'non-binary', label: 'non-binary' },
-          { value: 'questioning', label: 'questioning' },
-          { value: 'other', label: 'other' }
+          { value: 'Female', label: 'Female' },
+          { value: 'Male', label: 'Male' },
+          { value: 'Trans', label: 'Trans' },
+          { value: 'Non-binary', label: 'Non-binary' },
+          { value: 'Questioning', label: 'Questioning' },
+          { value: 'Other', label: 'Other' }
         ]
       },
       {
