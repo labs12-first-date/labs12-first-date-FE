@@ -2,9 +2,9 @@
   box-sizing: border-box;
 }
 
-/* html,
+html,
 body {
-  background: grey;
+  background: rgb(0, 0, 0);
   overscroll-behavior-y: contain;
   margin: 0;
   padding: 0;
@@ -28,7 +28,7 @@ body {
 
 .ani2 {
   padding: 5px;
-  background-color: white;
+  background-color: rgb(255, 132, 0);
   background-size: auto 85%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -38,8 +38,8 @@ body {
   max-height: 570px;
   will-change: transform;
   border-radius: 10px;
-  box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4),
-    0 10px 10px -10px rgba(50, 50, 73, 0.3);
+  box-shadow: 0 12.5px 100px -10px rgba(255, 120, 2, 0.4),
+    0 10px 10px -10px rgba(255, 119, 0, 0.3);
 }
 
 .card img {
@@ -73,9 +73,9 @@ body {
   color: darkgray;
 }
 
-.card > div {
+/* .card > div {
   height: 380px !important;
-}
+} */
 
 .slider-control-bottomcenter {
   bottom: -15px !important;
@@ -83,4 +83,4 @@ body {
 
 .slider-control-bottomcenter > ul > li > button {
   color: salmon !important;
-} */
+}
