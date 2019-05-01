@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
-import useForm from '../../hooks/useForm';
-// import { MenuItem } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
-// import { IListItemsProps, MultiSelect } from '@blueprintjs/select';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
-import { MultiSlider } from '@blueprintjs/core';
 
 const jsDateFormatter = {
   formatDate: date => date.toLocaleDateString(),
@@ -15,7 +11,7 @@ const jsDateFormatter = {
   placeholder: 'M/D/YYYY'
 };
 
-const renderInput = (p, handleChange, formValues) => {
+const renderInput = (p, handleChange, formVals) => {
   switch (p.inputType) {
     case 'text':
       return (
@@ -34,35 +30,14 @@ const renderInput = (p, handleChange, formValues) => {
         />
       );
     case 'multiSelect':
-      console.log('VALUES', formValues);
       return (
-        // <div>MultiSelect here for "{p.fieldName}"</div>
-
         <Select
-          value={p.fieldName || []}
+          value={formVals.value}
           name={p.fieldName}
           onChange={handleChange}
           options={p.choices}
           isMulti
         />
-        // <MultiSelect
-        //   items={p.choices}
-        //   itemRenderer={(item, { handleClick, modifiers, query }) => (
-        //     <div
-        //       active={modifiers.active}
-        //       disabled={modifiers.disabled}
-        //       label={item}
-        //       key={item}
-        //       // replace later
-        //       onClick={e => console.log(`Clicked ${e.target}`)}
-        //       text={item}
-        //     >
-        //       {item}
-        //     </div>
-        //   )}
-        //   onItemSelect={e => console.log(`Selected ${e.target}`)}
-        //   tagRenderer={item => <span>{item}</span>}
-        // />
       );
     case 'dateInput':
       return (
@@ -81,24 +56,12 @@ const renderInput = (p, handleChange, formValues) => {
 };
 
 const Card = props => {
-  // const { values, handleChange } = useForm(() => {
-  //   console.log('VALUES', values);
-  // });
-
-  const [formValues, setFormValues] = useState({});
+  const [formVals, setFormVals] = useState({});
 
   const handleChange = selectedOption => {
-    setFormValues(previousValues => {
-      console.log('LABEL', selectedOption[0]);
-      selectedOption.map(e => {
-        console.log('EEEE', e.value);
-        let gen = e.value;
-        return { ...previousValues, gen };
-      });
-      // return { ...previousValues, selectedOption };
-      // console.dir(e);
+    setFormVals(previousVals => {
+      return { ...previousVals, selectedOption };
     });
-    // console.log(`Option selected:`, selectedOption);
   };
 
   const { i, x, y, rot, scale, trans, bind, data } = props;
@@ -132,7 +95,7 @@ const Card = props => {
               <>
                 <h3>{p.prompt}</h3>
 
-                {renderInput(p, handleChange, formValues)}
+                {renderInput(p, handleChange, formVals)}
               </>
             ))}
 
