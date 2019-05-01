@@ -21,18 +21,18 @@ const Card = props => {
     console.log('FORM STATE CHANGE:', formValues);
   }, [formValues]);
 
+  const handleChange = ({ field, value }) => {
+    setFormValues(previousValues => {
+      return { ...previousValues, [field]: value };
+    });
+  };
+
   // const handleChangeForMultiSelect = ({ field, value }) => {
   //   setFormValues(previousValues => {
   //     // const current = previousValues.field || [];
   //     return { ...previousValues, [field]: value };
   //   });
   // };
-
-  const handleChange = ({ field, value }) => {
-    setFormValues(previousValues => {
-      return { ...previousValues, [field]: value };
-    });
-  };
 
   const { i, x, y, rot, scale, trans, bind, data } = props;
   const { cardTitle, onboardingStep, prompts } = data[i];
