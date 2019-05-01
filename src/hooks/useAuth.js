@@ -20,10 +20,10 @@ const useAuth = () => {
     return cancelListener;
   }, []);
 
-  // logging
-  useEffect(() => {
-    console.log('auth change ->', user);
-  }, [user]);
+  // logging, safe to remove
+  // useEffect(() => {
+  //   console.log('auth change ->', user);
+  // }, [user]);
 
   const loginWithEmail = async (email, password) => {
     setIsLoading(true);
