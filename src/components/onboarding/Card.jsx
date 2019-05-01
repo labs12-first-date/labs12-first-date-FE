@@ -30,32 +30,14 @@ const jsDateFormatter = {
 // 	};
 // };
 
-function debounce(func, waitMS = 250) {
-  let timeout;
-  return function() {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      timeout = null;
-      func();
-    }, waitMS);
-  };
-}
-
-const once = debounce(() => {
-  console.log('running!');
-}, 0);
-
-once();
-once();
-once();
-
 const Card = props => {
+  const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
   const [user] = useState(auth.getCurrentUser());
-  const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const { cardTitle, onboardingStep, prompts } = data;
 
   const persistToFirestore = () => {
+    // TODO debounce this so we aren't making a network call on every keystroke
     firebase
       .firestore()
       .collection('profiles')
