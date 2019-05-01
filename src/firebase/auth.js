@@ -1,12 +1,12 @@
-import fb from './config';
+import firebase from './config';
 
 const loginWithEmail = async (email, password) => {
-  await fb.auth().signInWithEmailAndPassword(email, password);
+  await firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
 const logout = () => {
   try {
-    fb.auth().signOut();
+    firebase.auth().signOut();
   } catch (error) {
     console.log(error);
   }
@@ -14,16 +14,16 @@ const logout = () => {
 
 const createUserWithEmail = async (email, password) => {
   try {
-    await fb.auth().createUserWithEmailAndPassword(email, password);
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
   } catch (error) {
     console.log(error);
   }
 };
 
-const getCurrentUser = () => fb.auth().currentUser;
+const getCurrentUser = () => firebase.auth().currentUser;
 
 const onUserChange = callback => {
-  fb.auth().onAuthStateChanged(callback);
+  firebase.auth().onAuthStateChanged(callback);
 };
 
 export default {

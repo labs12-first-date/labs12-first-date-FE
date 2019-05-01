@@ -1,6 +1,5 @@
 import { FirestoreDocument } from 'react-firestore';
-import { auth } from '../firebase';
-import firebase from 'firebase';
+import { firebase, auth } from '../firebase';
 import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
