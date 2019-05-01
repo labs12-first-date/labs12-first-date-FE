@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
-// import { MenuItem } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
-// import { IListItemsProps, MultiSelect } from '@blueprintjs/select';
 // import Carousel from 'nuka-carousel';
-
+import Select from 'react-select';
 
 const jsDateFormatter = {
   formatDate: date => date.toLocaleDateString(),
@@ -13,33 +11,41 @@ const jsDateFormatter = {
   placeholder: 'M/D/YYYY'
 };
 
-const renderInput = p => {
+const renderInput = (p, handleChange, formVals) => {
   switch (p.inputType) {
     case 'text':
-      return <input type="text" placeholder={p.inputPlaceholder} name={p.fieldName} />;
+      return (
+        <input
+          type='text'
+          placeholder={p.inputPlaceholder}
+          name={p.fieldName}
+        />
+      );
+    case 'textarea':
+      return (
+        <input
+          type='textarea'
+          placeholder={p.inputPlaceholder}
+          name={p.fieldName}
+        />
+      );
     case 'number':
-      return <input type="number" placeholder={p.inputPlaceholder} name={p.fieldName} />;
+      return (
+        <input
+          type='number'
+          placeholder={p.inputPlaceholder}
+          name={p.fieldName}
+        />
+      );
     case 'multiSelect':
       return (
-        <div>MultiSelect here for "{p.fieldName}"</div>
-        /* <MultiSelect
-          items={p.choices}
-          itemRenderer={(item, { handleClick, modifiers, query }) => (
-            <div
-              active={modifiers.active}
-              disabled={modifiers.disabled}
-              label={item}
-              key={item}
-              // replace later
-              onClick={e => console.log(`Clicked ${e.target}`)}
-              text={item}
-            >
-              {item}
-            </div>
-          )}
-          onItemSelect={e => console.log(`Selected ${e.target}`)}
-          tagRenderer={item => <span>{item}</span>}
-        /> */
+        <Select
+          value={formVals.value}
+          name={p.fieldName}
+          onChange={handleChange}
+          options={p.choices}
+          isMulti
+        />
       );
     case 'dateInput':
       return (
@@ -57,53 +63,59 @@ const renderInput = p => {
   }
 };
 
-class Card extends React.Component {
-  render() {
-    const { i, x, y, rot, scale, trans, bind, data } = this.props;
-    const { cardTitle, onboardingStep, prompts } = data[i];
+const Card = props => {
+  const [formVals, setFormVals] = useState({});
 
-    return (
+  const handleChange = selectedOption => {
+    setFormVals(previousVals => {
+      return { ...previousVals, selectedOption };
+    });
+  };
+
+  const { i, x, y, rot, scale, trans, bind, data } = props;
+  const { cardTitle, onboardingStep, prompts } = data[i];
+
+  return (
+    <animated.div
+      className='ani1'
+      key={i}
+      style={{
+        transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
+      }}
+    >
       <animated.div
-        className='ani1'
-        key={i}
+        className='ani2'
+        {...bind(i)}
         style={{
-          transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
+          transform: interpolate([rot, scale], trans)
         }}
       >
-        <animated.div
-          className='ani2'
-          {...bind(i)}
-          style={{
-            transform: interpolate([rot, scale], trans)
-          }}
-        >
-          <div className="card">
-            {/* <Carousel>
+        <div className='card'>
+          {/* <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt='profilePicture' />
               ))}
             </Carousel> */}
 
-            <form>
-              <h2>{cardTitle}</h2>
-              {prompts.map(p => (
-                <>
-                  <h3>{p.prompt}</h3>
+          <form>
+            <h2>{cardTitle}</h2>
+            {prompts.map(p => (
+              <>
+                <h3>{p.prompt}</h3>
 
-                  {renderInput(p)}
-                </>
-              ))}
+                {renderInput(p, handleChange, formVals)}
+              </>
+            ))}
 
-              <p>
-                {onboardingStep} out of {data.length}
-              </p>
-            </form>
-          </div>
-        </animated.div>
+            <p>
+              {onboardingStep} out of {data.length}
+            </p>
+          </form>
+        </div>
       </animated.div>
-    );
-  }
-}
+    </animated.div>
+  );
+};
 
 Card.propTypes = {
   name: PropTypes.string,

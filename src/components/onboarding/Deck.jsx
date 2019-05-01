@@ -42,11 +42,18 @@ const data = [
     // questions, array of whatever length
     prompts: [
       {
-        prompt: 'What is your gender?',
+        prompt: 'How do you define your gender?',
         inputPlaceholder: 'Gender',
         fieldName: 'gender',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'Female', label: 'Female' },
+          { value: 'Male', label: 'Male' },
+          { value: 'Trans', label: 'Trans' },
+          { value: 'Non-binary', label: 'Non-binary' },
+          { value: 'Questioning', label: 'Questioning' },
+          { value: 'Other', label: 'Other' }
+        ]
       },
       {
         prompt: "When's your birthday?",
@@ -68,15 +75,15 @@ const data = [
         inputType: 'number'
       },
       {
-        prompt: 'How old are you?',
-        inputPlaceholder: 'Age',
-        fieldName: 'age',
-        inputType: 'number'
+        prompt: 'Whats your story?',
+        inputPlaceholder: 'Bio',
+        fieldName: 'bio',
+        inputType: 'textarea'
       }
     ]
   },
   {
-    cardTitle: 'Looking For',
+    cardTitle: 'Looking For...',
     onboardingStep: 4,
     // questions, array of whatever length
     prompts: [
@@ -85,9 +92,17 @@ const data = [
         inputPlaceholder: 'Gender',
         fieldName: 'matchGender',
         inputType: 'multiSelect',
-        choices: ['female', 'male', 'trans', 'non-binary', 'questioning', 'other']
+        choices: [
+          { value: 'Female', label: 'Female' },
+          { value: 'Male', label: 'Male' },
+          { value: 'Trans', label: 'Trans' },
+          { value: 'Non-binary', label: 'Non-binary' },
+          { value: 'Questioning', label: 'Questioning' },
+          { value: 'Other', label: 'Other' }
+        ]
       },
       {
+        // this should be moved to settings
         prompt: 'Distance',
         inputPlaceholder: 'Distance Range',
         fieldName: 'matchDistance',
@@ -105,7 +120,20 @@ const data = [
         inputPlaceholder: 'Match Conditions',
         fieldName: 'matchConditions',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'AIDS', label: 'AIDS' },
+          { value: 'HIV', label: 'HIV' },
+          { value: 'Herpes', label: 'Herpes' },
+          { value: 'Clamydia', label: 'Clamydia' },
+          { value: 'The Clap', label: 'The Clap' },
+          { value: 'Hep C', label: 'Hep C' },
+          { value: 'Hep B', label: 'Hep B' },
+          { value: 'Hep D', label: 'Hep D' },
+          { value: 'Genital Warts', label: 'Genital Warts' },
+          { value: 'Crabs', label: 'Crabs' },
+          { value: 'Gonorrhea', label: 'Gonorrhea' },
+          { value: 'Syphyllis', label: 'Syphyllis' }
+        ]
       }
     ]
   },
@@ -119,13 +147,26 @@ const data = [
         inputPlaceholder: 'Condition(s)',
         fieldName: 'conditions',
         inputType: 'multiSelect',
-        choices: ['choice1', 'choice2', 'choice3']
+        choices: [
+          { value: 'AIDS', label: 'AIDS' },
+          { value: 'HIV', label: 'HIV' },
+          { value: 'Herpes', label: 'Herpes' },
+          { value: 'Clamydia', label: 'Clamydia' },
+          { value: 'The Clap', label: 'The Clap' },
+          { value: 'Hep C', label: 'Hep C' },
+          { value: 'Hep B', label: 'Hep B' },
+          { value: 'Hep D', label: 'Hep D' },
+          { value: 'Genital Warts', label: 'Genital Warts' },
+          { value: 'Crabs', label: 'Crabs' },
+          { value: 'Gonorrhea', label: 'Gonorrhea' },
+          { value: 'Syphyllis', label: 'Syphyllis' }
+        ]
       },
       {
         prompt: 'Condition(s) Description',
         inputPlaceholder: 'Description',
         fieldName: 'conditionDescription',
-        inputType: 'text'
+        inputType: 'textarea'
       }
     ]
   }
@@ -141,7 +182,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 function Deck() {
   const [gone] = useState(() => new Set());
@@ -152,7 +194,14 @@ function Deck() {
   }));
 
   const bind = useGesture(
-    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
+    ({
+      args: [index],
+      down,
+      delta: [xDelta],
+      distance,
+      direction: [xDir],
+      velocity
+    }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -183,7 +232,9 @@ function Deck() {
       });
 
       if (!down && gone.size === data.length)
-        console.log('Cards are done. Let the DB know this person is ready to date!');
+        console.log(
+          'Cards are done. Let the DB know this person is ready to date!'
+        );
     }
   );
 
@@ -199,7 +250,6 @@ function Deck() {
       data={data}
       bind={bind}
     />
-
   ));
 }
 
