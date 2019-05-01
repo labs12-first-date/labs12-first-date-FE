@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
+import { auth } from '../../firebase';
+import firebase from 'firebase';
 // import useForm from '../../hooks/useForm';
 // import { MenuItem } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
@@ -15,10 +17,20 @@ const jsDateFormatter = {
 
 const Card = props => {
   const [formValues, setFormValues] = useState({});
+  const [user] = useState(auth.getCurrentUser());
+  console.log();
 
   // just for logging / sanity
   useEffect(() => {
     console.log('FORM STATE CHANGE:', formValues);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(user.uid)
+      .update(formValues)
+      .then(function() {
+        console.log('Document successfully written!');
+      });
   }, [formValues]);
 
   const handleChange = ({ field, value }) => {
@@ -46,7 +58,9 @@ const Card = props => {
             placeholder={p.inputPlaceholder}
             name={p.fieldName}
             value={formValues[p.fieldName] || ''}
-            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.fieldName, value: e.target.value })
+            }
           />
         );
       case 'number':
@@ -56,7 +70,9 @@ const Card = props => {
             placeholder={p.inputPlaceholder}
             name={p.fieldName}
             value={formValues[p.fieldName] || ''}
-            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.fieldName, value: e.target.value })
+            }
           />
         );
       case 'multiSelect':
@@ -64,7 +80,9 @@ const Card = props => {
           <Select
             value={formValues[p.fieldName] || []}
             name={p.fieldName}
-            onChange={value => handleChange({ field: p.fieldName, value: value })}
+            onChange={value =>
+              handleChange({ field: p.fieldName, value: value })
+            }
             options={p.choices}
             isMulti
           />
