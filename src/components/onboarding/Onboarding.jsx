@@ -51,7 +51,7 @@ const Onboarding = () => {
               return includeConditions ? { ...p, choices: STDs } : p;
             });
           return {
-            cardTitle: 'Card title', // TODO work this out, set dynamically
+            cardTitle: cardPrompts[0].card_title, // TODO work this out, set dynamically
             onboardingStep: step,
             prompts: cardPrompts
           };
