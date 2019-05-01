@@ -22,7 +22,10 @@ const Navigation = () => {
               <NavLink to="/logout">Log out</NavLink>
             </li>
             <li>
-              <NavLink to="/profile">profile</NavLink>
+              <NavLink to="/profile">Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to="/settings">Settings</NavLink>
             </li>
           </>
         ) : (

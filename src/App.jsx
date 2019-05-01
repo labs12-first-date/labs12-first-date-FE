@@ -4,6 +4,9 @@ import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Signup from './components/Signup';
+import Settings from './components/Settings';
+// import Dashboard from './components/Dashboard';
+
 import Profile from './components/Profile';
 import { AuthContext } from './contexts/AuthContext';
 import Onboarding from './components/onboarding/Onboarding';
@@ -32,6 +35,7 @@ const App = () => {
           <Route path="/profile" component={Profile} />
           <Route path="/signup" component={Signup} />
           <Route path="/onboarding" component={Onboarding} />
+          <Route path="/settings" component={Settings} />
         </Switch>
         {/* </div> */}
       </>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
+import { auth } from '../../firebase';
+import firebase from 'firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
@@ -49,12 +51,24 @@ once();
 
 const Card = props => {
   const [formValues, setFormValues] = useState({});
+  const [user] = useState(auth.getCurrentUser());
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const { cardTitle, onboardingStep, prompts } = data;
 
-  // just for logging / sanity
+  const persistToFirestore = () => {
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(user.uid)
+      .update(formValues)
+      .then(function() {
+        console.log('Document successfully written!');
+      });
+  };
+
   useEffect(() => {
     console.log('FORM STATE CHANGE:', formValues);
+    persistToFirestore();
   }, [formValues]);
 
   const handleChange = ({ field, value }) => {
