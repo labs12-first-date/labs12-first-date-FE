@@ -15,21 +15,6 @@ const jsDateFormatter = {
   placeholder: 'M/D/YYYY'
 };
 
-// const debouncer = (func, waitMS = 150) => {
-// 	var timeout;
-// 	return function() {
-// 		var context = this, args = arguments;
-// 		var later = function() {
-// 			timeout = null;
-// 			if (!immediate) func.apply(context, args);
-// 		};
-// 		// var callNow = immediate && !timeout;
-// 		clearTimeout(timeout);
-// 		timeout = setTimeout(later, waitMS);
-// 		// if (callNow) func.apply(context, args);
-// 	};
-// };
-
 const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
@@ -58,13 +43,6 @@ const Card = props => {
       return { ...previousValues, [field]: value };
     });
   };
-
-  // const handleChangeForMultiSelect = ({ field, value }) => {
-  //   setFormValues(previousValues => {
-  //     // const current = previousValues.field || [];
-  //     return { ...previousValues, [field]: value };
-  //   });
-  // };
 
   const renderInput = p => {
     switch (p.input_type) {
