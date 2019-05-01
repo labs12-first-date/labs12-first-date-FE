@@ -1,13 +1,14 @@
 import { FirestoreDocument } from 'react-firestore';
-import { auth } from '../firebase';
+import { auth, resetPassword, deleteProfile } from '../firebase';
 import firebase from 'firebase';
 import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
 import { Button, Card, Overlay, Elevation, Portal } from '@blueprintjs/core';
+import { Redirect } from 'react-router-dom';
 
-const Settings = () => {
+const Settings = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
 
   const [formState, setformState] = useState({});
@@ -44,6 +45,8 @@ const Settings = () => {
 
   console.log('This value ======>', values);
 
+
+
   return (
     <div>
       <FirestoreDocument
@@ -62,21 +65,28 @@ const Settings = () => {
                     <ul className="row">
                       <li className="col s12">
                         <span className="red-text text-darken-2">
-                          First Name
+                          Maximum Match Age:
                         </span>{' '}
                         {data.match_age_max}
                       </li>
                       <li className="col s12">
                         <span className="red-text text-darken-2">
-                          Last Name
+                          Minimum Match Age:
                         </span>{' '}
                         {data.match_age_min}{' '}
                       </li>
 
-                      <li className="col s12">DOB {data.match_distance}</li>
+                      <li className="col s12">Match Distance Range: {data.match_distance}</li>
                     </ul>
-                    <Button onClick={showForm}>Update</Button>
+                    <Button onClick={showForm}>Update Match Settings</Button>
                   </div>
+                   <Button onClick={auth.resetPassword}>Reset Password</Button> {/*sends an email to user to reset password */}
+                  <Button onClick={
+                    () => {
+                      history.replace('/');
+                      auth.deleteProfile();
+                  }
+                  }>Delete Your Profile</Button> {/*deletes the user profile */}
                 </div>
 
                 <Overlay usePortal={true} isOpen={toggleState}>
@@ -109,7 +119,7 @@ const Settings = () => {
                       />
 
                       <Button onClick={showForm} type="submit">
-                        PressMe
+                        Submit Settings Changes
                       </Button>
                     </form>
                   </Card>
