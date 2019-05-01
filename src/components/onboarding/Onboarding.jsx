@@ -42,30 +42,32 @@ const Onboarding = () => {
         }, [])
         .sort();
 
-      const cardsData = onboardingSteps.map(step => {
-        const cardPrompts = prompts
-          .filter(p => p.onboarding_step === step)
-          .map(p => {
-            const includeConditions = p.field_name && p.field_name.includes('conditions');
-            return includeConditions ? { ...p, choices: STDs } : p;
-          });
-        return {
-          cardTitle: 'Card title', // TODO work this out, set dynamically
-          onboardingStep: step,
-          prompts: cardPrompts
-        };
-      });
+      const cardsData = onboardingSteps
+        .map(step => {
+          const cardPrompts = prompts
+            .filter(p => p.onboarding_step === step)
+            .map(p => {
+              const includeConditions = p.field_name && p.field_name.includes('conditions');
+              return includeConditions ? { ...p, choices: STDs } : p;
+            });
+          return {
+            cardTitle: 'Card title', // TODO work this out, set dynamically
+            onboardingStep: step,
+            prompts: cardPrompts
+          };
+        })
+        // put the first step on top of the card deck
+        .reverse();
       setCardsData(cardsData);
     }
   }, [prompts, STDs]);
 
   // logging, safe to remove
-  // useEffect(() => {
-  //   console.log(cardsData);
-  // }, [cardsData]);
+  useEffect(() => {
+    console.log(cardsData);
+  }, [cardsData]);
 
   return cardsData ? <Deck cardsData={cardsData} /> : <div>Loading...</div>;
-  // return <div>Loading...</div>;
 };
 
 export default Onboarding;
