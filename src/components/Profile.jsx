@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
-import { Button, Card, Elevation, Overlay, Portal } from '@blueprintjs/core';
+import { Button, Card, Elevation, Overlay } from '@blueprintjs/core';
 
 const Profile = () => {
   const [user] = useState(auth.getCurrentUser());
@@ -27,7 +27,7 @@ const Profile = () => {
       .catch(function(error) {
         console.log('Error getting document:', error);
       });
-  }, []);
+  }, [user.uid]);
 
   const { values, handleChange, handleSubmit } = useForm(() => {
     firebase
@@ -62,31 +62,19 @@ const Profile = () => {
                     <span class="card-title">Profile</span>
                     <ul className="row">
                       <li className="col s12">
-                        <span className="red-text text-darken-2">
-                          First Name
-                        </span>{' '}
-                        {data.first_name}
+                        <span className="red-text text-darken-2">First Name</span> {data.first_name}
                       </li>
                       <li className="col s12">
-                        <span className="red-text text-darken-2">
-                          Last Name
-                        </span>{' '}
-                        {data.last_name}{' '}
+                        <span className="red-text text-darken-2">Last Name</span> {data.last_name}{' '}
                       </li>
 
                       <li className="col s12">DOB {data.DOB}</li>
                       <li className="col s12">Bio {data.bio}</li>
-                      <li className="col s12">
-                        Condition details {data.condition_details}
-                      </li>
+                      <li className="col s12">Condition details {data.condition_details}</li>
 
                       <li className="col s12">Likes {data.likes}</li>
-                      <li className="col s12">
-                        Looking for {data.looking_for}
-                      </li>
-                      <li className="col s12">
-                        Your contidion {data.what_ails_you}
-                      </li>
+                      <li className="col s12">Looking for {data.looking_for}</li>
+                      <li className="col s12">Your contidion {data.what_ails_you}</li>
                       <li className="col s12">Zip Code {data.zip_code}</li>
                     </ul>
                     <Button onClick={showForm}>Update</Button>
@@ -123,10 +111,7 @@ const Profile = () => {
                       <input
                         name="condition_details"
                         placeholder="Condition Details"
-                        value={
-                          values.condition_details ||
-                          ` ${formState.condition_details}`
-                        }
+                        value={values.condition_details || ` ${formState.condition_details}`}
                         onChange={handleChange}
                       />
                       <input
@@ -138,17 +123,13 @@ const Profile = () => {
                       <input
                         name="looking_for"
                         placeholder="Looking For"
-                        value={
-                          values.looking_for || ` ${formState.looking_for}`
-                        }
+                        value={values.looking_for || ` ${formState.looking_for}`}
                         onChange={handleChange}
                       />
                       <input
                         name="what_ails_you"
                         placeholder="Your Condition"
-                        value={
-                          values.what_ails_you || ` ${formState.what_ails_you}`
-                        }
+                        value={values.what_ails_you || ` ${formState.what_ails_you}`}
                         onChange={handleChange}
                       />
                       <input
