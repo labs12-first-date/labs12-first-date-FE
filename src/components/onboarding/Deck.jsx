@@ -40,7 +40,7 @@ const Deck = ({ cardsData }) => {
       const dir = xDir < 0 ? -1 : 1;
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
-      console.log(index);
+      // console.log(index);
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);

@@ -34,7 +34,7 @@ const Card = props => {
   };
 
   useEffect(() => {
-    console.log('FORM STATE CHANGE:', formValues);
+    // console.log('FORM STATE CHANGE:', formValues);
     persistToFirestore();
   }, [formValues]);
 

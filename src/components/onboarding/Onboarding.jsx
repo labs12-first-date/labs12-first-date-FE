@@ -63,9 +63,9 @@ const Onboarding = () => {
   }, [prompts, STDs]);
 
   // logging, safe to remove
-  useEffect(() => {
-    console.log(cardsData);
-  }, [cardsData]);
+  // useEffect(() => {
+  //   console.log(cardsData);
+  // }, [cardsData]);
 
   return cardsData ? <Deck cardsData={cardsData} /> : <div>Loading...</div>;
 };
