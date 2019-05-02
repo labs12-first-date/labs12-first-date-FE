@@ -9,7 +9,7 @@ const uiConfig = {
   // Popup signin flow rather than redirect flow.
   signInFlow: 'popup',
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: '/signedIn',
+  signInSuccessUrl: '/welcome',
   // We will display Google and Github + Email as auth providers.
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -20,7 +20,7 @@ const uiConfig = {
 const Signup = ({ history }) => {
   const { values, handleChange, handleSubmit } = useForm(() => {
     auth.createUserWithEmail(values.email, values.password);
-    history.replace('/swipe');
+    history.replace('/welcome');
   });
   return (
     <>

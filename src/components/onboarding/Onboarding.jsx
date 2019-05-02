@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { firebase, auth } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
-
+import { Redirect } from 'react-router-dom';
 import Deck from './Deck';
 
 const getDocsArray = async collection => {
@@ -17,61 +17,84 @@ const getDocsArray = async collection => {
 //if completed is true send to thunderdome.
 
 const initSettings = user => {
-  console.log('This is the user', user);
-  const docRef = firebase
+  firebase
     .firestore()
     .collection('settings')
-    .doc(user.uid);
-  docRef
+    .doc(user.uid)
     .get()
-    .then(() => {
-      firebase
-        .firestore()
-        .collection('settings')
-        .doc(user.uid)
-        .set({
-          match_age_min: '18',
-          match_age_max: '99',
-          match_distance: '1000'
-        });
-    })
-    .catch(function(error) {});
-
-  // if (!profileState.profile_completed) {
-  //   // TODO: onboarding should continue from current step
-  //   // history.replace('/welcome');
-  // }
+    .then(snapshot => {
+      if (!snapshot.exists) {
+        firebase
+          .firestore()
+          .collection('settings')
+          .doc(user.uid)
+          .set({
+            match_age_min: '18',
+            match_age_max: '99',
+            match_distance: '1000'
+          });
+      }
+    });
 };
 
-// const [profileState, setprofileState] = useState({});
+const initProfile = user => {
+  firebase
+    .firestore()
+    .collection('profiles')
+    .doc(user.uid)
+    .get()
+    .then(snapshot => {
+      if (!snapshot.exists) {
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(user.uid)
+          .set({});
+      }
+    });
+};
 
-// useEffect((history, user) => {
-//   const docRef = firebase
-//     .firestore()
-//     .collection('profiles')
-//     .doc(user.uid);
-//   docRef
-//     .get()
-//     .then(function(doc) {
-//       setprofileState(doc.data());
-//     })
-//     .catch(function(error) {
-//       console.log('Error getting document:', error);
-//       history.replace('/welcome');
-//     });
-// }, []);
+//     firebase
+//       .firestore()
+//       .collection('profiles')
+//       .doc(user.uid)
+//       .get()
+//       .then(function(doc) {
+//         if (doc.data().profile_complete) {
+//           console.log(doc.data().profile_complete);
+//           return <Redirect to='/thunderdome' />;
+//         } else {
+//           console.log(doc.data().profile_step);
+//         }
+//       });
+//   }
+// });
 
-// if (!profileState.profile_completed) {
-//   // TODO: onboarding should continue from current step
-//   history.replace('/welcome');
-// }
+//   snapshot.doc.data().profile_complete) {
+// history.redirect('/thunderdome');
+//   } else {
+//     console.log('SNAPSHOT WITH DATA', snapshot);
+//     console.log('NEED TO CONTINUE');
+//     // const continueStep = snapshot.doc.data().profile_step + 1;
+//   }
+// });
+// };
 
-const Onboarding = () => {
+const Onboarding = ({ history }) => {
   const { user } = useContext(AuthContext);
   const [prompts, setPrompts] = useState(null);
   const [STDs, setSTDs] = useState(null);
   const [genders, setGenders] = useState(null);
   const [cardsData, setCardsData] = useState(null);
+
+  // firebase
+  //   .firestore()
+  //   .collection('profiles')
+  //   .doc(user.uid)
+  //   .get()
+  //   .then(doc => {
+  //     const continueStep = doc.data().profile_step.toInt() + 1;
+  //   });
 
   const getPrompts = async () => {
     const promptsArr = await getDocsArray('onboarding');
@@ -91,7 +114,21 @@ const Onboarding = () => {
   // CDM
 
   useEffect(() => {
+    initProfile(user);
     initSettings(user);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(user.uid)
+      .get()
+      .then(function(doc) {
+        if (doc.data().profile_completed) {
+          console.log(doc.data().profile_completed);
+          history.replace('/thunderdome');
+        } else {
+          const currentStep = doc.data().profile_step;
+        }
+      });
     getPrompts();
     getSTDs();
     getGenders();
@@ -107,6 +144,7 @@ const Onboarding = () => {
           return steps.find(s => s === step) ? steps : [...steps, step];
         }, [])
         .sort();
+      // .filter(continueStep); //TODO: Add filter step + 1
 
       const cardsData = onboardingSteps
         .map(step => {

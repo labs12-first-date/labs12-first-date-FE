@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
-import firebase from 'firebase';
-import { auth } from '../../firebase';
+import { auth, firebase } from '../../firebase';
 
 import Card from './Card';
 import './Deck.css';
@@ -36,6 +35,7 @@ function Deck({ history }) {
       .get()
       .then(function(doc) {
         setprofileState(doc.data());
+        console.log('DOC', doc.data());
       })
       .catch(function(error) {
         console.log('Error getting document:', error);
@@ -44,7 +44,8 @@ function Deck({ history }) {
   }, []);
 
   if (!profileState.profile_completed) {
-    // TODO: onboarding should continue from current step
+    console.log(profileState);
+    console.log('thunder!!!', profileState.profile_completed);
     history.replace('/welcome');
   }
 
@@ -102,7 +103,7 @@ function Deck({ history }) {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className="card"
+      className='card'
       i={i}
       x={x}
       y={y}
