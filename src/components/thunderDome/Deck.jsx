@@ -25,9 +25,9 @@ const trans = (r, s) =>
 
 function Deck({ history }) {
   const [user] = useState(auth.getCurrentUser());
-  const [formState, setformState] = useState({});
+  const [profileState, setprofileState] = useState({});
 
-  useEffect((history, user) => {
+  useEffect(() => {
     const docRef = firebase
       .firestore()
       .collection('profiles')
@@ -35,7 +35,7 @@ function Deck({ history }) {
     docRef
       .get()
       .then(function(doc) {
-        setformState(doc.data());
+        setprofileState(doc.data());
       })
       .catch(function(error) {
         console.log('Error getting document:', error);
@@ -43,7 +43,7 @@ function Deck({ history }) {
       });
   }, []);
 
-  if (!formState.profile_completed) {
+  if (!profileState.profile_completed) {
     // TODO: onboarding should continue from current step
     history.replace('/welcome');
   }
@@ -102,7 +102,7 @@ function Deck({ history }) {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className='card'
+      className="card"
       i={i}
       x={x}
       y={y}
