@@ -1,12 +1,12 @@
-import fb from './config';
+import firebase from './config';
 
 const loginWithEmail = async (email, password) => {
-  await fb.auth().signInWithEmailAndPassword(email, password);
+  await firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
 const logout = () => {
   try {
-    fb.auth().signOut();
+    firebase.auth().signOut();
   } catch (error) {
     console.log(error);
   }
@@ -14,23 +14,23 @@ const logout = () => {
 
 const createUserWithEmail = async (email, password) => {
   try {
-    await fb.auth().createUserWithEmailAndPassword(email, password);
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
   } catch (error) {
     console.log(error);
   }
 };
 
-const getCurrentUser = () => fb.auth().currentUser;
+const getCurrentUser = () => firebase.auth().currentUser;
 
 const onUserChange = callback => {
-  fb.auth().onAuthStateChanged(callback);
+  firebase.auth().onAuthStateChanged(callback);
 };
 
 //RESET PROFILE PASSWORD
 const resetPassword = () => {
-  const user = fb.auth().currentUser;
+  const user = firebase.auth().currentUser;
   if (user) {
-    const auth = fb.auth();
+    const auth = firebase.auth();
     const emailAddress = user.email;
     auth
       .sendPasswordResetEmail(emailAddress)
@@ -49,7 +49,7 @@ const resetPassword = () => {
 // RESET PROFILE PASSWORD NOT LOGGED IN
 const resetPasswordNoLogin = email => {
   if (email) {
-    const auth = fb.auth();
+    const auth = firebase.auth();
     auth
       .sendPasswordResetEmail(email)
       .then(() => {
@@ -66,7 +66,7 @@ const resetPasswordNoLogin = email => {
 
 //DELETE PROFILE
 const deleteProfile = () => {
-  const user = fb.auth().currentUser;
+  const user = firebase.auth().currentUser;
   console.log('delete button clicked');
   user
     .delete()

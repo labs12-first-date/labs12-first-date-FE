@@ -13,13 +13,21 @@ const Navigation = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/swipe">Deck</NavLink>
+            <NavLink to="/onboarding">Onboard</NavLink>
           </li>
         </>
         {user ? (
-          <li>
-            <NavLink to="/logout">Log out</NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink to="/logout">Log out</NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile">Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to="/settings">Settings</NavLink>
+            </li>
+          </>
         ) : (
           <>
             <li>
@@ -29,20 +37,6 @@ const Navigation = () => {
               <NavLink to="/signup">Sign Up</NavLink>
             </li>
           </>
-        )}
-        {user ? (
-          <>
-            <li>
-              <NavLink to="/profile">Profile</NavLink>
-            </li>
-            <li>
-              <NavLink to="/settings">Settings</NavLink>
-            </li>
-          </>
-        ) : (
-          <li>
-            <NavLink />
-          </li>
         )}
       </ul>
     </nav>

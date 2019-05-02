@@ -4,7 +4,7 @@ import { animated, interpolate } from 'react-spring';
 import { auth } from '../../firebase';
 import firebase from 'firebase';
 // import useForm from '../../hooks/useForm';
-// import { MenuItem } from '@blueprintjs/core';
+import { ProgressBar } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
@@ -16,13 +16,13 @@ const jsDateFormatter = {
 };
 
 const Card = props => {
+  const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
   const [user] = useState(auth.getCurrentUser());
-  console.log();
+  const { cardTitle, onboardingStep, prompts } = data;
 
-  // just for logging / sanity
-  useEffect(() => {
-    console.log('FORM STATE CHANGE:', formValues);
+  const persistToFirestore = () => {
+    // TODO debounce this so we aren't making a network call on every keystroke
     firebase
       .firestore()
       .collection('profiles')
@@ -31,6 +31,11 @@ const Card = props => {
       .then(function() {
         console.log('Document successfully written!');
       });
+  };
+
+  useEffect(() => {
+    // console.log('FORM STATE CHANGE:', formValues);
+    persistToFirestore();
   }, [formValues]);
 
   const handleChange = ({ field, value }) => {
@@ -39,63 +44,57 @@ const Card = props => {
     });
   };
 
-  // const handleChangeForMultiSelect = ({ field, value }) => {
-  //   setFormValues(previousValues => {
-  //     // const current = previousValues.field || [];
-  //     return { ...previousValues, [field]: value };
-  //   });
-  // };
-
-  const { i, x, y, rot, scale, trans, bind, data } = props;
-  const { cardTitle, onboardingStep, prompts } = data[i];
-
   const renderInput = p => {
-    switch (p.inputType) {
+    switch (p.input_type) {
       case 'text':
         return (
           <input
             type="text"
-            placeholder={p.inputPlaceholder}
-            name={p.fieldName}
-            value={formValues[p.fieldName] || ''}
-            onChange={e =>
-              handleChange({ field: p.fieldName, value: e.target.value })
-            }
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
         return (
           <input
-            type="number"
-            placeholder={p.inputPlaceholder}
-            name={p.fieldName}
-            value={formValues[p.fieldName] || ''}
-            onChange={e =>
-              handleChange({ field: p.fieldName, value: e.target.value })
-            }
+            type="text"
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
-      case 'multiSelect':
+      case 'text_area':
+        return (
+          <input
+            type="textarea"
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+          />
+        );
+      case 'multi_select':
         return (
           <Select
-            value={formValues[p.fieldName] || []}
-            name={p.fieldName}
-            onChange={value =>
-              handleChange({ field: p.fieldName, value: value })
-            }
+            value={formValues[p.field_name] || []}
+            name={p.field_name}
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
         );
-      case 'dateInput':
+      case 'date_input':
         return (
           <DateInput
             formatDate={date => date.toLocaleString()}
-            onChange={value => handleChange({ field: p.fieldName, value })}
+            onChange={value => handleChange({ field: p.field_name, value })}
             parseDate={str => new Date(str)}
             placeholder={'M/D/YYYY'}
             {...jsDateFormatter}
-            //  value={this.state.date}
+            value={formValues[p.field_name] || ''}
           />
         );
       default:
@@ -128,15 +127,14 @@ const Card = props => {
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
-              <div key={p.fieldName}>
+              <div key={p.id}>
                 <h3>{p.prompt}</h3>
-                {renderInput(p)}
+                {p.field_name && renderInput(p)}
               </div>
             ))}
 
-            <p>
-              {onboardingStep} out of {data.length}
-            </p>
+            <br />
+            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
           </form>
         </div>
       </animated.div>
