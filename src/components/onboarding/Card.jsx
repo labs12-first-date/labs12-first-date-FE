@@ -60,41 +60,41 @@ const Card = props => {
         return (
           <input
             type="text"
-            placeholder={p.inputPlaceholder}
-            name={p.fieldName}
-            value={formValues[p.fieldName] || ''}
-            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
-      case 'textarea':
+      case 'text_area':
         return (
           <input
             type="textarea"
-            placeholder={p.inputPlaceholder}
-            name={p.fieldName}
-            value={formValues[p.fieldName] || ''}
-            onChange={e => handleChange({ field: p.fieldName, value: e.target.value })}
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
-      case 'multiSelect':
+      case 'multi_select':
         return (
           <Select
-            value={formValues[p.fieldName] || []}
-            name={p.fieldName}
-            onChange={value => handleChange({ field: p.fieldName, value: value })}
+            value={formValues[p.field_name] || []}
+            name={p.field_name}
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
         );
-      case 'dateInput':
+      case 'date_input':
         return (
           <DateInput
             formatDate={date => date.toLocaleString()}
-            onChange={value => handleChange({ field: p.fieldName, value })}
+            onChange={value => handleChange({ field: p.field_name, value })}
             parseDate={str => new Date(str)}
             placeholder={'M/D/YYYY'}
             {...jsDateFormatter}
-            //  value={this.state.date}
+            value={formValues[p.field_name] || ''}
           />
         );
       default:
