@@ -6,10 +6,10 @@ import Logout from './components/Logout';
 import Signup from './components/Signup';
 import Settings from './components/Settings';
 // import Dashboard from './components/Dashboard';
-import Swipe from './components/onboarding/Deck';
 
 import Profile from './components/Profile';
 import { AuthContext } from './contexts/AuthContext';
+import Onboarding from './components/onboarding/Onboarding';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -34,7 +34,7 @@ const App = () => {
           <Route path="/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
           <Route path="/signup" component={Signup} />
-          <Route path="/swipe" component={Swipe} />
+          <Route path="/onboarding" component={Onboarding} />
           <Route path="/settings" component={Settings} />
         </Switch>
         {/* </div> */}

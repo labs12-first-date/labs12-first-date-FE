@@ -1,2 +1,2 @@
 export { default as auth } from './auth';
-export { default as fb } from './config';
+export { default as firebase } from './config';
