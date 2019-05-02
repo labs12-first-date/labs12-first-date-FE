@@ -104,6 +104,18 @@ const Card = props => {
             value={formValues[p.field_name] || ''}
           />
         );
+      case 'image':
+        return (
+          <input
+            type='file'
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
+          />
+        );
       default:
         return <div>No renderer for "{p.fieldName}"</div>;
     }

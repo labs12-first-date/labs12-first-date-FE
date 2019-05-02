@@ -54,47 +54,12 @@ const initProfile = user => {
     });
 };
 
-//     firebase
-//       .firestore()
-//       .collection('profiles')
-//       .doc(user.uid)
-//       .get()
-//       .then(function(doc) {
-//         if (doc.data().profile_complete) {
-//           console.log(doc.data().profile_complete);
-//           return <Redirect to='/thunderdome' />;
-//         } else {
-//           console.log(doc.data().profile_step);
-//         }
-//       });
-//   }
-// });
-
-//   snapshot.doc.data().profile_complete) {
-// history.redirect('/thunderdome');
-//   } else {
-//     console.log('SNAPSHOT WITH DATA', snapshot);
-//     console.log('NEED TO CONTINUE');
-//     // const continueStep = snapshot.doc.data().profile_step + 1;
-//   }
-// });
-// };
-
 const Onboarding = ({ history }) => {
   const { user } = useContext(AuthContext);
   const [prompts, setPrompts] = useState(null);
   const [STDs, setSTDs] = useState(null);
   const [genders, setGenders] = useState(null);
   const [cardsData, setCardsData] = useState(null);
-
-  // firebase
-  //   .firestore()
-  //   .collection('profiles')
-  //   .doc(user.uid)
-  //   .get()
-  //   .then(doc => {
-  //     const continueStep = doc.data().profile_step.toInt() + 1;
-  //   });
 
   const getPrompts = async () => {
     const promptsArr = await getDocsArray('onboarding');
@@ -116,19 +81,19 @@ const Onboarding = ({ history }) => {
   useEffect(() => {
     initProfile(user);
     initSettings(user);
-    firebase
-      .firestore()
-      .collection('profiles')
-      .doc(user.uid)
-      .get()
-      .then(function(doc) {
-        if (doc.data().profile_completed) {
-          console.log(doc.data().profile_completed);
-          history.replace('/thunderdome');
-        } else {
-          const currentStep = doc.data().profile_step;
-        }
-      });
+    // firebase
+    //   .firestore()
+    //   .collection('profiles')
+    //   .doc(user.uid)
+    //   .get()
+    //   .then(function(doc) {
+    //     if (doc.data().profile_completed) {
+    //       console.log(doc.data().profile_completed);
+    //       history.replace('/thunderdome');
+    //     } else {
+    //       const currentStep = doc.data().profile_step;
+    //     }
+    //   });
     getPrompts();
     getSTDs();
     getGenders();

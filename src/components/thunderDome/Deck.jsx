@@ -24,7 +24,7 @@ const trans = (r, s) =>
 
 function Deck({ history }) {
   const [user] = useState(auth.getCurrentUser());
-  const [profileState, setprofileState] = useState({});
+  const [profileState, setprofileState] = useState(null);
 
   useEffect(() => {
     const docRef = firebase
@@ -43,11 +43,17 @@ function Deck({ history }) {
       });
   }, []);
 
-  if (!profileState.profile_completed) {
-    console.log(profileState);
-    console.log('thunder!!!', profileState.profile_completed);
-    history.replace('/welcome');
-  }
+  console.log('BETWEEN', profileState);
+
+  useEffect(() => {
+    if (profileState && !profileState.profile_completed) {
+      console.log(profileState);
+      console.log('thunder!!!', profileState.profile_completed);
+      history.replace('/welcome');
+    } else if (!profileState) {
+      history.replace('/welcome');
+    }
+  }, [profileState]);
 
   const [gone] = useState(() => new Set());
 
