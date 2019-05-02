@@ -13,6 +13,7 @@ const getDocsArray = async collection => {
 const Onboarding = () => {
   const [prompts, setPrompts] = useState(null);
   const [STDs, setSTDs] = useState(null);
+  const [genders, setGenders] = useState(null);
   const [cardsData, setCardsData] = useState(null);
 
   const getPrompts = async () => {
@@ -25,15 +26,21 @@ const Onboarding = () => {
     setSTDs(STDsArr.map(s => ({ label: s.label, value: s.value })));
   };
 
+  const getGenders = async () => {
+    const gendersArr = await getDocsArray('gender');
+    setGenders(gendersArr.map(g => ({ label: g.label, value: g.value })));
+  };
+
   // CDM
   useEffect(() => {
     getPrompts();
     getSTDs();
+    getGenders();
   }, []);
 
   // build the card data after fetching deps from Firebase
   useEffect(() => {
-    if (prompts && STDs) {
+    if (prompts && STDs && genders) {
       const onboardingSteps = prompts
         .reduce((steps, prompt) => {
           // remove dupes
@@ -47,8 +54,12 @@ const Onboarding = () => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includeConditions = p.field_name && p.field_name.includes('conditions');
-              return includeConditions ? { ...p, choices: STDs } : p;
+              const includesConditions = p.field_name && p.field_name.includes('conditions');
+              return includesConditions ? { ...p, choices: STDs } : p;
+            })
+            .map(p => {
+              const includesGender = p.field_name && p.field_name.includes('gender');
+              return includesGender ? { ...p, choices: genders } : p;
             });
           return {
             cardTitle: cardPrompts[0].card_title, // TODO work this out, set dynamically
@@ -60,7 +71,7 @@ const Onboarding = () => {
         .reverse();
       setCardsData(cardsData);
     }
-  }, [prompts, STDs]);
+  }, [prompts, STDs, genders]);
 
   // logging, safe to remove
   // useEffect(() => {
