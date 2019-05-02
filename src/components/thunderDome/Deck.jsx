@@ -50,8 +50,6 @@ function Deck({ history }) {
       console.log(profileState);
       console.log('thunder!!!', profileState.profile_completed);
       history.replace('/welcome');
-    } else if (!profileState) {
-      history.replace('/welcome');
     }
   }, [profileState]);
 

@@ -5,6 +5,8 @@ import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
+import FileUploader from 'react-firebase-file-uploader';
+import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
 
@@ -19,6 +21,8 @@ const Card = props => {
   const [formValues, setFormValues] = useState({});
   const [user] = useState(auth.getCurrentUser());
   const { cardTitle, onboardingStep, prompts } = data;
+  const [photoValues, setphotoValues] = useState({});
+  const [photoUrl, setphotoUrl] = useState({});
 
   const persistToFirestore = () => {
     // TODO debounce this so we aren't making a network call on every keystroke
@@ -37,10 +41,36 @@ const Card = props => {
     persistToFirestore();
   }, [formValues]);
 
+  useEffect(() => {
+    console.log('PHOTO STATE CHANGE:', photoValues);
+  }, [photoValues]);
+
   const handleChange = ({ field, value }) => {
     setFormValues(previousValues => {
       return { ...previousValues, [field]: value };
     });
+  };
+
+  const handleUploadSuccess = filename => {
+    setphotoValues({ profile_picture: filename });
+    firebase
+      .storage()
+      .ref('images')
+      .child(filename)
+      .getDownloadURL()
+      .then(url => {
+        handleChange({ field: 'profile_picture', value: url });
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(user.uid)
+          .update({
+            profile_completed: true
+          })
+          .then(() => {
+            props.history.replace('/thunderdome');
+          });
+      });
   };
 
   const renderInput = p => {
@@ -106,14 +136,15 @@ const Card = props => {
         );
       case 'image':
         return (
-          <input
-            type='file'
-            placeholder={p.input_placeholder}
-            name={p.field_name}
-            value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+          <FileUploader
+            accept='image/*'
+            name='profile_picture'
+            randomizeFilename
+            storageRef={firebase.storage().ref('images')}
+            // onUploadStart={handleUploadStart}
+            // onUploadError={handleUploadError}
+            onUploadSuccess={handleUploadSuccess}
+            // onProgress={handleProgress}
           />
         );
       default:
@@ -173,4 +204,4 @@ Card.propTypes = {
   pics: PropTypes.array
 };
 
-export default Card;
+export default withRouter(Card);
