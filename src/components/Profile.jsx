@@ -55,6 +55,7 @@ const Profile = () => {
             <Loading />
           ) : (
             <Card elevation={Elevation.TWO}>
+
               <div className="container">
                 <div className="card grey lighten-1  ">
                   <div class="card-content black-text">
@@ -82,28 +83,28 @@ const Profile = () => {
 
                 <Overlay usePortal={true} isOpen={toggleState}>
                   <Card elevation={Elevation.TWO}>
-                    <form id="profileForm" onSubmit={handleSubmit}>
+                    <form id='profileForm' onSubmit={handleSubmit}>
                       <input
-                        name="first_name"
-                        placeholder="First Name"
+                        name='first_name'
+                        placeholder='First Name'
                         value={values.first_name || ` ${formState.first_name}`}
                         onChange={handleChange}
                       />
                       <input
-                        name="last_name"
-                        placeholder="Last Name"
+                        name='last_name'
+                        placeholder='Last Name'
                         value={values.last_name || ` ${formState.last_name}`}
                         onChange={handleChange}
                       />
                       <input
-                        name="DOB"
-                        placeholder="DOB"
+                        name='DOB'
+                        placeholder='DOB'
                         value={values.DOB || ` ${formState.DOB}`}
                         onChange={handleChange}
                       />
                       <input
-                        name="bio"
-                        placeholder="Bio"
+                        name='bio'
+                        placeholder='Bio'
                         value={values.bio || ` ${formState.bio}`}
                         onChange={handleChange}
                       />
@@ -111,11 +112,12 @@ const Profile = () => {
                         name="condition_details"
                         placeholder="Condition Details"
                         value={values.condition_details || ` ${formState.condition_details}`}
+
                         onChange={handleChange}
                       />
                       <input
-                        name="likes"
-                        placeholder="Likes"
+                        name='likes'
+                        placeholder='Likes'
                         value={values.likes || ` ${formState.likes}`}
                         onChange={handleChange}
                       />
@@ -132,12 +134,12 @@ const Profile = () => {
                         onChange={handleChange}
                       />
                       <input
-                        name="zip_code"
-                        placeholder="Zip Code"
+                        name='zip_code'
+                        placeholder='Zip Code'
                         value={values.zip_code || ` ${formState.zip_code}`}
                         onChange={handleChange}
                       />
-                      <Button onClick={showForm} type="submit">
+                      <Button onClick={showForm} type='submit'>
                         PressMe
                       </Button>
                     </form>

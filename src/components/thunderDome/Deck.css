@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: rgb(0, 0, 0);
+  overscroll-behavior-y: contain;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  font-family: Raleway, sans-serif;
+  position: fixed;
+  overflow: hidden;
+}
+
+.ani1 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ani2 {
+  padding: 5px;
+  background-color: rgb(255, 132, 0);
+  background-size: auto 85%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 300px;
+  max-width: 300px;
+  height: 550px;
+  max-height: 570px;
+  will-change: transform;
+  border-radius: 10px;
+  box-shadow: 0 12.5px 100px -10px rgba(255, 120, 2, 0.4),
+    0 10px 10px -10px rgba(255, 119, 0, 0.3);
+}
+
+.card img {
+  height: 380px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card button[aria-label='previous'],
+.card button[aria-label='next'] {
+  background: salmon !important;
+  color: black !important;
+}
+
+.card h2 {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.card h2:nth-of-type(2) {
+  opacity: 0.7;
+  font-size: 1.35rem;
+}
+
+.card h5 {
+  margin-top: -15px;
+  margin-left: 2px;
+  color: lightgray;
+}
+.card h5:last-of-type {
+  color: darkgray;
+}
+
+/* .card > div {
+  height: 380px !important;
+} */
+
+.slider-control-bottomcenter {
+  bottom: -15px !important;
+}
+
+.slider-control-bottomcenter > ul > li > button {
+  color: salmon !important;
+}
