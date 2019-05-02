@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
-import { auth } from '../../firebase';
-import firebase from 'firebase';
+import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
@@ -49,31 +48,37 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'number':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'text_area':
         return (
           <input
-            type="textarea"
+            type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'multi_select':
@@ -81,7 +86,9 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value => handleChange({ field: p.field_name, value: value })}
+            onChange={value =>
+              handleChange({ field: p.field_name, value: value })
+            }
             options={p.choices}
             isMulti
           />
@@ -97,6 +104,18 @@ const Card = props => {
             value={formValues[p.field_name] || ''}
           />
         );
+      case 'image':
+        return (
+          <input
+            type='file'
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
+          />
+        );
       default:
         return <div>No renderer for "{p.fieldName}"</div>;
     }
@@ -104,20 +123,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className="ani1"
+      className='ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className="ani2"
+        className='ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="card">
+        <div className='card'>
           {/* <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt='profilePicture' />
@@ -134,7 +153,11 @@ const Card = props => {
             ))}
 
             <br />
-            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
+            <ProgressBar
+              animate={false}
+              stripes={false}
+              value={onboardingStep / totalSteps}
+            />
           </form>
         </div>
       </animated.div>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
-import firebase from 'firebase';
-import { auth } from '../../firebase';
+import { auth, firebase } from '../../firebase';
 
 import Card from './Card';
 import './Deck.css';
@@ -25,9 +24,9 @@ const trans = (r, s) =>
 
 function Deck({ history }) {
   const [user] = useState(auth.getCurrentUser());
-  const [formState, setformState] = useState({});
+  const [profileState, setprofileState] = useState(null);
 
-  useEffect((history, user) => {
+  useEffect(() => {
     const docRef = firebase
       .firestore()
       .collection('profiles')
@@ -35,7 +34,8 @@ function Deck({ history }) {
     docRef
       .get()
       .then(function(doc) {
-        setformState(doc.data());
+        setprofileState(doc.data());
+        console.log('DOC', doc.data());
       })
       .catch(function(error) {
         console.log('Error getting document:', error);
@@ -43,10 +43,17 @@ function Deck({ history }) {
       });
   }, []);
 
-  if (!formState.profile_completed) {
-    // TODO: onboarding should continue from current step
-    history.replace('/welcome');
-  }
+  console.log('BETWEEN', profileState);
+
+  useEffect(() => {
+    if (profileState && !profileState.profile_completed) {
+      console.log(profileState);
+      console.log('thunder!!!', profileState.profile_completed);
+      history.replace('/welcome');
+    } else if (!profileState) {
+      history.replace('/welcome');
+    }
+  }, [profileState]);
 
   const [gone] = useState(() => new Set());
 

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { firebase } from '../../firebase';
+import React, { useState, useEffect, useContext } from 'react';
+import { firebase, auth } from '../../firebase';
+import { AuthContext } from '../../contexts/AuthContext';
+import { Redirect } from 'react-router-dom';
 import Deck from './Deck';
 
 const getDocsArray = async collection => {
@@ -10,7 +12,50 @@ const getDocsArray = async collection => {
   return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 };
 
-const Onboarding = () => {
+// 1 funcion create setting doc for the user uid
+// 2 function check profile is created if completed is false check profile step. send user to step +1
+//if completed is true send to thunderdome.
+
+const initSettings = user => {
+  firebase
+    .firestore()
+    .collection('settings')
+    .doc(user.uid)
+    .get()
+    .then(snapshot => {
+      if (!snapshot.exists) {
+        firebase
+          .firestore()
+          .collection('settings')
+          .doc(user.uid)
+          .set({
+            match_age_min: '18',
+            match_age_max: '99',
+            match_distance: '1000'
+          });
+      }
+    });
+};
+
+const initProfile = user => {
+  firebase
+    .firestore()
+    .collection('profiles')
+    .doc(user.uid)
+    .get()
+    .then(snapshot => {
+      if (!snapshot.exists) {
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(user.uid)
+          .set({});
+      }
+    });
+};
+
+const Onboarding = ({ history }) => {
+  const { user } = useContext(AuthContext);
   const [prompts, setPrompts] = useState(null);
   const [STDs, setSTDs] = useState(null);
   const [genders, setGenders] = useState(null);
@@ -32,7 +77,23 @@ const Onboarding = () => {
   };
 
   // CDM
+
   useEffect(() => {
+    initProfile(user);
+    initSettings(user);
+    // firebase
+    //   .firestore()
+    //   .collection('profiles')
+    //   .doc(user.uid)
+    //   .get()
+    //   .then(function(doc) {
+    //     if (doc.data().profile_completed) {
+    //       console.log(doc.data().profile_completed);
+    //       history.replace('/thunderdome');
+    //     } else {
+    //       const currentStep = doc.data().profile_step;
+    //     }
+    //   });
     getPrompts();
     getSTDs();
     getGenders();
@@ -48,17 +109,20 @@ const Onboarding = () => {
           return steps.find(s => s === step) ? steps : [...steps, step];
         }, [])
         .sort();
+      // .filter(continueStep); //TODO: Add filter step + 1
 
       const cardsData = onboardingSteps
         .map(step => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includesConditions = p.field_name && p.field_name.includes('conditions');
+              const includesConditions =
+                p.field_name && p.field_name.includes('conditions');
               return includesConditions ? { ...p, choices: STDs } : p;
             })
             .map(p => {
-              const includesGender = p.field_name && p.field_name.includes('gender');
+              const includesGender =
+                p.field_name && p.field_name.includes('gender');
               return includesGender ? { ...p, choices: genders } : p;
             });
           return {
