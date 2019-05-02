@@ -4,17 +4,12 @@ import { animated, interpolate } from 'react-spring';
 import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
-import { DateInput } from '@blueprintjs/datetime';
+import DatePicker from 'react-datepicker';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
-
-const jsDateFormatter = {
-  formatDate: date => date.toLocaleDateString(),
-  parseDate: str => new Date(str),
-  placeholder: 'M/D/YYYY'
-};
+import moment from 'moment';
 
 const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
@@ -125,13 +120,11 @@ const Card = props => {
         );
       case 'date_input':
         return (
-          <DateInput
-            formatDate={date => date.toLocaleString()}
+          <DatePicker
+            selected={formValues[p.field_name] || ''}
             onChange={value => handleChange({ field: p.field_name, value })}
-            parseDate={str => new Date(str)}
-            placeholder={'M/D/YYYY'}
-            {...jsDateFormatter}
-            value={formValues[p.field_name] || ''}
+            minDate={moment().subtract(18, 'years')}
+            placeholderText={p.input_placeholder}
           />
         );
       case 'image':
