@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { firebase, auth } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
-import { Redirect } from 'react-router-dom';
 import Deck from './Deck';
 
 const getDocsArray = async collection => {
