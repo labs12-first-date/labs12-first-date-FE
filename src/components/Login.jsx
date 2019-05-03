@@ -2,6 +2,7 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
+import { Button } from '@blueprintjs/core';
 import './Login.css';
 
 // Configure FirebaseUI.
@@ -34,7 +35,11 @@ const Login = () => {
             value={values.email || ''}
             onChange={handleChange}
           />
-          <button>Reset Password</button>
+          <div>
+            <Button intent="danger" icon="refresh">
+              Reset Password
+            </Button>
+          </div>
         </form>
       </div>
     </div>
