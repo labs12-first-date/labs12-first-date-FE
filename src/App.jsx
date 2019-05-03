@@ -1,16 +1,14 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { AuthContext } from './contexts/AuthContext';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Signup from './components/Signup';
+import NotFound from './components/Settings';
 import Settings from './components/Settings';
-// import Dashboard from './components/Dashboard';
-
 import Thunderdome from './components/thunderDome/Deck';
-
 import Profile from './components/Profile';
-import { AuthContext } from './contexts/AuthContext';
 import Onboarding from './components/onboarding/Onboarding';
 
 const App = () => {
@@ -22,7 +20,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <>
-        {/* <div className='container'> */}
         <Navigation />
         <h1 className="center">The Most Awkward Dating</h1>
         {user && (
@@ -31,8 +28,6 @@ const App = () => {
           </p>
         )}
         <Switch>
-          {/* <Route exact path="/" component={Dashboard} /> */}
-
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
@@ -40,8 +35,8 @@ const App = () => {
           <Route path="/welcome" component={Onboarding} />
           <Route path="/settings" component={Settings} />
           <Route path="/thunderdome" component={Thunderdome} />
+          <Route component={NotFound} />
         </Switch>
-        {/* </div> */}
       </>
     </BrowserRouter>
   );
