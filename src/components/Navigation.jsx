@@ -13,7 +13,7 @@ const Navigation = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/onboarding">Onboard</NavLink>
+            <NavLink to="/welcome">Onboard</NavLink>
           </li>
         </>
         {user ? (

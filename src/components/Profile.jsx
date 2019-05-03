@@ -163,14 +163,16 @@ const Profile = () => {
                           value={values.zip_code || ` ${formState.zip_code}`}
                           onChange={handleChange}
                         />
-                        <Button
-                          rightIcon="arrow-right"
-                          intent="success"
-                          onClick={showForm}
-                          type="submit"
-                        >
-                          PressMe
-                        </Button>
+                        <div>
+                          <Button
+                            rightIcon="arrow-right"
+                            intent="success"
+                            onClick={showForm}
+                            type="submit"
+                          >
+                            Update
+                          </Button>
+                        </div>
                       </form>
                     </Card>
                   </Overlay>
