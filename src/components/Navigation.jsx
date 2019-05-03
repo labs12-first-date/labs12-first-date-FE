@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-
+import './Navigation.css';
 const Navigation = () => {
   const { user } = useContext(AuthContext);
 
@@ -13,7 +13,7 @@ const Navigation = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/onboarding">Onboard</NavLink>
+            <NavLink to="/welcome">Onboard</NavLink>
           </li>
         </>
         {user ? (

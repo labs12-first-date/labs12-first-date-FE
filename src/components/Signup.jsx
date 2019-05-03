@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import useForm from '../hooks/useForm';
 import { auth } from '../firebase';
 import { withRouter } from 'react-router-dom';
+import './Signup.css';
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
@@ -24,24 +25,26 @@ const Signup = ({ history }) => {
   });
   return (
     <>
-      <h1>Sign up now to find the love of your life!</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          name='email'
-          type='email'
-          placeholder='Email'
-          value={values.email || ''}
-          onChange={handleChange}
-        />
-        <input
-          name='password'
-          type='password'
-          placeholder='Password'
-          value={values.password || ''}
-          onChange={handleChange}
-        />
-        <button>Sign up</button>
-      </form>
+      <div id="form1">
+        <h1>Sign up now to find the love of your life!</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={values.email || ''}
+            onChange={handleChange}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={values.password || ''}
+            onChange={handleChange}
+          />
+          <button>Sign up</button>
+        </form>
+      </div>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
     </>
   );

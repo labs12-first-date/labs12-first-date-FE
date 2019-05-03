@@ -7,6 +7,7 @@ import Logout from './components/Logout';
 import Signup from './components/Signup';
 import NotFound from './components/Settings';
 import Settings from './components/Settings';
+import './App.css';
 import Thunderdome from './components/thunderDome/Deck';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';

@@ -4,8 +4,10 @@ import { animated, interpolate } from 'react-spring';
 import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
+
 // import DatePicker from 'react-datepicker';
 import DayPicker from 'react-day-picker/DayPickerInput';
+
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
@@ -138,8 +140,11 @@ const Card = props => {
             isMulti
           />
         );
+
       case 'date_input':
+        console.log('This is the time', formValues);
         return (
+
           // <DatePicker
           //   selected={formValues[p.field_name]}
           //   onChange={value => handleChange({ field: p.field_name, value })}
@@ -149,13 +154,16 @@ const Card = props => {
           // />
           <DayPicker
             onDayClick={value => handleChange({ field: p.field_name, value })}
+
           />
         );
       case 'image':
         return (
           <FileUploader
+
             accept='image/*'
             name='profile_picture'
+
             randomizeFilename
             storageRef={firebase.storage().ref('images')}
             // onUploadStart={handleUploadStart}
