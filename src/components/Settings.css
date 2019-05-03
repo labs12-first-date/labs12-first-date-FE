@@ -7,9 +7,6 @@
   background-color: rgb(250, 250, 250);
 }
 
-.container {
-  display: flex;
-}
 .container ul {
   display: flex;
   list-style: none;
@@ -43,7 +40,7 @@ button.bp3-intent-danger {
 
 .bp3-overlay-content {
   position: absolute;
-  z-index: -100;
+  z-index: 20;
   top: 90px;
   left: 25%;
   animation-duration: 1s;
