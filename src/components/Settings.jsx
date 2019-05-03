@@ -11,24 +11,26 @@ import './Settings.css';
 
 const Settings = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
-
   const [formState, setformState] = useState({});
   const [toggleState, settoggleState] = useState(false);
-  useEffect(() => {
-    const docRef = firebase
-      .firestore()
-      .collection('settings')
-      .doc(user.uid);
 
-    docRef
-      .get()
-      .then(function(doc) {
-        setformState(doc.data());
-      })
-      .catch(function(error) {
-        console.log('Error getting document:', error);
-      });
-  }, []);
+  useEffect(() => {
+    if (user) {
+      const docRef = firebase
+        .firestore()
+        .collection('settings')
+        .doc(user.uid);
+
+      docRef
+        .get()
+        .then(function(doc) {
+          setformState(doc.data());
+        })
+        .catch(function(error) {
+          console.log('Error getting document:', error);
+        });
+    }
+  }, [user]);
 
   const { values, handleChange, handleSubmit } = useForm(() => {
     firebase
@@ -40,11 +42,14 @@ const Settings = ({ history }) => {
         console.log('Document successfully written!');
       });
   });
+
   const showForm = () => {
     toggleState ? settoggleState(false) : settoggleState(true);
   };
 
   console.log('This value ======>', values);
+
+  if (!user) return <div>No user logged in</div>;
 
   return (
     <div>
