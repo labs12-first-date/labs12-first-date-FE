@@ -5,6 +5,7 @@ import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
 import DatePicker from 'react-datepicker';
+
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
@@ -136,18 +137,21 @@ const Card = props => {
             isMulti
           />
         );
+
       case 'date_input':
+        console.log('This is the time', formValues);
         return (
           <DatePicker
-            selected={formValues[p.field_name] || ''}
-            onChange={value => handleChange({ field: p.field_name, value })}
-            minDate={moment().subtract(18, 'years')}
-            placeholderText={p.input_placeholder}
+          // selected={formValues[p.field_name] || ''}
+          // onChange={value => handleChange({ field: p.field_name, value })}
+          // minDate={moment().subtract(18, 'years')}
+          // placeholderText={p.input_placeholder}
           />
         );
       case 'image':
         return (
           <FileUploader
+            clsssName="uploader"
             accept="image/*"
             name="profile_picture"
             randomizeFilename

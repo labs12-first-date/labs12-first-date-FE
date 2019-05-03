@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.bp3-card {
+  width: 80%;
+  margin: 0 auto;
+}
+.bp3-overlay-content {
+  width: 50%;
+}

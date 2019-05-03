@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Signup from './components/Signup';
 import Settings from './components/Settings';
+import './App.css';
 // import Dashboard from './components/Dashboard';
 
 import Thunderdome from './components/thunderDome/Deck';

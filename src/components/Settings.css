@@ -1,0 +1,50 @@
+.how {
+  width: 80%;
+  margin: 0 auto;
+}
+.bp3-card {
+  background-color: #d61616;
+}
+.container {
+  display: flex;
+}
+.container ul {
+  display: flex;
+  list-style: none;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.container span {
+  padding: 0 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.dropForm {
+  margin: 0 auto;
+}
+
+.bp3-overlay-content {
+  position: absolute;
+  z-index: -100;
+  top: 90px;
+  left: 25%;
+  animation-duration: 1s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    top: -10px;
+  }
+
+  to {
+    top: 90px;
+  }
+}
