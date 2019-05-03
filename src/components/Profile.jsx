@@ -18,7 +18,6 @@ const Profile = () => {
       .firestore()
       .collection('profiles')
       .doc(user.uid);
-
     docRef
       .get()
       .then(function(doc) {
@@ -50,11 +49,12 @@ const Profile = () => {
       <FirestoreDocument
         path={`profiles/${user.uid}`}
         render={({ isLoading, data }) => {
-          console.log(data);
+          console.log('DATA', data);
 
           return isLoading ? (
             <Loading />
           ) : (
+
             <div className="box">
               <Card elevation={Elevation.TWO}>
                 <div className="container">
@@ -94,7 +94,9 @@ const Profile = () => {
                         Update
                       </Button>
                     </div>
+
                   </div>
+
 
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
@@ -179,6 +181,7 @@ const Profile = () => {
                 </div>
               </Card>
             </div>
+
           );
         }}
       />
