@@ -4,12 +4,14 @@ import { animated, interpolate } from 'react-spring';
 import { auth, firebase } from '../../firebase';
 // import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
+import DayPicker from 'react-day-picker/DayPickerInput';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
 import moment from 'moment';
+import 'react-day-picker/lib/style.css';
 
 const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
@@ -91,7 +93,7 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -103,7 +105,7 @@ const Card = props => {
       case 'number':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -115,7 +117,7 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type="textarea"
+            type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -138,18 +140,22 @@ const Card = props => {
         );
       case 'date_input':
         return (
-          <DatePicker
-            selected={formValues[p.field_name] || ''}
-            onChange={value => handleChange({ field: p.field_name, value })}
-            minDate={moment().subtract(18, 'years')}
-            placeholderText={p.input_placeholder}
+          // <DatePicker
+          //   selected={formValues[p.field_name]}
+          //   onChange={value => handleChange({ field: p.field_name, value })}
+          //   minDate={moment().subtract(18, 'years')}
+          //   placeholderText={p.input_placeholder}
+          //   dateFormat='yyyy/MM/dd'
+          // />
+          <DayPicker
+            onDayClick={value => handleChange({ field: p.field_name, value })}
           />
         );
       case 'image':
         return (
           <FileUploader
-            accept="image/*"
-            name="profile_picture"
+            accept='image/*'
+            name='profile_picture'
             randomizeFilename
             storageRef={firebase.storage().ref('images')}
             // onUploadStart={handleUploadStart}
@@ -165,20 +171,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className="ani1"
+      className='ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className="ani2"
+        className='ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="card">
+        <div className='card'>
           {/* <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt='profilePicture' />
