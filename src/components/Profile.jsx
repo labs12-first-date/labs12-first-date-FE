@@ -74,7 +74,7 @@ const Profile = () => {
                           {data.last_name}{' '}
                         </li>
                         <li className='col s12'>
-                          {`Birthday: ${data.date_of_birth.toDate()}`}
+                          {/* {`Birthday: ${data.date_of_birth.toDate()}`} */}
                         </li>
                         <li className='col s12'>Bio: {data.bio}</li>
                         <li className='col s12'>
