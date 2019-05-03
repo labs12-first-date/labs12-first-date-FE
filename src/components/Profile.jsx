@@ -90,7 +90,9 @@ const Profile = () => {
                         </li>
                         <li className="col s12">Zip Code {data.zip_code}</li>
                       </ul>
-                      <Button onClick={showForm}>Update</Button>
+                      <Button icon="refresh" intent="danger" onClick={showForm}>
+                        Update
+                      </Button>
                     </div>
                   </div>
 
@@ -161,7 +163,12 @@ const Profile = () => {
                           value={values.zip_code || ` ${formState.zip_code}`}
                           onChange={handleChange}
                         />
-                        <Button onClick={showForm} type="submit">
+                        <Button
+                          rightIcon="arrow-right"
+                          intent="success"
+                          onClick={showForm}
+                          type="submit"
+                        >
                           PressMe
                         </Button>
                       </form>

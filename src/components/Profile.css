@@ -9,3 +9,19 @@
 .bp3-overlay-content {
   width: 50%;
 }
+
+button.bp3-intent-danger {
+  margin-top: 20px;
+}
+span.red-text {
+  font-style: bold;
+  font-size: 18px;
+}
+
+.col.s12 {
+  font-size: 18px;
+}
+
+button.bp3-intent-success {
+  margin-top: 20px;
+}

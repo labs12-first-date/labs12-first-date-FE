@@ -81,8 +81,14 @@ const Settings = ({ history }) => {
                     </ul>
                   </div>
                   <div className="buttons">
-                    <Button onClick={showForm}>Update Match Settings</Button>
-                    <Button onClick={auth.resetPassword}>
+                    <Button intent="success" icon="arrow" onClick={showForm}>
+                      Update Match Settings
+                    </Button>
+                    <Button
+                      intent="danger"
+                      icon="refresh"
+                      onClick={auth.resetPassword}
+                    >
                       Reset Password
                     </Button>{' '}
                     {/*sends an email to user to reset password */}
@@ -91,6 +97,8 @@ const Settings = ({ history }) => {
                         history.replace('/');
                         auth.deleteProfile();
                       }}
+                      icon="disable"
+                      intent="danger"
                     >
                       Delete Your Profile
                     </Button>{' '}
@@ -128,11 +136,17 @@ const Settings = ({ history }) => {
                           }
                           onChange={handleChange}
                         />
-
-                        <Button onClick={showForm} type="submit">
+                      </form>
+                      <div id="drop-form-btn">
+                        <Button
+                          rightIcon="arrow-right"
+                          intent="success"
+                          onClick={showForm}
+                          type="submit"
+                        >
                           Submit Settings Changes
                         </Button>
-                      </form>
+                      </div>
                     </Card>
                   </Overlay>
                 </div>

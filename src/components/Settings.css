@@ -1,10 +1,12 @@
 .how {
   width: 80%;
+
   margin: 0 auto;
 }
 .bp3-card {
-  background-color: #d61616;
+  background-color: beige;
 }
+
 .container {
   display: flex;
 }
@@ -24,10 +26,19 @@
   display: flex;
   justify-content: space-between;
   padding-top: 30px;
+  margin: 0 10px;
+}
+button.bp3-intent-danger {
+  margin: 0 10px;
 }
 
 .dropForm {
   margin: 0 auto;
+}
+
+#drop-form-btn {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .bp3-overlay-content {
