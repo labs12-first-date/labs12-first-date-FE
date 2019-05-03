@@ -75,11 +75,15 @@ const Onboarding = ({ history }) => {
     setGenders(gendersArr.map(g => ({ label: g.label, value: g.value })));
   };
 
-  // CDM
-
   useEffect(() => {
-    initProfile(user);
-    initSettings(user);
+    if (user) {
+      initProfile(user);
+      initSettings(user);
+    }
+  }, [user]);
+
+  // CDM
+  useEffect(() => {
     // firebase
     //   .firestore()
     //   .collection('profiles')
@@ -115,15 +119,14 @@ const Onboarding = ({ history }) => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includesConditions =
-                p.field_name && p.field_name.includes('conditions');
+              const includesConditions = p.field_name && p.field_name.includes('conditions');
               return includesConditions ? { ...p, choices: STDs } : p;
             })
             .map(p => {
-              const includesGender =
-                p.field_name && p.field_name.includes('gender');
+              const includesGender = p.field_name && p.field_name.includes('gender');
               return includesGender ? { ...p, choices: genders } : p;
-            });
+            })
+            .sort((a, b) => a.prompt_order - b.prompt_order);
           return {
             cardTitle: cardPrompts[0].card_title, // TODO work this out, set dynamically
             onboardingStep: step,
