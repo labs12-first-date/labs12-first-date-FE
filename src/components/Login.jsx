@@ -2,6 +2,7 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
+import './Login.css';
 
 // Configure FirebaseUI.
 const uiConfig = {
@@ -24,16 +25,18 @@ const Login = () => {
   return (
     <div>
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={values.email || ''}
-          onChange={handleChange}
-        />
-        <button>Reset Password</button>
-      </form>
+      <div id="form">
+        <form onSubmit={handleSubmit}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={values.email || ''}
+            onChange={handleChange}
+          />
+          <button>Reset Password</button>
+        </form>
+      </div>
     </div>
   );
 };
