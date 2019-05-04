@@ -50,6 +50,7 @@ const Profile = ({ history }) => {
         path={`profiles/${user.uid}`}
         render={({ isLoading, data }) => {
           console.log('DATA', data);
+
           if (isLoading) {
             return <Loading />;
           } else if (!data.profile_completed) {
@@ -106,6 +107,7 @@ const Profile = ({ history }) => {
                           Update
                         </Button>
                       </div>
+
                     </div>
 
                     <Overlay usePortal={true} isOpen={toggleState}>
