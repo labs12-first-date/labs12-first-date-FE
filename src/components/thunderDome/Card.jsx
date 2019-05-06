@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './CardTh.css';
 // import PropTypes from 'prop-types';
 // import { animated, interpolate } from 'react-spring';
 // import { auth } from '../../firebase';
@@ -11,10 +12,10 @@ import React, { useState, useEffect } from 'react';
 
 const Card = () => {
   return (
-    <>
+    <div className="thunder-heading">
       <h1>Welcome to the Thunderdome!</h1>
       <h2>Coming May 2019</h2>
-    </>
+    </div>
   );
 };
 
