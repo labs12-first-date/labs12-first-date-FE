@@ -107,15 +107,13 @@ const Profile = () => {
                         <input
                           name='first_name'
                           placeholder='First Name'
-                          value={
-                            values.first_name || ` ${formState.first_name}`
-                          }
+                          value={values.first_name || `${formState.first_name}`}
                           onChange={handleChange}
                         />
                         <input
                           name='last_name'
                           placeholder='Last Name'
-                          value={values.last_name || ` ${formState.last_name}`}
+                          value={values.last_name || `${formState.last_name}`}
                           onChange={handleChange}
                         />
                         {/* <input
@@ -127,7 +125,7 @@ const Profile = () => {
                         <input
                           name='bio'
                           placeholder='Bio'
-                          value={values.bio || ` ${formState.bio}`}
+                          value={values.bio || `${formState.bio}`}
                           onChange={handleChange}
                         />
                         <input
@@ -135,7 +133,7 @@ const Profile = () => {
                           placeholder='Condition Details'
                           value={
                             values.condition_description ||
-                            ` ${formState.condition_description}`
+                            `${formState.condition_description}`
                           }
                           onChange={handleChange}
                         />
@@ -158,7 +156,7 @@ const Profile = () => {
                         <input
                           name='zip_code'
                           placeholder='Zip Code'
-                          value={values.zip_code || ` ${formState.zip_code}`}
+                          value={values.zip_code || `${formState.zip_code}`}
                           onChange={handleChange}
                         />
                         <div>

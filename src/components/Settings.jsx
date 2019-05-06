@@ -61,37 +61,37 @@ const Settings = ({ history }) => {
           return isLoading ? (
             <Loading />
           ) : (
-            <Card className="how" elevation={Elevation.TWO}>
-              <div className="container">
-                <div className="card grey lighten-1  ">
-                  <div class="card-content black-text">
-                    <span class="card-title">Profile</span>
-                    <ul className="row">
-                      <li className="col s12">
-                        <span className="red-text text-darken-2">
+            <Card className='how' elevation={Elevation.TWO}>
+              <div className='container'>
+                <div className='card grey lighten-1  '>
+                  <div class='card-content black-text'>
+                    <span class='card-title'>Profile</span>
+                    <ul className='row'>
+                      <li className='col s12'>
+                        <span className='red-text text-darken-2'>
                           Maximum Match Age:
                         </span>{' '}
                         {data.match_age_max}
                       </li>
-                      <li className="col s12">
-                        <span className="red-text text-darken-2">
+                      <li className='col s12'>
+                        <span className='red-text text-darken-2'>
                           Minimum Match Age:
                         </span>{' '}
                         {data.match_age_min}{' '}
                       </li>
 
-                      <li className="col s12">
+                      <li className='col s12'>
                         Match Distance Range: {data.match_distance}
                       </li>
                     </ul>
                   </div>
-                  <div className="buttons">
-                    <Button intent="success" icon="arrow" onClick={showForm}>
+                  <div className='buttons'>
+                    <Button intent='success' icon='arrow' onClick={showForm}>
                       Update Match Settings
                     </Button>
                     <Button
-                      intent="danger"
-                      icon="refresh"
+                      intent='danger'
+                      icon='refresh'
                       onClick={auth.resetPassword}
                     >
                       Reset Password
@@ -102,54 +102,60 @@ const Settings = ({ history }) => {
                         history.replace('/');
                         auth.deleteProfile();
                       }}
-                      icon="disable"
-                      intent="danger"
+                      icon='disable'
+                      intent='danger'
                     >
                       Delete Your Profile
                     </Button>{' '}
                     {/*deletes the user profile */}
                   </div>
                 </div>
-                <div className="dropForm">
+                <div className='dropForm'>
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
-                      <form id="profileForm" onSubmit={handleSubmit}>
+                      <form id='profileForm' onSubmit={handleSubmit}>
                         <input
-                          name="match_age_max"
-                          placeholder="Max Age"
+                          name='match_age_max'
+                          placeholder='Max Age'
                           value={
-                            values.match_age_max ||
-                            ` ${formState.match_age_max}`
+                            values.match_age_max || `${formState.match_age_max}`
                           }
                           onChange={handleChange}
                         />
                         <input
-                          name="match_age_min"
-                          placeholder="Min Age"
+                          name='match_age_min'
+                          placeholder='Min Age'
                           value={
-                            values.match_age_min ||
-                            ` ${formState.match_age_min}`
+                            values.match_age_min || `${formState.match_age_min}`
                           }
                           onChange={handleChange}
                         />
                         <input
-                          name="match_distance"
-                          placeholder="Distance"
+                          name='match_distance'
+                          placeholder='Distance'
                           value={
                             values.match_distance ||
-                            ` ${formState.match_distance}`
+                            `${formState.match_distance}`
                           }
                           onChange={handleChange}
                         />
                       </form>
-                      <div id="drop-form-btn">
+                      <div id='drop-form-btn'>
                         <Button
-                          rightIcon="arrow-right"
-                          intent="success"
-                          onClick={showForm}
-                          type="submit"
+                          rightIcon='arrow-right'
+                          intent='success'
+                          onClick={handleSubmit}
+                          type='submit'
                         >
                           Submit Settings Changes
+                        </Button>
+                        <Button
+                          rightIcon='arrow-right'
+                          intent='danger'
+                          onClick={showForm}
+                          type='submit'
+                        >
+                          Close
                         </Button>
                       </div>
                     </Card>
