@@ -110,85 +110,84 @@ const Profile = ({ history }) => {
 
                     </div>
 
-                    <Overlay usePortal={true} isOpen={toggleState}>
-                      <Card elevation={Elevation.TWO}>
-                        <form id="profileForm" onSubmit={handleSubmit}>
-                          <input
-                            name="first_name"
-                            placeholder="First Name"
-                            value={
-                              values.first_name || ` ${formState.first_name}`
-                            }
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="last_name"
-                            placeholder="Last Name"
-                            value={
-                              values.last_name || ` ${formState.last_name}`
-                            }
-                            onChange={handleChange}
-                          />
-                          {/* <input
+
+                  <Overlay usePortal={true} isOpen={toggleState}>
+                    <Card elevation={Elevation.TWO}>
+                      <form id='profileForm' onSubmit={handleSubmit}>
+                        <input
+                          name='first_name'
+                          placeholder='First Name'
+                          value={values.first_name || `${formState.first_name}`}
+                          onChange={handleChange}
+                        />
+                        <input
+                          name='last_name'
+                          placeholder='Last Name'
+                          value={values.last_name || `${formState.last_name}`}
+                          onChange={handleChange}
+                        />
+                        {/* <input
+
                           name='DOB'
                           placeholder='DOB'
                           value={values.DOB || ` ${formState.DOB}`}
                           onChange={handleChange}
                         /> */}
-                          <input
-                            name="bio"
-                            placeholder="Bio"
-                            value={values.bio || ` ${formState.bio}`}
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="condition_details"
-                            placeholder="Condition Details"
-                            value={
-                              values.condition_description ||
-                              ` ${formState.condition_description}`
-                            }
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="looking_for"
-                            placeholder="Looking For"
-                            value={data.match_gender.map(e => {
-                              return e.value;
-                            })}
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="what_ails_you"
-                            placeholder="Your Condition"
-                            value={data.conditions.map(e => {
-                              return e.value;
-                            })}
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="zip_code"
-                            placeholder="Zip Code"
-                            value={values.zip_code || ` ${formState.zip_code}`}
-                            onChange={handleChange}
-                          />
-                          <div>
-                            <Button
-                              rightIcon="arrow-right"
-                              intent="success"
-                              onClick={showForm}
-                              type="submit"
-                            >
-                              Update
-                            </Button>
-                          </div>
-                        </form>
-                      </Card>
-                    </Overlay>
-                  </div>
-                </Card>
-              </div>
-            );
+
+                        <input
+                          name='bio'
+                          placeholder='Bio'
+                          value={values.bio || `${formState.bio}`}
+                          onChange={handleChange}
+                        />
+                        <input
+                          name='condition_details'
+                          placeholder='Condition Details'
+                          value={
+                            values.condition_description ||
+                            `${formState.condition_description}`
+                          }
+                          onChange={handleChange}
+                        />
+                        <input
+                          name='looking_for'
+                          placeholder='Looking For'
+                          value={data.match_gender.map(e => {
+                            return e.value;
+                          })}
+                          onChange={handleChange}
+                        />
+                        <input
+                          name='what_ails_you'
+                          placeholder='Your Condition'
+                          value={data.conditions.map(e => {
+                            return e.value;
+                          })}
+                          onChange={handleChange}
+                        />
+                        <input
+                          name='zip_code'
+                          placeholder='Zip Code'
+                          value={values.zip_code || `${formState.zip_code}`}
+                          onChange={handleChange}
+                        />
+                        <div>
+                          <Button
+                            rightIcon='arrow-right'
+                            intent='success'
+                            onClick={showForm}
+                            type='submit'
+                          >
+                            Update
+                          </Button>
+                        </div>
+                      </form>
+                    </Card>
+                  </Overlay>
+                </div>
+              </Card>
+            </div>
+          );
           }
         }}
       />
