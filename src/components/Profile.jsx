@@ -188,7 +188,7 @@ const Profile = ({ history }) => {
               </Card>
             </div>
           );
-
+          }
         }}
       />
     </div>
