@@ -65,7 +65,7 @@ const Settings = ({ history }) => {
               <div className='container'>
                 <div className='card grey lighten-1  '>
                   <div class='card-content black-text'>
-                    <span class='card-title'>Profile</span>
+                    <span class='card-title'>Settings</span>
                     <ul className='row'>
                       <li className='col s12'>
                         <span className='red-text text-darken-2'>
@@ -105,7 +105,7 @@ const Settings = ({ history }) => {
                       icon='disable'
                       intent='danger'
                     >
-                      Delete Your Profile
+                      Delete Your Account
                     </Button>{' '}
                     {/*deletes the user profile */}
                   </div>
@@ -113,7 +113,7 @@ const Settings = ({ history }) => {
                 <div className='dropForm'>
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
-                      <form id='profileForm' onSubmit={handleSubmit}>
+                      <form id='settingForm' onSubmit={handleSubmit}>
                         <input
                           name='match_age_max'
                           placeholder='Max Age'
