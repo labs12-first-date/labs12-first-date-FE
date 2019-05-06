@@ -21,22 +21,22 @@ const App = () => {
   return (
     <BrowserRouter>
       <>
-        <Navigation />
-        <h1 className='center'>The Most Awkward Dating</h1>
+        <Navigation userNow={user} />
+        <h1 className="center">The Most Awkward Dating</h1>
         {user && (
-          <p className='center'>
+          <p className="center">
             Signed in as <em>{user.email}</em>
           </p>
         )}
         <Switch>
-          <Route exact path='/' component={Signup} />
-          <Route path='/login' component={Login} />
-          <Route path='/logout' component={Logout} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/welcome' component={Onboarding} />
-          <Route path='/settings' component={Settings} />
-          <Route path='/thunderdome' component={Thunderdome} />
+          <Route exact path="/" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/welcome" component={Onboarding} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/thunderdome" component={Thunderdome} />
           <Route component={NotFound} />
         </Switch>
       </>

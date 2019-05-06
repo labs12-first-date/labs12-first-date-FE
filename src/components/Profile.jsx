@@ -1,5 +1,5 @@
-import { FirestoreDocument } from 'react-firestore';
 import { firebase, auth } from '../firebase';
+import { FirestoreDocument } from 'react-firestore';
 import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
@@ -7,7 +7,7 @@ import React from 'react';
 import './Profile.css';
 import { Button, Card, Elevation, Overlay } from '@blueprintjs/core';
 
-const Profile = () => {
+const Profile = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   console.log(`this one => ${user.uid}`);
 
@@ -51,55 +51,65 @@ const Profile = () => {
         render={({ isLoading, data }) => {
           console.log('DATA', data);
 
-          return isLoading ? (
-            <Loading />
-          ) : (
-            <div className='box'>
-              <Card elevation={Elevation.TWO}>
-                <div className='container'>
-                  <div className='card grey lighten-1  '>
-                    <div className='card-content black-text'>
-                      <span className='card-title'>Profile</span>
-                      <ul className='row'>
-                        <li className='col s12'>
-                          <span className='red-text text-darken-2'>
-                            First Name:
-                          </span>{' '}
-                          {data.first_name}
-                        </li>
-                        <li className='col s12'>
-                          <span className='red-text text-darken-2'>
-                            Last Name:
-                          </span>{' '}
-                          {data.last_name}{' '}
-                        </li>
-                        <li className='col s12'>
-                          {/* {`Birthday: ${data.date_of_birth.toDate()}`} */}
-                        </li>
-                        <li className='col s12'>Bio: {data.bio}</li>
-                        <li className='col s12'>
-                          Condition details: {data.condition_description}
-                        </li>
-                        <li className='col s12'>Likes: {data.likes || 0}</li>
-                        <li className='col s12'>
-                          Looking for:{' '}
-                          {data.match_gender.map(e => {
-                            return e.value;
-                          })}
-                        </li>
-                        <li className='col s12'>
-                          Your contidion:{' '}
-                          {data.conditions.map(e => {
-                            return e.value;
-                          })}
-                        </li>
-                        <li className='col s12'>Zip Code: {data.zip_code}</li>
-                      </ul>
-                      <Button icon='refresh' intent='danger' onClick={showForm}>
-                        Update
-                      </Button>
+          if (isLoading) {
+            return <Loading />;
+          } else if (!data.profile_completed) {
+            history.push('/welcome');
+            window.location.reload();
+          } else {
+            return (
+              <div className="box">
+                <Card elevation={Elevation.TWO}>
+                  <div className="container">
+                    <div className="card grey lighten-1  ">
+                      <div className="card-content black-text">
+                        <span className="card-title">Profile</span>
+                        <ul className="row">
+                          <li className="col s12">
+                            <span className="red-text text-darken-2">
+                              First Name:
+                            </span>{' '}
+                            {data.first_name}
+                          </li>
+                          <li className="col s12">
+                            <span className="red-text text-darken-2">
+                              Last Name:
+                            </span>{' '}
+                            {data.last_name}{' '}
+                          </li>
+                          <li className="col s12">
+                            {`Birthday: ${data.date_of_birth}`}
+                          </li>
+                          <li className="col s12">Bio: {data.bio}</li>
+                          <li className="col s12">
+                            Condition details: {data.condition_description}
+                          </li>
+                          <li className="col s12">Likes: {data.likes || 0}</li>
+                          <li className="col s12">
+                            Looking for:{' '}
+                            {data.match_gender.map(e => {
+                              return e.value;
+                            })}
+                          </li>
+                          <li className="col s12">
+                            Your contidion:{' '}
+                            {data.conditions.map(e => {
+                              return e.value;
+                            })}
+                          </li>
+                          <li className="col s12">Zip Code: {data.zip_code}</li>
+                        </ul>
+                        <Button
+                          icon="refresh"
+                          intent="danger"
+                          onClick={showForm}
+                        >
+                          Update
+                        </Button>
+                      </div>
+
                     </div>
-                  </div>
+
 
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
@@ -117,11 +127,13 @@ const Profile = () => {
                           onChange={handleChange}
                         />
                         {/* <input
+
                           name='DOB'
                           placeholder='DOB'
                           value={values.DOB || ` ${formState.DOB}`}
                           onChange={handleChange}
                         /> */}
+
                         <input
                           name='bio'
                           placeholder='Bio'
@@ -176,6 +188,7 @@ const Profile = () => {
               </Card>
             </div>
           );
+
         }}
       />
     </div>
