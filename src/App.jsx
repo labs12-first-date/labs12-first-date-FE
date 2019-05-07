@@ -9,9 +9,14 @@ import NotFound from './components/Settings';
 import Settings from './components/Settings';
 import './App.css';
 import Thunderdome from './components/thunderDome/Deck';
+import SessionsList from './components/messaging/SessionsList';
+import Session from './components/messaging/Session';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
+
 import LocationDistance from './components/LocationDistance';
+
+
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -38,8 +43,11 @@ const App = () => {
           <Route path="/welcome" component={Onboarding} />
           <Route path="/settings" component={Settings} />
           <Route path="/thunderdome" component={Thunderdome} />
+          <Route exact path="/chats" component={SessionsList} />
+          <Route path="/chats/:chatId" component={Session} />
           <Route component={NotFound} />
         </Switch>
+        <LocationDistance />
       </>
       <LocationDistance />
     </BrowserRouter>
