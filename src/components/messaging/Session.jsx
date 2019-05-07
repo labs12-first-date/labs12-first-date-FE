@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { firebase } from '../../firebase';
+import Message from './Message';
 
 const StyledDiv = styled.div`
   color: #eee;
@@ -36,13 +36,7 @@ const Session = ({ match }) => {
     <StyledDiv>
       <ul>
         {messages.map(m => {
-          return (
-            <div key={`${m.sender}${m.timestamp.toDate()}`}>
-              <p>{m.sender}</p>
-              <p>{m.msg}</p>
-              <p>{`${m.timestamp.toDate()}`}</p>
-            </div>
-          );
+          return <Message key={m.id} message={m} seflId={userId} />;
         })}
       </ul>
     </StyledDiv>
