@@ -17,8 +17,8 @@ const Card = props => {
   const { cardTitle, onboardingStep, prompts } = data;
   const [photoValues, setphotoValues] = useState({});
 
-  const persistToFirestore = () => {
-    // TODO debounce this so we aren't making a network call on every keystroke
+  useEffect(() => {
+    // TODO don't make network call for every keystroke
     firebase
       .firestore()
       .collection('profiles')
@@ -27,12 +27,7 @@ const Card = props => {
       .then(function() {
         console.log('Document successfully written!');
       });
-  };
-
-  useEffect(() => {
-    // console.log('FORM STATE CHANGE:', formValues);
-    persistToFirestore();
-  }, [formValues]);
+  }, [formValues, user.uid]);
 
   useEffect(() => {
     if (user && user.uid) {
