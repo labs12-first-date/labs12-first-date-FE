@@ -5,24 +5,28 @@ const Session = ({ match }) => {
   const { chatId } = match.params;
   const [messages, setMessages] = useState([]);
 
-  const getMessages = async () => {
-    const snapshot = await firebase
+  const listenForMessages = () => {
+    return firebase
       .firestore()
       .collection('chatrooms')
       .doc(chatId)
-      .get();
-    setMessages(snapshot.data().chat);
+      .onSnapshot(doc => {
+        const data = doc.data().chat || [];
+        setMessages(data);
+      });
   };
 
   //  CDM
   useEffect(() => {
-    getMessages();
+    const unsubscribe = listenForMessages();
+    // clean up on unmount
+    return unsubscribe;
   }, []);
 
   // just for logging
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
+  // useEffect(() => {
+  //   console.log(messages);
+  // }, [messages]);
 
   return messages.length ? (
     <ul>
