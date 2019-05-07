@@ -5,15 +5,15 @@
 html,
 body {
   background: rgb(0, 0, 0);
-  overscroll-behavior-y: contain;
+  /* overscroll-behavior-y: contain; */
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
-  user-select: none;
+  /* height: 100%; */
+  /* width: 100%; */
+  /* user-select: none; */
   font-family: Raleway, sans-serif;
-  position: fixed;
-  overflow: hidden;
+  /* position: fixed; */
+  /* overflow: hidden; */
 }
 
 .ani1 {
