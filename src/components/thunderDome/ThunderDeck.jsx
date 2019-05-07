@@ -28,7 +28,7 @@ const ThunderDeck = ({ history }) => {
   const [profileData, setProfileData] = useState([]);
 
   const allowedZip = '10025';
-  const allowedZip1 = '19148';
+  const allowedZip1 = '19422';
   // const preferedSTDs =
   // const docRef = firebase
   //   .firestore()
@@ -47,13 +47,13 @@ const ThunderDeck = ({ history }) => {
       .firestore()
       .collection('profiles')
       .limit(5)
-      // .where('zip_code', '==', allowedZip)
-      // .where('zip_code', '==', allowedZip)
+      // .where('zip_code', '==', `allowedZip`)
+      // .where('zip_code', '==', allowedZip1)
       // .where('condition', 'array-contains', 'Herpes')
       // .orderBy('first_name')
       // .limit(4)
       // .where('gender', 'array-contains', 'Male')
-      // .where('last_name', '==', 'Basile')
+      // .where('first_name', '==', 'G')
       .get()
       .then(function(querySnapShot) {
         const potMatches = querySnapShot.docs.map(function(doc) {
