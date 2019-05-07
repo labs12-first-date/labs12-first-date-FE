@@ -3,11 +3,22 @@ import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import { auth, firebase } from '../../firebase';
 
-import Card from './Card';
+import MatchCard from './MatchCard';
 import './Deck.css';
 
 //dummyData will be moved into firestore db
-const data = {};
+const data = [
+  {
+    name: 'Chloe',
+    age: '23',
+    distance: '5 Miles',
+    bio: 'I like turtles',
+    pics: [
+      'https://firebasestorage.googleapis.com/v0/b/awk-dating.appspot.com/o/images%2F28a05b4e-fc32-438e-bb47-76f5ce469369.png?alt=media&token=48b1232c-ed3c-48ed-bca4-2aa6cc3abd62',
+      'https://firebasestorage.googleapis.com/v0/b/awk-dating.appspot.com/o/images%2F1543892b-8a97-4b68-9c95-874104cc51c0.jpeg?alt=media&token=975b0562-da02-4395-b50c-d1791a3755fd'
+    ]
+  }
+];
 
 const to = i => ({
   x: 10,
@@ -22,7 +33,7 @@ const trans = (r, s) =>
   `perspective(1500px) rotateX(20deg) rotateY(${r /
     10}deg) rotateZ(${r}deg) scale(${s})`;
 
-function Deck({ history }) {
+const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [profileState, setprofileState] = useState(null);
 
@@ -106,7 +117,7 @@ function Deck({ history }) {
   );
 
   return props.map(({ x, y, rot, scale }, i) => (
-    <Card
+    <MatchCard
       className='card'
       i={i}
       x={x}
@@ -118,6 +129,6 @@ function Deck({ history }) {
       bind={bind}
     />
   ));
-}
+};
 
-export default Deck;
+export default ThunderDeck;
