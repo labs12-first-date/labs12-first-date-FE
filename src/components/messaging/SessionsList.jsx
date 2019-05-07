@@ -1,29 +1,33 @@
 import React, { useState, useEffect, useContext } from 'react';
+import styled from 'styled-components';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+
+const StyledDiv = styled.div`
+  color: #eee;
+`;
 
 const SessionsList = () => {
   const { user } = useContext(AuthContext);
   const [sessions, setSessions] = useState(null);
 
-  const fetchSessions = async () => {
-    const snapshot = await firebase
-      .firestore()
-      .collection('profiles')
-      .doc(user.uid)
-      .get();
-    const matches = snapshot.data().matches || null;
-    setSessions(matches);
-  };
-
-  // CDM
+  // CMD
   useEffect(() => {
-    // wait until Firebase loads our user
-    if (user) {
-      fetchSessions();
-    }
-  }, [user]);
+    const listenForSessions = () => {
+      return firebase
+        .firestore()
+        .collection('profiles')
+        .doc(user.uid)
+        .onSnapshot(doc => {
+          const matches = doc.data().matches || null;
+          setSessions(matches);
+        });
+    };
+    const unsubscribe = listenForSessions();
+    // clean up on unmount
+    return unsubscribe;
+  }, [user.uid]);
 
   // just for logging
   // useEffect(() => {
@@ -31,7 +35,7 @@ const SessionsList = () => {
   // }, [sessions]);
 
   return sessions ? (
-    <div>
+    <StyledDiv>
       <h2>Chats</h2>
       <ul>
         {sessions.map(({ chat_id, match_name }) => (
@@ -40,9 +44,9 @@ const SessionsList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </StyledDiv>
   ) : (
-    <div>Loading...</div>
+    <StyledDiv>Loading...</StyledDiv>
   );
 };
 

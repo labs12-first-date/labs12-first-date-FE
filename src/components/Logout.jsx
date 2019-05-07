@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
 const Logout = ({ history }) => {
@@ -8,6 +8,8 @@ const Logout = ({ history }) => {
 
   history.replace('/');
   window.location.reload();
+
+  return null;
 };
 
 export default Logout;
