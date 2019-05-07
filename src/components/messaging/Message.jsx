@@ -23,6 +23,7 @@ const MessageStyles = styled.div`
     padding: 0.8rem 1rem;
     border-radius: ${props => (props.ownMessage ? '1rem 1rem 0 1rem' : '1rem 1rem 1rem 0;')};
     display: inline-block;
+    text-align: left;
   }
 `;
 
