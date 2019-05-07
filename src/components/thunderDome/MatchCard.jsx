@@ -90,7 +90,7 @@ const MatchCard = props => {
             <h5>{bio}</h5>,
             <h5>
               {gender.map(g => {
-                return g.value;
+                return g.value + '  ';
               })}
             </h5>
           </div>
