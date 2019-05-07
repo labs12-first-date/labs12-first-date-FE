@@ -7,18 +7,6 @@ import MatchCard from './MatchCard';
 import './Deck.css';
 
 //dummyData will be moved into firestore db
-const data = [
-  {
-    name: 'Chloe',
-    age: '23',
-    distance: '5 Miles',
-    bio: 'I like turtles',
-    pics: [
-      'https://firebasestorage.googleapis.com/v0/b/awk-dating.appspot.com/o/images%2F28a05b4e-fc32-438e-bb47-76f5ce469369.png?alt=media&token=48b1232c-ed3c-48ed-bca4-2aa6cc3abd62',
-      'https://firebasestorage.googleapis.com/v0/b/awk-dating.appspot.com/o/images%2F1543892b-8a97-4b68-9c95-874104cc51c0.jpeg?alt=media&token=975b0562-da02-4395-b50c-d1791a3755fd'
-    ]
-  }
-];
 
 const to = i => ({
   x: 10,
@@ -36,6 +24,24 @@ const trans = (r, s) =>
 const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [profileState, setprofileState] = useState(null);
+  const [profileData, setProfileData] = useState([]);
+
+  useEffect(() => {
+    const docRef = firebase
+      .firestore()
+      .collection('profiles')
+      .doc('0tjJCWTHjIgqUCRKGe9w');
+    docRef
+      .get()
+      .then(function(doc) {
+        setProfileData(doc.data());
+      })
+      .catch(function(error) {
+        console.log('Error getting document:', error);
+      });
+  }, []);
+
+  console.log('ProfileData here', profileData);
 
   useEffect(() => {
     const docRef = firebase
@@ -66,7 +72,7 @@ const ThunderDeck = ({ history }) => {
 
   const [gone] = useState(() => new Set());
 
-  const [props, set] = useSprings(data.length, i => ({
+  const [props, set] = useSprings(profileData.length, i => ({
     ...to(i),
     from: from(i)
   }));
@@ -109,7 +115,7 @@ const ThunderDeck = ({ history }) => {
         };
       });
 
-      if (!down && gone.size === data.length)
+      if (!down && gone.size === profileData.length)
         console.log(
           'Cards are done. Let the DB know this person is ready to date!'
         );
@@ -118,14 +124,14 @@ const ThunderDeck = ({ history }) => {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <MatchCard
-      className='card'
+      className="card"
       i={i}
       x={x}
       y={y}
       rot={rot}
       scale={scale}
       trans={trans}
-      data={data}
+      data={profileData}
       bind={bind}
     />
   ));

@@ -8,7 +8,6 @@ const Loading = () => {
     <div>
       {' '}
       <PacmanLoader
-        css={override}
         sizeUnit={'px'}
         size={150}
         color={'#123abc'}
