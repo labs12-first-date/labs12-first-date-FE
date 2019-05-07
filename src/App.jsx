@@ -13,6 +13,7 @@ import SessionsList from './components/messaging/SessionsList';
 import Session from './components/messaging/Session';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
+import LocationDistance from './components/Location/Location';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/chats/:chatId" component={Session} />
           <Route component={NotFound} />
         </Switch>
+        <LocationDistance />
       </>
     </BrowserRouter>
   );
