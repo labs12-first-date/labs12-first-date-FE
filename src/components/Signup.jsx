@@ -1,8 +1,7 @@
 import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase';
 import useForm from '../hooks/useForm';
-import { auth } from '../firebase';
+import { auth, firebase } from '../firebase';
 import { withRouter } from 'react-router-dom';
 import './Signup.css';
 

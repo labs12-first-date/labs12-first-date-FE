@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 import { auth, firebase } from '../../firebase';
-// import useForm from '../../hooks/useForm';
 import { ProgressBar } from '@blueprintjs/core';
-
-// import DatePicker from 'react-datepicker';
 import DayPicker from 'react-day-picker/DayPickerInput';
-
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
-import moment from 'moment';
 import 'react-day-picker/lib/style.css';
 
 const Card = props => {
@@ -21,10 +16,9 @@ const Card = props => {
   const [user] = useState(auth.getCurrentUser());
   const { cardTitle, onboardingStep, prompts } = data;
   const [photoValues, setphotoValues] = useState({});
-  const [photoUrl, setphotoUrl] = useState({});
 
-  const persistToFirestore = () => {
-    // TODO debounce this so we aren't making a network call on every keystroke
+  useEffect(() => {
+    // TODO don't make network call for every keystroke
     firebase
       .firestore()
       .collection('profiles')
@@ -33,12 +27,7 @@ const Card = props => {
       .then(function() {
         console.log('Document successfully written!');
       });
-  };
-
-  useEffect(() => {
-    // console.log('FORM STATE CHANGE:', formValues);
-    persistToFirestore();
-  }, [formValues]);
+  }, [formValues, user.uid]);
 
   useEffect(() => {
     if (user && user.uid) {
@@ -111,9 +100,7 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
@@ -123,9 +110,7 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'text_area':
@@ -135,9 +120,7 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'multi_select':
@@ -145,9 +128,7 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value =>
-              handleChange({ field: p.field_name, value: value })
-            }
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
@@ -163,9 +144,7 @@ const Card = props => {
           //   placeholderText={p.input_placeholder}
           //   dateFormat='yyyy/MM/dd'
           // />
-          <DayPicker
-            onDayClick={value => handleChange({ field: p.field_name, value })}
-          />
+          <DayPicker onDayClick={value => handleChange({ field: p.field_name, value })} />
         );
       case 'image':
         return (
@@ -217,11 +196,7 @@ const Card = props => {
             ))}
 
             <br />
-            <ProgressBar
-              animate={false}
-              stripes={false}
-              value={onboardingStep / totalSteps}
-            />
+            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
           </form>
         </div>
       </animated.div>
