@@ -7,23 +7,23 @@ const SessionsList = () => {
   const { user } = useContext(AuthContext);
   const [sessions, setSessions] = useState(null);
 
-  const fetchSessions = async () => {
-    const snapshot = await firebase
+  const listenForSessions = () => {
+    return firebase
       .firestore()
       .collection('profiles')
       .doc(user.uid)
-      .get();
-    const matches = snapshot.data().matches || null;
-    setSessions(matches);
+      .onSnapshot(doc => {
+        const matches = doc.data().matches || null;
+        setSessions(matches);
+      });
   };
 
-  // CDM
+  // CMD
   useEffect(() => {
-    // wait until Firebase loads our user
-    if (user) {
-      fetchSessions();
-    }
-  }, [user]);
+    const unsubscribe = listenForSessions();
+    // clean up on unmount
+    return unsubscribe;
+  }, []);
 
   // just for logging
   // useEffect(() => {
