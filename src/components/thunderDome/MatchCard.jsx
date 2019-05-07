@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 import { auth } from '../../firebase';
+import Loading from '../Loading';
 import firebase from 'firebase';
 // import useForm from '../../hooks/useForm';
 // import { MenuItem } from '@blueprintjs/core';
@@ -21,7 +22,8 @@ import Carousel from 'nuka-carousel';
 const MatchCard = props => {
   const [formValues, setFormValues] = useState({});
   const [user] = useState(auth.getCurrentUser());
-  console.log();
+  console.log('Props on matchcard', props);
+  console.log('this is first name', props.data.first_name);
 
   // just for logging / sanity
   // useEffect(() => {
@@ -43,38 +45,66 @@ const MatchCard = props => {
   };
 
   const { i, x, y, rot, scale, trans, bind, data } = props;
-  const { name, age, distance, bio, pics } = data[i];
+  console.log('More props', props);
 
+  const {
+    first_name,
+    date_of_birth,
+    zip_code,
+    bio,
+    gender,
+    profile_photo
+  } = data;
+  console.log('This is pics', profile_photo);
+
+  console.log(data);
   // const renderInput = p => {
-  return (
-    <animated.div
-      className='ani1'
-      key={i}
-      style={{
-        transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
-      }}
-    >
+  if (data === []) {
+    return <Loading />;
+  } else {
+    return (
       <animated.div
-        className='ani2'
-        {...bind(i)}
+        className="ani1"
+        key={i}
         style={{
-          transform: interpolate([rot, scale], trans)
+          transform: interpolate(
+            [x, y],
+            (x, y) => `translate3d(${x}px,${y}px,0)`
+          )
         }}
       >
-        <div className='card'>
-          <Carousel>
-            {pics.map((pic, index) => (
-              <img src={pic} key={index} alt='profilePicture' />
-            ))}
-          </Carousel>
-          <h2>{name},</h2>
-          <h2>{age}</h2>
-          <h5>{distance}</h5>
-          <h5>{bio}</h5>
-        </div>
+        <animated.div
+          className="ani2"
+          {...bind(i)}
+          style={{
+            transform: interpolate([rot, scale], trans)
+          }}
+        >
+          <div className="card">
+            <Carousel>
+              {<img src={profile_photo} alt="profilePicture" />}
+            </Carousel>
+            <h2>
+              {first_name},
+              <h2>
+                {date_of_birth},
+                <h5>
+                  {zip_code}
+                  <h5>{bio}</h5>,
+                  <h5>
+                    {gender.map(g => {
+                      return g.label;
+                    })}
+                  </h5>
+                </h5>
+                ,
+              </h2>
+            </h2>
+          </div>
+        </animated.div>
       </animated.div>
-    </animated.div>
-  );
+    );
+  }
 };
 // };
 
