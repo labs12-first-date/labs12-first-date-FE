@@ -53,6 +53,7 @@ const Session = ({ match }) => {
       return db
         .collection(messagesCollectionPath)
         .orderBy('timestamp', 'asc')
+        .limit(100)
         .onSnapshot(querySnapshot => {
           const messagesArray = querySnapshot.docs.map(getSnapshotData);
           setMessages(messagesArray);
