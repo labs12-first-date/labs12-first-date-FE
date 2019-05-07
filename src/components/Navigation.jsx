@@ -1,14 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { FirestoreDocument } from 'react-firestore';
 import Loading from './Loading';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import './Navigation.css';
 const Navigation = () => {
-  const [formState, setformState] = useState({});
   const { user } = useContext(AuthContext);
-
-  console.log('more form state', formState);
 
   return (
     <nav>
@@ -17,7 +14,7 @@ const Navigation = () => {
           path={`profiles/${user.uid}`}
           render={({ isLoading, data }) => {
             if (isLoading) {
-              console.log('This is the nav uid', user.uid);
+              // console.log('This is the nav uid', user.uid);
 
               return <Loading />;
             } else if (!data.profile_completed) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './CardTh.css';
 // import PropTypes from 'prop-types';
 // import { animated, interpolate } from 'react-spring';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { firebase, auth } from '../../firebase';
+import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
 
