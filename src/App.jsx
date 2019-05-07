@@ -8,7 +8,7 @@ import Signup from './components/Signup';
 import NotFound from './components/Settings';
 import Settings from './components/Settings';
 import './App.css';
-import Thunderdome from './components/thunderDome/ThunderDeck';
+import Thunderdome from './components/thunderDome/ThunderDeck.jsx';
 import SessionsList from './components/messaging/SessionsList';
 import Session from './components/messaging/Session';
 import Profile from './components/Profile';
