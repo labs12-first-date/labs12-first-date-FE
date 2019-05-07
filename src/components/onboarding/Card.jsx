@@ -19,15 +19,17 @@ const Card = props => {
 
   useEffect(() => {
     // TODO don't make network call for every keystroke
-    firebase
-      .firestore()
-      .collection('profiles')
-      .doc(user.uid)
-      .update(formValues)
-      .then(function() {
-        console.log('Document successfully written!');
-      });
-  }, [formValues, user.uid]);
+    if (user) {
+      firebase
+        .firestore()
+        .collection('profiles')
+        .doc(user.uid)
+        .update(formValues)
+        .then(function() {
+          console.log('Document successfully written!');
+        });
+    }
+  }, [formValues, user]);
 
   useEffect(() => {
     if (user && user.uid) {
