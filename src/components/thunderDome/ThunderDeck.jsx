@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import { auth, firebase } from '../../firebase';
+import Loading from '../Loading';
 
 import MatchCard from './MatchCard';
 import './Deck.css';
@@ -26,18 +27,40 @@ const ThunderDeck = ({ history }) => {
   const [profileState, setprofileState] = useState(null);
   const [profileData, setProfileData] = useState([]);
 
+  const allowedZip = '10025';
+  const allowedZip1 = '19148';
+  // const preferedSTDs =
+  // const docRef = firebase
+  //   .firestore()
+  //   .collection('profiles')
+  //   .doc('0tjJCWTHjIgqUCRKGe9w');
+  // docRef
+  //   .get()
+  //   .then(function(doc) {
+  //     setProfileData(doc.data());
+  //   })
+  //   .catch(function(error) {
+  //     console.log('Error getting document:', error);
+  //   });
   useEffect(() => {
-    const docRef = firebase
+    const profiles = firebase
       .firestore()
       .collection('profiles')
-      .doc('0tjJCWTHjIgqUCRKGe9w');
-    docRef
+      .limit(5)
+      // .where('zip_code', '==', allowedZip)
+      // .where('zip_code', '==', allowedZip)
+      // .where('condition', 'array-contains', 'Herpes')
+      // .orderBy('first_name')
+      // .limit(4)
+      // .where('gender', 'array-contains', 'Male')
+      // .where('last_name', '==', 'Basile')
       .get()
-      .then(function(doc) {
-        setProfileData(doc.data());
-      })
-      .catch(function(error) {
-        console.log('Error getting document:', error);
+      .then(function(querySnapShot) {
+        const potMatches = querySnapShot.docs.map(function(doc) {
+          console.log('DATAAAA', doc.data());
+          return doc.data();
+        });
+        setProfileData(potMatches);
       });
   }, []);
 
@@ -60,7 +83,7 @@ const ThunderDeck = ({ history }) => {
       });
   }, []);
 
-  console.log('BETWEEN', profileState);
+  // console.log('BETWEEN', profileState);
 
   useEffect(() => {
     if (profileState && !profileState.profile_completed) {
@@ -121,20 +144,23 @@ const ThunderDeck = ({ history }) => {
         );
     }
   );
-
-  return props.map(({ x, y, rot, scale }, i) => (
-    <MatchCard
-      className="card"
-      i={i}
-      x={x}
-      y={y}
-      rot={rot}
-      scale={scale}
-      trans={trans}
-      data={profileData}
-      bind={bind}
-    />
-  ));
+  console.log('PDATA', profileData);
+  if (profileData) {
+    return props.map(({ x, y, rot, scale }, i) => (
+      <MatchCard
+        className='card'
+        i={i}
+        x={x}
+        y={y}
+        rot={rot}
+        scale={scale}
+        trans={trans}
+        data={profileData[i]}
+        bind={bind}
+      />
+    ));
+  } else {
+    return <Loading />;
+  }
 };
-
 export default ThunderDeck;
