@@ -19,16 +19,13 @@ const Session = ({ match }) => {
 
   useEffect(() => {
     const listenForMessages = () => {
-      return (
-        firebase
-          .firestore()
-          .collection(`chatrooms/${chatId}/messages`)
-          // .doc(chatId)
+      return db
+        .collection(messagesCollectionPath)
+        .orderBy('timestamp', 'asc')
           .onSnapshot(querySnapshot => {
-            const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-            setMessages(data);
-          })
-      );
+          const messagesArray = querySnapshot.docs.map(getSnapshotData);
+          setMessages(messagesArray);
+        });
     };
     const unsubscribe = listenForMessages();
     // clean up on unmount
