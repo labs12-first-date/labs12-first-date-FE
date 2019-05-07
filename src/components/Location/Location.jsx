@@ -1,35 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Loading from '../Loading';
 
 const LocationDistance = () => {
   const [location, setLocation] = useState(null);
 
-  useEffect(async () => {
-    const result = await axios(
-      'https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=32927&minimumradius=0&maximumradius=10&key=DEMOAPIKEY',
-    );
-    setLocation(result.data);
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios(
+        'https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=32927&minimumradius=0&maximumradius=10&key=DEMOAPIKEY'
+      );
+      setLocation(result.data);
+    };
+    getData();
   }, []);
 
-  
-  {if (!location) {
-    return (
+  return !location ? (
+    <Loading />
+  ) : (
     <div>
-        {/* <p>There is no location!!!</p> */}
-        {console.log('before useEffect', location)}
+      {/* <p>Location does exist!!!</p> */}
+      {console.log(
+        'after useEffect',
+        location.DataList.map(data => {
+          return data.Code;
+        })
+      )}
     </div>
-    )
-  } else {
-    return (
-        <div>
-            {/* <p>Location does exist!!!</p> */}
-            {console.log('after useEffect', location.DataList.map(data => {
-                return data.Code;
-            }))}
-        </div>
-        )
-  }}
-}
+  );
+};
 
-export default LocationDistance;  
+export default LocationDistance;
