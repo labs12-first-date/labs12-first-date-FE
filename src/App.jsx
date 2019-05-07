@@ -8,7 +8,7 @@ import Signup from './components/Signup';
 import NotFound from './components/Settings';
 import Settings from './components/Settings';
 import './App.css';
-import Thunderdome from './components/thunderDome/Deck';
+import Thunderdome from './components/thunderDome/ThunderDeck';
 import SessionsList from './components/messaging/SessionsList';
 import Session from './components/messaging/Session';
 import Profile from './components/Profile';
@@ -25,23 +25,23 @@ const App = () => {
     <BrowserRouter>
       <>
         <Navigation userNow={user} />
-        <h1 className="center">The Most Awkward Dating</h1>
+        <h1 className='center'>The Most Awkward Dating</h1>
         {user && (
-          <p className="center">
+          <p className='center'>
             Signed in as <em>{user.email}</em>
           </p>
         )}
         <Switch>
-          <Route exact path="/" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/welcome" component={Onboarding} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/thunderdome" component={Thunderdome} />
-          <Route exact path="/chats" component={SessionsList} />
-          <Route path="/chats/:chatId" component={Session} />
+          <Route exact path='/' component={Signup} />
+          <Route path='/login' component={Login} />
+          <Route path='/logout' component={Logout} />
+          <Route path='/profile' component={Profile} />
+          <Route path='/signup' component={Signup} />
+          <Route path='/welcome' component={Onboarding} />
+          <Route path='/settings' component={Settings} />
+          <Route path='/thunderdome' component={Thunderdome} />
+          <Route exact path='/chats' component={SessionsList} />
+          <Route path='/chats/:chatId' component={Session} />
           <Route component={NotFound} />
         </Switch>
         <LocationDistance />
