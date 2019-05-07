@@ -4,6 +4,8 @@ import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 
+const db = firebase.firestore();
+
 const StyledDiv = styled.div`
   color: #eee;
 `;
@@ -15,8 +17,7 @@ const SessionsList = () => {
   // CMD
   useEffect(() => {
     const listenForSessions = () => {
-      return firebase
-        .firestore()
+      return db
         .collection('profiles')
         .doc(user.uid)
         .onSnapshot(doc => {
@@ -25,14 +26,15 @@ const SessionsList = () => {
         });
     };
     const unsubscribe = listenForSessions();
+    console.log(user.uid);
     // clean up on unmount
     return unsubscribe;
-  }, [user.uid]);
+  }, []);
 
   // just for logging
-  // useEffect(() => {
-  //   console.dir(sessions);
-  // }, [sessions]);
+  useEffect(() => {
+    console.dir(sessions);
+  }, [sessions]);
 
   return sessions ? (
     <StyledDiv>
