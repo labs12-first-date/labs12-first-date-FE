@@ -11,6 +11,7 @@ import './App.css';
 import Thunderdome from './components/thunderDome/Deck';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
+import LocationDistance from './components/LocationDistance';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const App = () => {
           <Route component={NotFound} />
         </Switch>
       </>
+      <LocationDistance />
     </BrowserRouter>
   );
 };
