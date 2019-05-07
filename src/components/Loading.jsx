@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PacmanLoader } from 'react-spinners';
 // Another way to import
-import PacmanLoader from 'react-spinners/PacmanLoader';
 
 const Loading = () => {
   const [loader] = useState(true);
