@@ -43,8 +43,8 @@ const MessageStyles = styled.div`
   }
 `;
 
-const Message = ({ data, senderProfile, ownMessage }) => {
-  const { timestamp } = data;
+const Message = ({ messageData, senderProfile, ownMessage }) => {
+  const { timestamp } = messageData;
 
   const relativeTime = timestamp
     ? moment(timestamp.toDate()).fromNow()
@@ -57,7 +57,7 @@ const Message = ({ data, senderProfile, ownMessage }) => {
           <img src={senderProfile.profile_picture} alt={senderProfile.first_name} />
         </div>
         <div className="sender">{senderProfile.first_name}</div>
-        <div className="content">{data.msg}</div>
+        <div className="content">{messageData.msg}</div>
         <div className="time">{relativeTime}</div>
       </div>
     </MessageStyles>

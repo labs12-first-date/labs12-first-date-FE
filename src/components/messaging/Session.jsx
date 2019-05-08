@@ -132,9 +132,13 @@ const Session = ({ match }) => {
               const ownUserId = user.uid;
               const ownMessage = msg.sender_id === ownUserId;
               const sender = ownMessage ? ownProfile : matchProfile;
-              console.log(ownUserId, ownMessage, msg, sender);
               return (
-                <Message key={msg.id} data={msg} senderProfile={sender} ownMessage={ownMessage} />
+                <Message
+                  key={msg.id}
+                  messageData={msg}
+                  senderProfile={sender}
+                  ownMessage={ownMessage}
+                />
               );
             })}
           </div>
