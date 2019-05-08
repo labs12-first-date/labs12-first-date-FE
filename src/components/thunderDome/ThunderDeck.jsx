@@ -27,8 +27,8 @@ const ThunderDeck = ({ history }) => {
   const [profileState, setprofileState] = useState(null);
   const [profileData, setProfileData] = useState([]);
 
-  const allowedZip = '10025';
-  const allowedZip1 = '19422';
+  // const allowedZip = '10025';
+  // const allowedZip1 = '19422';
   // const preferedSTDs =
   // const docRef = firebase
   //   .firestore()
@@ -42,13 +42,26 @@ const ThunderDeck = ({ history }) => {
   //   .catch(function(error) {
   //     console.log('Error getting document:', error);
   //   });
+
+  const zipQuery = doc => {
+    const allowedZips = [10025, 19422, 10010];
+    const mm = doc.map(p => {
+      if (allowedZips.includes(p.zip_code)) {
+        return p;
+      } else {
+        console.log('no zip match');
+      }
+    });
+    setProfileData(mm);
+  };
+
   useEffect(() => {
     const profiles = firebase
       .firestore()
       .collection('profiles')
       .limit(5)
       // .where('zip_code', '==', `allowedZip`)
-      // .where('zip_code', '==', allowedZip1)
+      // .where('zip_code', '==', allowedZip)
       // .where('condition', 'array-contains', 'Herpes')
       // .orderBy('first_name')
       // .limit(4)
@@ -57,10 +70,11 @@ const ThunderDeck = ({ history }) => {
       .get()
       .then(function(querySnapShot) {
         const potMatches = querySnapShot.docs.map(function(doc) {
-          console.log('DATAAAA', doc.data());
           return doc.data();
         });
-        setProfileData(potMatches);
+        zipQuery(potMatches);
+        // setProfileData(potMatches);
+        // setProfileData(p);
       });
   }, []);
 
@@ -82,8 +96,6 @@ const ThunderDeck = ({ history }) => {
         history.replace('/welcome');
       });
   }, []);
-
-  // console.log('BETWEEN', profileState);
 
   useEffect(() => {
     if (profileState && !profileState.profile_completed) {
