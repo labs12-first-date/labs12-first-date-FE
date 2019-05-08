@@ -12,8 +12,8 @@ const StyledContainer = styled.div`
   margin: 1rem auto;
   font-size: 1.25rem;
   max-width: 60rem;
+  color: #eee;
   & > div {
-    color: #eee;
     background: #1c242f;
     margin: 0 1rem;
     border-radius: 1.5rem;
@@ -36,6 +36,7 @@ const Session = ({ match }) => {
   const messagesCollectionPath = `chatrooms/${chatId}/messages`;
   const user = auth.getCurrentUser();
   const [messages, setMessages] = useState([]);
+  const [participants, setParticipants] = useState(null);
   const initialView = useRef(true);
   const messageStreamContainer = useRef(null);
   const shouldScroll = useRef(false);
@@ -46,8 +47,35 @@ const Session = ({ match }) => {
   // first name for both
 
   // CDM
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    const getProfile = async userId => {
+      const snapshot = await db
+        .collection('profiles')
+        .doc(userId)
+        .get();
+      return snapshot.data();
+    };
 
+    const getSessionData = async () => {
+      const ownProfile = await getProfile(user.uid);
+      const matchId = ownProfile.matches.find(m => m.chat_id === chatId).match_id;
+      const matchProfile = await getProfile(matchId);
+      setParticipants({
+        ownProfile: { ...ownProfile, uid: user.uid },
+        matchProfile: { ...matchProfile, uid: matchId }
+      });
+    };
+
+    if (user) {
+      getSessionData();
+    }
+  }, [user, chatId]);
+
+  useEffect(() => {
+    console.log(participants);
+  }, [participants]);
+
+  // live-stream new messages
   useEffect(() => {
     const listenForMessages = () => {
       return db
@@ -64,16 +92,16 @@ const Session = ({ match }) => {
     return unsubscribe;
   }, [messagesCollectionPath]);
 
-  useEffect(() => {
-    console.log(user.uid);
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user.uid);
+  // }, [user]);
 
   // fancy stuff to keep the chat window scrolled to the bottom
   useEffect(() => {
     const container = messageStreamContainer.current;
     let firstView = initialView.current;
 
-    if (container) {
+    if (container && participants) {
       shouldScroll.current =
         container.scrollTop + container.clientHeight === container.scrollHeight;
       if (firstView) {
@@ -83,7 +111,7 @@ const Session = ({ match }) => {
         container.scrollTop = container.scrollHeight;
       }
     }
-  }, [messages]);
+  }, [messages, participants]);
 
   const sendMessage = msg => {
     db.collection(messagesCollectionPath).add({
@@ -93,22 +121,33 @@ const Session = ({ match }) => {
     });
   };
 
-  const okToRender = messages.length && user;
-
-  return okToRender ? (
+  return participants ? (
     <StyledContainer>
       <div>
-        <h2>Chat with ...</h2>
-        <div className="message-stream" ref={messageStreamContainer}>
-          {messages.map(m => {
-            return <Message key={m.id} message={m} selfId={user.uid} />;
-          })}
-        </div>
+        <h2>Chat with {participants.matchProfile.first_name}</h2>
+        {messages.length ? (
+          <div className="message-stream" ref={messageStreamContainer}>
+            {messages.map(msg => {
+              const { ownProfile, matchProfile } = participants;
+              const ownUserId = user.uid;
+              const ownMessage = msg.sender_id === ownUserId;
+              const sender = ownMessage ? ownProfile : matchProfile;
+              console.log(ownUserId, ownMessage, msg, sender);
+              return (
+                <Message key={msg.id} data={msg} senderProfile={sender} ownMessage={ownMessage} />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="welcome-message">
+            <div>Don't be shy! Strike up a conversation with ...</div>
+          </div>
+        )}
         <MessageInput send={sendMessage} />
       </div>
     </StyledContainer>
   ) : (
-    <div>Don't be shy! Start a conversation with ...</div>
+    <StyledContainer>Loading...</StyledContainer>
   );
 };
 
