@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 import { auth, firebase } from '../../firebase';
 import { ProgressBar } from '@blueprintjs/core';
-import DayPicker from 'react-day-picker/DayPickerInput';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
