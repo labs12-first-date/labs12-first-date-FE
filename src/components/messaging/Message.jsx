@@ -18,6 +18,12 @@ const MessageStyles = styled.div`
     font-size: 0.8em;
     color: #4f5f6f;
   }
+  .sender {
+    margin-bottom: 0.25rem;
+  }
+  .time {
+    margin-top: 0.25rem;
+  }
   .content {
     background: ${props => (props.ownMessage ? '#273342' : '#4f5f6f')};
     padding: 0.8rem 1rem;
@@ -25,21 +31,33 @@ const MessageStyles = styled.div`
     display: inline-block;
     text-align: left;
   }
+  .sender-photo {
+    img {
+      margin: ${props => (props.ownMessage ? '0 0 0 auto' : '0 auto 0 0')};
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
 `;
 
-const Message = ({ message, selfId }) => {
-  const { timestamp } = message;
+const Message = ({ data, senderProfile, ownMessage }) => {
+  const { timestamp } = data;
 
   const relativeTime = timestamp
     ? moment(timestamp.toDate()).fromNow()
     : moment(Date.now()).fromNow();
 
-  const ownMessage = message.sender_id === selfId;
   return (
     <MessageStyles ownMessage={ownMessage}>
       <div className="content-container">
-        <div className="sender">UID {message.sender_id}</div>
-        <div className="content">{message.msg}</div>
+        <div className="sender-photo">
+          <img src={senderProfile.profile_picture} alt={senderProfile.first_name} />
+        </div>
+        <div className="sender">{senderProfile.first_name}</div>
+        <div className="content">{data.msg}</div>
         <div className="time">{relativeTime}</div>
       </div>
     </MessageStyles>
