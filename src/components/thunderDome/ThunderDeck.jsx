@@ -41,64 +41,64 @@ const ThunderDeck = ({ history }) => {
   //     console.log('Error getting document:', error);
   //   });
 
-  const zipQuery = doc => {
-    const allowedZips = [10025, 19422, 10010];
-    const allowedCond = ['Genital Warts', 'AIDS'];
-    const mm = doc.map(p => {
-      console.log('CONDITIONS', p.condition);
-      const x = p.condition;
-      x.map(y => {
-        console.log(y.value);
-        if (allowedCond.includes(y.value)) {
-          return p;
-        }
-        // above lets us grab the condition from the crazy data structure
-        // we need to do the same for gender
-        // need to move below if statement into here and only return 1 p
-      });
-      if (allowedZips.includes(p.zip_code)) {
-        return p;
-      } else {
-        // discard that profile and move to next
-        console.log('no zip match');
-      }
-    });
-    setProfileData(mm);
-  };
+  // const zipQuery = doc => {
+  //   const allowedZips = [10025, 19422, 10010];
+  //   const allowedCond = ['Genital Warts', 'AIDS'];
+  //   const mm = doc.map(p => {
+  //     console.log('CONDITIONS', p.condition);
+  //     const x = p.condition;
+  //     x.map(y => {
+  //       console.log(y.value);
+  //       if (allowedCond.includes(y.value)) {
+  //         return p;
+  //       }
+  //       // above lets us grab the condition from the crazy data structure
+  //       // we need to do the same for gender
+  //       // need to move below if statement into here and only return 1 p
+  //     });
+  //     if (allowedZips.includes(p.zip_code)) {
+  //       return p;
+  //     } else {
+  //       // discard that profile and move to next
+  //       console.log('no zip match');
+  //     }
+  //   });
+  //   setProfileData(mm);
+  // };
 
-  useEffect(() => {
-    const profiles = firebase
-      .firestore()
-      .collection('profiles')
-      .limit(5)
-      // .where('zip_code', '==', `allowedZip`)
-      // .where('zip_code', '==', allowedZip)
-      // .where('condition', 'array-contains', 'Herpes')
-      // .orderBy('first_name')
-      // .limit(4)
-      // .where('gender', '==', '{label: Male, value: Male}')
-      // .where('first_name', '==', 'G')
-      .get()
-      .then(function(querySnapShot) {
-        const potMatches = querySnapShot.docs.map(function(doc) {
-          return doc.data();
-        });
-        // MATCHING LOGIC
-        //.where('age', '>=', match_min_age)
-        //.where('age', '<=', match_max_age)
-        // check if user swipes >= limit
-        // for premium we will set swipes at 8000 that shouldnt be reached
-        // True => Display Card to upgrade
-        // False continue below
-        // SEND results to matching function
-        // skip skipped and liked
-        // Location
-        // Gender
-        // Condition
-        zipQuery(potMatches);
-        // setProfileData(potMatches);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const profiles = firebase
+  //     .firestore()
+  //     .collection('profiles')
+  //     .limit(5)
+  //     // .where('zip_code', '==', `allowedZip`)
+  //     // .where('zip_code', '==', allowedZip)
+  //     // .where('condition', 'array-contains', 'Herpes')
+  //     // .orderBy('first_name')
+  //     // .limit(4)
+  //     // .where('gender', '==', '{label: Male, value: Male}')
+  //     // .where('first_name', '==', 'G')
+  //     .get()
+  //     .then(function(querySnapShot) {
+  //       const potMatches = querySnapShot.docs.map(function(doc) {
+  //         return doc.data();
+  //       });
+  //       // MATCHING LOGIC
+  //       //.where('age', '>=', match_min_age)
+  //       //.where('age', '<=', match_max_age)
+  //       // check if user swipes >= limit
+  //       // for premium we will set swipes at 8000 that shouldnt be reached
+  //       // True => Display Card to upgrade
+  //       // False continue below
+  //       // SEND results to matching function
+  //       // skip skipped and liked
+  //       // Location
+  //       // Gender
+  //       // Condition
+  //       zipQuery(potMatches);
+  //       // setProfileData(potMatches);
+  //     });
+  // }, []);
 
   console.log('ProfileData here', profileData);
 

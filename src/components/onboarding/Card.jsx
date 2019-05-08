@@ -102,7 +102,9 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'number':
@@ -112,7 +114,9 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'text_area':
@@ -122,7 +126,9 @@ const Card = props => {
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'multi_select':
@@ -130,7 +136,9 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value => handleChange({ field: p.field_name, value: value })}
+            onChange={value =>
+              handleChange({ field: p.field_name, value: value })
+            }
             options={p.choices}
             isMulti
           />
@@ -139,14 +147,17 @@ const Card = props => {
       case 'date_input':
         console.log('This is the time', formValues);
         return (
-          // <DatePicker
-          //   selected={formValues[p.field_name]}
-          //   onChange={value => handleChange({ field: p.field_name, value })}
-          //   minDate={moment().subtract(18, 'years')}
-          //   placeholderText={p.input_placeholder}
-          //   dateFormat='yyyy/MM/dd'
-          // />
-          <DayPicker onDayClick={value => handleChange({ field: p.field_name, value })} />
+          <input
+            type="text"
+            placeholder={p.input_placeholder}
+            name={p.field_name}
+            value={formValues[p.field_name] || ''}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
+            min="18"
+            max="101"
+          />
         );
       case 'image':
         return (
@@ -198,7 +209,11 @@ const Card = props => {
             ))}
 
             <br />
-            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
+            <ProgressBar
+              animate={false}
+              stripes={false}
+              value={onboardingStep / totalSteps}
+            />
           </form>
         </div>
       </animated.div>
