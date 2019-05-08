@@ -29,7 +29,7 @@ const SessionsList = () => {
     console.log(user.uid);
     // clean up on unmount
     return unsubscribe;
-  }, []);
+  }, [user.uid]);
 
   // just for logging
   useEffect(() => {
