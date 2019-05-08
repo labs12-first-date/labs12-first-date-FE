@@ -27,7 +27,8 @@ const MessageStyles = styled.div`
   .content {
     background: ${props => (props.ownMessage ? '#273342' : '#4f5f6f')};
     padding: 0.8rem 1rem;
-    border-radius: ${props => (props.ownMessage ? '1rem 1rem 0 1rem' : '1rem 1rem 1rem 0;')};
+    border-radius: ${props =>
+      props.ownMessage ? '1rem 1rem 0 1rem' : '1rem 1rem 1rem 0;'};
     display: inline-block;
     text-align: left;
   }
@@ -54,7 +55,10 @@ const Message = ({ messageData, senderProfile, ownMessage }) => {
     <MessageStyles ownMessage={ownMessage}>
       <div className="content-container">
         <div className="sender-photo">
-          <img src={senderProfile.profile_picture} alt={senderProfile.first_name} />
+          <img
+            src={senderProfile.profile_picture}
+            alt={senderProfile.first_name}
+          />
         </div>
         <div className="sender">{senderProfile.first_name}</div>
         <div className="content">{messageData.msg}</div>

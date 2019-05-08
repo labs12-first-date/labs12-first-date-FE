@@ -18,7 +18,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
@@ -41,64 +42,64 @@ const ThunderDeck = ({ history }) => {
   //     console.log('Error getting document:', error);
   //   });
 
-  const zipQuery = doc => {
-    const allowedZips = [10025, 19422, 10010];
-    const allowedCond = ['Genital Warts', 'AIDS'];
-    const mm = doc.map(p => {
-      console.log('CONDITIONS', p.condition);
-      const x = p.condition;
-      x.map(y => {
-        console.log(y.value);
-        if (allowedCond.includes(y.value)) {
-          return p;
-        }
-        // above lets us grab the condition from the crazy data structure
-        // we need to do the same for gender
-        // need to move below if statement into here and only return 1 p
-      });
-      if (allowedZips.includes(p.zip_code)) {
-        return p;
-      } else {
-        // discard that profile and move to next
-        console.log('no zip match');
-      }
-    });
-    setProfileData(mm);
-  };
+  // const zipQuery = doc => {
+  //   const allowedZips = [10025, 19422, 10010];
+  //   const allowedCond = ['Genital Warts', 'AIDS'];
+  //   const mm = doc.map(p => {
+  //     console.log('CONDITIONS', p.condition);
+  //     const x = p.condition;
+  //     x.map(y => {
+  //       console.log(y.value);
+  //       if (allowedCond.includes(y.value)) {
+  //         return p;
+  //       }
+  //       // above lets us grab the condition from the crazy data structure
+  //       // we need to do the same for gender
+  //       // need to move below if statement into here and only return 1 p
+  //     });
+  //     if (allowedZips.includes(p.zip_code)) {
+  //       return p;
+  //     } else {
+  //       // discard that profile and move to next
+  //       console.log('no zip match');
+  //     }
+  //   });
+  //   setProfileData(mm);
+  // };
 
-  useEffect(() => {
-    const profiles = firebase
-      .firestore()
-      .collection('profiles')
-      .limit(5)
-      // .where('zip_code', '==', `allowedZip`)
-      // .where('zip_code', '==', allowedZip)
-      // .where('condition', 'array-contains', 'Herpes')
-      // .orderBy('first_name')
-      // .limit(4)
-      // .where('gender', '==', '{label: Male, value: Male}')
-      // .where('first_name', '==', 'G')
-      .get()
-      .then(function(querySnapShot) {
-        const potMatches = querySnapShot.docs.map(function(doc) {
-          return doc.data();
-        });
-        // MATCHING LOGIC
-        //.where('age', '>=', match_min_age)
-        //.where('age', '<=', match_max_age)
-        // check if user swipes >= limit
-        // for premium we will set swipes at 8000 that shouldnt be reached
-        // True => Display Card to upgrade
-        // False continue below
-        // SEND results to matching function
-        // skip skipped and liked
-        // Location
-        // Gender
-        // Condition
-        zipQuery(potMatches);
-        // setProfileData(potMatches);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const profiles = firebase
+  //     .firestore()
+  //     .collection('profiles')
+  //     .limit(5)
+  //     // .where('zip_code', '==', `allowedZip`)
+  //     // .where('zip_code', '==', allowedZip)
+  //     // .where('condition', 'array-contains', 'Herpes')
+  //     // .orderBy('first_name')
+  //     // .limit(4)
+  //     // .where('gender', '==', '{label: Male, value: Male}')
+  //     // .where('first_name', '==', 'G')
+  //     .get()
+  //     .then(function(querySnapShot) {
+  //       const potMatches = querySnapShot.docs.map(function(doc) {
+  //         return doc.data();
+  //       });
+  //       // MATCHING LOGIC
+  //       //.where('age', '>=', match_min_age)
+  //       //.where('age', '<=', match_max_age)
+  //       // check if user swipes >= limit
+  //       // for premium we will set swipes at 8000 that shouldnt be reached
+  //       // True => Display Card to upgrade
+  //       // False continue below
+  //       // SEND results to matching function
+  //       // skip skipped and liked
+  //       // Location
+  //       // Gender
+  //       // Condition
+  //       zipQuery(potMatches);
+  //       // setProfileData(potMatches);
+  //     });
+  // }, []);
 
   console.log('ProfileData here', profileData);
 
@@ -135,7 +136,14 @@ const ThunderDeck = ({ history }) => {
   }));
 
   const bind = useGesture(
-    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
+    ({
+      args: [index],
+      down,
+      delta: [xDelta],
+      distance,
+      direction: [xDir],
+      velocity
+    }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -166,7 +174,9 @@ const ThunderDeck = ({ history }) => {
       });
 
       if (!down && gone.size === profileData.length)
-        console.log('Cards are done. Let the DB know this person is ready to date!');
+        console.log(
+          'Cards are done. Let the DB know this person is ready to date!'
+        );
     }
   );
   console.log('PDATA', profileData);

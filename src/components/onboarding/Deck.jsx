@@ -43,7 +43,7 @@ const Deck = ({ cardsData }) => {
       direction: [xDir],
       velocity
     }) => {
-      const trigger = velocity > 2.2;
+      const trigger = velocity > 1.2;
 
       const dir = xDir < 0 ? -1 : 1;
 
@@ -81,7 +81,7 @@ const Deck = ({ cardsData }) => {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className='card'
+      className="card"
       i={i}
       x={x}
       y={y}
