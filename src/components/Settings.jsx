@@ -74,7 +74,7 @@ const Settings = ({ history }) => {
                         {data.match_age_min}{' '}
                       </li>
 
-                      <li className="col s12">Match Distance Range: {data.match_distance}</li>
+                      <li className="col s12">Match Distance Range:{data.match_distance}</li>
                     </ul>
                   </div>
                   <div className="buttons">
