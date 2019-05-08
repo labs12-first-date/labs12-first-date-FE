@@ -37,6 +37,9 @@ const Navigation = () => {
                   <li>
                     <NavLink to="/settings">Settings</NavLink>
                   </li>
+                  <li>
+                    <NavLink to="/chats">Chats</NavLink>
+                  </li>
                 </ul>
               );
             } else {
@@ -48,6 +51,9 @@ const Navigation = () => {
 
                   <li>
                     <NavLink to="/logout">Log out</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/chats">Chats</NavLink>
                   </li>
                   <li>
                     <NavLink to="/profile">Profile</NavLink>

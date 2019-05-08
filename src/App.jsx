@@ -13,15 +13,19 @@ import SessionsList from './components/messaging/SessionsList';
 import Session from './components/messaging/Session';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
-import LocationDistance from './components/Location/Location';
+// import LocationDistance from './components/Location/Location';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
 
-  // change this to something more user-friendly, e.g. a nice spinner
-  if (!isInitialized) return <div>Loading...</div>;
+  // just for logging
+  // React.useEffect(() => {
+  //   if (isInitialized && user) console.log(user.uid);
+  // }, [user, isInitialized]);
 
-  return (
+  return !isInitialized ? (
+    <div>Loading...</div>
+  ) : (
     <BrowserRouter>
       <>
         <Navigation userNow={user} />
@@ -44,7 +48,7 @@ const App = () => {
           <Route path='/chats/:chatId' component={Session} />
           <Route component={NotFound} />
         </Switch>
-        <LocationDistance />
+        {/* <LocationDistance /> */}
       </>
     </BrowserRouter>
   );
