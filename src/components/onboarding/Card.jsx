@@ -74,22 +74,22 @@ const Card = props => {
             profile_completed: true
           })
           .then(() => {
-            changeProfileCompleted();
+            // changeProfileCompleted();
             props.history.replace('/thunderdome');
           });
       });
   };
 
-  const changeProfileCompleted = () => {
-    firebase
-      .firestore()
-      .collection('profiles')
-      .doc(user.uid)
-      .update({ profile_completed: true })
-      .then(function() {
-        console.log('Document successfully written!');
-      });
-  };
+  // const changeProfileCompleted = () => {
+  //   firebase
+  //     .firestore()
+  //     .collection('profiles')
+  //     .doc(user.uid)
+  //     .update({ profile_completed: true })
+  //     .then(function() {
+  //       console.log('Document successfully written!');
+  //     });
+  // };
 
   const renderInput = p => {
     switch (p.input_type) {
@@ -108,12 +108,12 @@ const Card = props => {
       case 'number':
         return (
           <input
-            type="text"
+            type="number"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
             onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
+              handleChange({ field: p.field_name, value: Number(e.target.value) })
             }
           />
         );
@@ -139,22 +139,6 @@ const Card = props => {
             }
             options={p.choices}
             isMulti
-          />
-        );
-
-      case 'date_input':
-        console.log('This is the time', formValues);
-        return (
-          <input
-            type="text"
-            placeholder={p.input_placeholder}
-            name={p.field_name}
-            value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
-            min="18"
-            max="101"
           />
         );
       case 'image':
@@ -219,12 +203,12 @@ const Card = props => {
   );
 };
 
-Card.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number,
-  distance: PropTypes.string,
-  text: PropTypes.string,
-  pics: PropTypes.array
-};
+// Card.propTypes = {
+//   name: PropTypes.string,
+//   age: PropTypes.number,
+//   distance: PropTypes.string,
+//   text: PropTypes.string,
+//   pics: PropTypes.array
+// };
 
 export default withRouter(Card);

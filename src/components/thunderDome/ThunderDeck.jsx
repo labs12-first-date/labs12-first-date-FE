@@ -44,10 +44,10 @@ const ThunderDeck = ({ history }) => {
 
   // const zipQuery = doc => {
   //   const allowedZips = [10025, 19422, 10010];
-  //   const allowedCond = ['Genital Warts', 'AIDS'];
+  //   const allowedCond = ['Hep B', 'Crabs', 'Gonorrhea'];
   //   const mm = doc.map(p => {
-  //     console.log('CONDITIONS', p.condition);
-  //     const x = p.condition;
+  //     console.log('CONDITIONS', p.conditions);
+  //     const x = p.conditions;
   //     x.map(y => {
   //       console.log(y.value);
   //       if (allowedCond.includes(y.value)) {
@@ -57,49 +57,74 @@ const ThunderDeck = ({ history }) => {
   //       // we need to do the same for gender
   //       // need to move below if statement into here and only return 1 p
   //     });
-  //     if (allowedZips.includes(p.zip_code)) {
-  //       return p;
-  //     } else {
-  //       // discard that profile and move to next
-  //       console.log('no zip match');
-  //     }
+  //     // if (allowedZips.includes(p.zip_code)) {
+  //     //   return p;
+  //     // } else {
+  //     //   // discard that profile and move to next
+  //     //   console.log('no zip match');
+  //     // }
   //   });
   //   setProfileData(mm);
   // };
 
-  // useEffect(() => {
-  //   const profiles = firebase
-  //     .firestore()
-  //     .collection('profiles')
-  //     .limit(5)
-  //     // .where('zip_code', '==', `allowedZip`)
-  //     // .where('zip_code', '==', allowedZip)
-  //     // .where('condition', 'array-contains', 'Herpes')
-  //     // .orderBy('first_name')
-  //     // .limit(4)
-  //     // .where('gender', '==', '{label: Male, value: Male}')
-  //     // .where('first_name', '==', 'G')
-  //     .get()
-  //     .then(function(querySnapShot) {
-  //       const potMatches = querySnapShot.docs.map(function(doc) {
-  //         return doc.data();
-  //       });
-  //       // MATCHING LOGIC
-  //       //.where('age', '>=', match_min_age)
-  //       //.where('age', '<=', match_max_age)
-  //       // check if user swipes >= limit
-  //       // for premium we will set swipes at 8000 that shouldnt be reached
-  //       // True => Display Card to upgrade
-  //       // False continue below
-  //       // SEND results to matching function
-  //       // skip skipped and liked
-  //       // Location
-  //       // Gender
-  //       // Condition
-  //       zipQuery(potMatches);
-  //       // setProfileData(potMatches);
-  //     });
-  // }, []);
+  const matchAlgo = (potMatch) => {
+    const zipCodes = [19422, 19148, 10025, 19422, 10010];
+    const TempConditions = ['HIV']
+    console.log('algo is run before if')
+    console.log('MATCHES', potMatch);
+    const matches = potMatch.filter(match => zipCodes.includes(match.zip_code))//filter by zipcode;
+    //zipfiltered is array of filters matches
+    //map through that array to get each match object
+    // console.log('MATCHES', matches)
+    // const zipFiltered = matches.map(eachMatchObject => {
+    //   const arrayOfConditionsObjects = eachMatchObject.conditions;
+    //   const matchConditions = arrayOfConditionsObjects.map( eachConditionObj => eachConditionObj.value)
+    //   console.log('MATCH CONDITIONS', matchConditions)
+    //   matchConditions.filter(x => TempConditions.includes(matchConditions));
+    // })
+
+    console.log('MATCHES', matches);
+    setProfileData(matches);
+ 
+
+  }
+
+
+  useEffect(() => {
+    const profiles = firebase
+      .firestore()
+      .collection('profiles')
+      .limit(6)
+      // .where('zip_code', '==', `allowedZip`)
+      // .where('zip_code', '==', allowedZip)
+      // .where('conditions', 'array-contains', 'Herpes')
+      // .orderBy('first_name')
+      // .limit(4)
+      // .where('gender', '==', '{label: Male, value: Male}')
+      // .where('first_name', '==', 'G')
+      .get()
+      .then(function(querySnapShot) {
+        const potMatches = querySnapShot.docs.map(function(doc) {
+          return doc.data();
+        });
+        // MATCHING LOGIC
+        //.where('age', '>=', match_min_age)
+        //.where('age', '<=', match_max_age)
+        // check if user swipes >= limit
+        // for premium we will set swipes at 8000 that shouldnt be reached
+        // True => Display Card to upgrade
+        // False continue below
+        // SEND results to matching function
+        // skip skipped and liked
+        // Location
+        // Gender
+        // Condition
+        // console.log('POT MATCHES',potMatches);
+        matchAlgo(potMatches);
+        //setProfileData(potMatches);
+
+      });
+  }, []);
 
   console.log('ProfileData here', profileData);
 
