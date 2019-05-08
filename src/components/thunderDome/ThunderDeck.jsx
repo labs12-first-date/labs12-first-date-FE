@@ -45,10 +45,23 @@ const ThunderDeck = ({ history }) => {
 
   const zipQuery = doc => {
     const allowedZips = [10025, 19422, 10010];
+    const allowedCond = ['Genital Warts', 'AIDS'];
     const mm = doc.map(p => {
+      console.log('CONDITIONS', p.condition);
+      const x = p.condition;
+      x.map(y => {
+        console.log(y.value);
+        if (allowedCond.includes(y.value)) {
+          return p;
+        }
+        // above lets us grab the condition from the crazy data structure
+        // we need to do the same for gender
+        // need to move below if statement into here and only return 1 p
+      });
       if (allowedZips.includes(p.zip_code)) {
         return p;
       } else {
+        // discard that profile and move to next
         console.log('no zip match');
       }
     });
@@ -65,16 +78,27 @@ const ThunderDeck = ({ history }) => {
       // .where('condition', 'array-contains', 'Herpes')
       // .orderBy('first_name')
       // .limit(4)
-      // .where('gender', 'array-contains', 'Male')
+      // .where('gender', '==', '{label: Male, value: Male}')
       // .where('first_name', '==', 'G')
       .get()
       .then(function(querySnapShot) {
         const potMatches = querySnapShot.docs.map(function(doc) {
           return doc.data();
         });
+        // MATCHING LOGIC
+        //.where('age', '>=', match_min_age)
+        //.where('age', '<=', match_max_age)
+        // check if user swipes >= limit
+        // for premium we will set swipes at 8000 that shouldnt be reached
+        // True => Display Card to upgrade
+        // False continue below
+        // SEND results to matching function
+        // skip skipped and liked
+        // Location
+        // Gender
+        // Condition
         zipQuery(potMatches);
         // setProfileData(potMatches);
-        // setProfileData(p);
       });
   }, []);
 
