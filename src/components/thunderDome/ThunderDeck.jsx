@@ -6,6 +6,7 @@ import Loading from '../Loading';
 import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
 import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
+import LocationDistance from '../Location/Location';
 
 const to = i => ({
   x: 10,
@@ -71,11 +72,10 @@ const ThunderDeck = ({ history }) => {
   };
 
   const matchAlgo = potMatch => {
-    const zipCodes = [19422, 19148, 10025, 19422, 10010];
+    const zipCodes = profileState.nearby_zip;
     const tempConditions = wantedTraits(profileState)[0];
     const compGender = wantedGenders(profileState)[0];
     const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
-    console.log('MATCHES', matches);
     let foundMatches = [];
     for (let match of matches) {
       for (let condition of match.conditions) {
@@ -86,7 +86,6 @@ const ThunderDeck = ({ history }) => {
         }
       }
     }
-    console.log('FOUND', foundMatches);
 
     let foundGender = [];
     for (let match of foundMatches) {
@@ -98,7 +97,6 @@ const ThunderDeck = ({ history }) => {
         }
       }
     }
-    console.log('GENDER', foundGender);
 
     setProfileData(foundGender);
     // const michael = matches.filter(a => {
@@ -138,13 +136,13 @@ const ThunderDeck = ({ history }) => {
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
-          .limit(10)
+          .limit(5)
           .get()
           .then(function(querySnapShot) {
-            const potMatches = querySnapShot.docs.map(function(doc) {
+            const posMatches = querySnapShot.docs.map(function(doc) {
               return doc.data();
             });
-
+            const potMatches = [...new Set(posMatches)];
             matchAlgo(potMatches);
           });
       }
@@ -206,6 +204,7 @@ const ThunderDeck = ({ history }) => {
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
       console.log(index);
+      console.log('UID?', profileData.uid);
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
@@ -235,20 +234,23 @@ const ThunderDeck = ({ history }) => {
         );
     }
   );
-  console.log('PDATA', profileData);
+
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
-      <MatchCard
-        className='card'
-        i={i}
-        x={x}
-        y={y}
-        rot={rot}
-        scale={scale}
-        trans={trans}
-        data={profileData[i]}
-        bind={bind}
-      />
+      <>
+        <MatchCard
+          className='card'
+          i={i}
+          x={x}
+          y={y}
+          rot={rot}
+          scale={scale}
+          trans={trans}
+          data={profileData[i]}
+          bind={bind}
+        />
+        <LocationDistance />
+      </>
     ));
   } else {
     return <Loading />;
