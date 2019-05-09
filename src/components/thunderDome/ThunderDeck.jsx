@@ -92,6 +92,7 @@ const ThunderDeck = ({ history }) => {
       for (let gender of match.gender) {
         for (let matched_gen of compGender) {
           if (matched_gen === gender.value) {
+            console.log(match.profile_uid);
             foundGender.push(match);
           }
         }
@@ -99,6 +100,7 @@ const ThunderDeck = ({ history }) => {
     }
 
     setProfileData(foundGender);
+
     // const michael = matches.filter(a => {
     //   console.log('MICHAEL RUNNING');
     //   return (
@@ -136,13 +138,12 @@ const ThunderDeck = ({ history }) => {
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
-          .limit(5)
+          .limit(500)
           .get()
           .then(function(querySnapShot) {
-            const posMatches = querySnapShot.docs.map(function(doc) {
-              return doc.data();
+            const potMatches = querySnapShot.docs.map(function(doc) {
+              return { ...doc.data(), id: doc.id };
             });
-            const potMatches = [...new Set(posMatches)];
             matchAlgo(potMatches);
           });
       }
@@ -203,8 +204,12 @@ const ThunderDeck = ({ history }) => {
       const dir = xDir < 0 ? -1 : 1;
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
-      console.log(index);
-      console.log('UID?', profileData.uid);
+      if (profileData) {
+        console.log(index);
+        console.log('XXXXXXX', profileData);
+      }
+      // console.log('OBJECT?', pUid);
+      // console.log('UID?', profileData.profile_uid);
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
@@ -215,6 +220,7 @@ const ThunderDeck = ({ history }) => {
 
         const scale = down ? 1.1 : 1;
         if (dir === 1) {
+          console.log('WHAT?', profileData);
           // console.log('Direction: right index:', index);
         } else {
           // console.log('Direction: left index:', index);
