@@ -6,8 +6,6 @@ import Loading from '../Loading';
 import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
 
-//dummyData will be moved into firestore db
-
 const to = i => ({
   x: 10,
   y: i * -10,
@@ -33,7 +31,6 @@ const ThunderDeck = ({ history }) => {
         .firestore()
         .collection('settings')
         .doc(user.uid);
-
       docRef
         .get()
         .then(function(doc) {
@@ -45,59 +42,12 @@ const ThunderDeck = ({ history }) => {
     }
   }, [user]);
 
-  console.log('Seting state', settingsState);
-
-  // const allowedZip = '10025';
-  // const allowedZip1 = '19422';
-  // const preferedSTDs =
-  // const docRef = firebase
-  //   .firestore()
-  //   .collection('profiles')
-  //   .doc('0tjJCWTHjIgqUCRKGe9w');
-  // docRef
-  //   .get()
-  //   .then(function(doc) {
-  //     setProfileData(doc.data());
-  //   })
-  //   .catch(function(error) {
-  //     console.log('Error getting document:', error);
-  //   });
-
-  // const zipQuery = doc => {
-  //   const allowedZips = [10025, 19422, 10010];
-  //   const allowedCond = ['Hep B', 'Crabs', 'Gonorrhea'];
-  //   const mm = doc.map(p => {
-  //     console.log('CONDITIONS', p.conditions);
-  //     const x = p.conditions;
-  //     x.map(y => {
-  //       console.log(y.value);
-  //       if (allowedCond.includes(y.value)) {
-  //         return p;
-  //       }
-  //       // above lets us grab the condition from the crazy data structure
-  //       // we need to do the same for gender
-  //       // need to move below if statement into here and only return 1 p
-  //     });
-  //     // if (allowedZips.includes(p.zip_code)) {
-  //     //   return p;
-  //     // } else {
-  //     //   // discard that profile and move to next
-  //     //   console.log('no zip match');
-  //     // }
-  //   });
-  //   setProfileData(mm);
-  // };
-
   const matchAlgo = potMatch => {
     const zipCodes = [19422, 19148, 10025, 19422, 10010];
     const TempConditions = ['Hep C', 'HIV'];
-    const wantedGender = ['Other', 'Non-binary'];
-    console.log('algo is run before if');
+    const wantedGender = ['Other', 'Non-binary', 'Female'];
     console.log('MATCHES', potMatch);
     const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
-    //zipfiltered is array of filters matches
-    //map through that array to get each match object
-    // console.log('MATCHES', matches);
     let foundMatches = [];
     for (let match of matches) {
       for (let condition of match.conditions) {
@@ -150,28 +100,28 @@ const ThunderDeck = ({ history }) => {
   };
 
   useEffect(() => {
-    if (!settingsState === null) {
+    if (settingsState) {
       const max_age = settingsState.match_age_max;
       const min_age = settingsState.match_age_min;
-      const profiles = firebase
 
-        .firestore()
-        .collection('profiles')
-        .where('age', '>=', min_age)
-        .where('age', '<=', max_age)
-        .limit(6)
-        .get()
-        .then(function(querySnapShot) {
-          const potMatches = querySnapShot.docs.map(function(doc) {
-            return doc.data();
+      if (max_age && min_age) {
+        const profiles = firebase
+          .firestore()
+          .collection('profiles')
+          .where('age', '>=', min_age)
+          .where('age', '<=', max_age)
+          .limit(5)
+          .get()
+          .then(function(querySnapShot) {
+            const potMatches = querySnapShot.docs.map(function(doc) {
+              return doc.data();
+            });
+
+            matchAlgo(potMatches);
           });
-
-          matchAlgo(potMatches);
-        });
-    } else {
-      return <Loading />;
+      }
     }
-  }, []);
+  }, [settingsState]);
 
   console.log('ProfileData here', profileData);
 
@@ -255,7 +205,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <MatchCard
-        className="card"
+        className='card'
         i={i}
         x={x}
         y={y}
