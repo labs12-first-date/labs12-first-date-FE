@@ -67,28 +67,66 @@ const ThunderDeck = ({ history }) => {
   //   setProfileData(mm);
   // };
 
-  const matchAlgo = (potMatch) => {
+  const matchAlgo = potMatch => {
     const zipCodes = [19422, 19148, 10025, 19422, 10010];
-    const TempConditions = ['HIV']
-    console.log('algo is run before if')
+    const TempConditions = ['Hep C', 'HIV'];
+    const wantedGender = ['Other', 'Non-binary'];
+    console.log('algo is run before if');
     console.log('MATCHES', potMatch);
-    const matches = potMatch.filter(match => zipCodes.includes(match.zip_code))//filter by zipcode;
+    const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
     //zipfiltered is array of filters matches
     //map through that array to get each match object
-    // console.log('MATCHES', matches)
-    // const zipFiltered = matches.map(eachMatchObject => {
-    //   const arrayOfConditionsObjects = eachMatchObject.conditions;
-    //   const matchConditions = arrayOfConditionsObjects.map( eachConditionObj => eachConditionObj.value)
-    //   console.log('MATCH CONDITIONS', matchConditions)
-    //   matchConditions.filter(x => TempConditions.includes(matchConditions));
-    // })
+    // console.log('MATCHES', matches);
+    let foundMatches = [];
+    for (let match of matches) {
+      for (let condition of match.conditions) {
+        for (let matched_cond of TempConditions) {
+          if (matched_cond === condition.value) {
+            foundMatches.push(match);
+          }
+        }
+      }
+    }
+    console.log('FOUND', foundMatches);
 
-    console.log('MATCHES', matches);
-    setProfileData(matches);
- 
+    let foundGender = [];
+    for (let match of foundMatches) {
+      for (let gender of match.gender) {
+        for (let matched_gen of wantedGender) {
+          if (matched_gen === gender.value) {
+            foundGender.push(match);
+          }
+        }
+      }
+    }
+    console.log('GENDER', foundGender);
 
-  }
+    setProfileData(foundGender);
+    // const michael = matches.filter(a => {
+    //   console.log('MICHAEL RUNNING');
+    //   return (
+    //     a.conditions.find(c => {
+    //       return (
+    //         c.value ===
+    //         TempConditions.find(x => {
+    //           return x === c.value;
+    //         })
+    //       );
+    //     }) !== undefined
+    //   );
+    // });
+    // console.log('MICHAEL', michael);
 
+    // const mm = matches.map(p => {
+    //   console.log('CONDITIONS', p.conditions);
+    //   const x = p.conditions;
+    //   x.map(y => {
+    //     console.log(y.value);
+    //     if (TempConditions.includes(y.value)) {
+    //       return p;
+    //     }
+    //   });
+  };
 
   useEffect(() => {
     const profiles = firebase
@@ -122,7 +160,6 @@ const ThunderDeck = ({ history }) => {
         // console.log('POT MATCHES',potMatches);
         matchAlgo(potMatches);
         //setProfileData(potMatches);
-
       });
   }, []);
 
@@ -208,7 +245,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <MatchCard
-        className="card"
+        className='card'
         i={i}
         x={x}
         y={y}
