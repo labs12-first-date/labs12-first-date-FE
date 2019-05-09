@@ -25,6 +25,27 @@ const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [profileState, setprofileState] = useState(null);
   const [profileData, setProfileData] = useState([]);
+  const [settingsState, setsettingsState] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      const docRef = firebase
+        .firestore()
+        .collection('settings')
+        .doc(user.uid);
+
+      docRef
+        .get()
+        .then(function(doc) {
+          setsettingsState(doc.data());
+        })
+        .catch(function(error) {
+          console.log('Error getting document:', error);
+        });
+    }
+  }, [user]);
+
+  console.log('Seting state', settingsState);
 
   // const allowedZip = '10025';
   // const allowedZip1 = '19422';
@@ -129,38 +150,27 @@ const ThunderDeck = ({ history }) => {
   };
 
   useEffect(() => {
-    const profiles = firebase
-      .firestore()
-      .collection('profiles')
-      .limit(6)
-      // .where('zip_code', '==', `allowedZip`)
-      // .where('zip_code', '==', allowedZip)
-      // .where('conditions', 'array-contains', 'Herpes')
-      // .orderBy('first_name')
-      // .limit(4)
-      // .where('gender', '==', '{label: Male, value: Male}')
-      // .where('first_name', '==', 'G')
-      .get()
-      .then(function(querySnapShot) {
-        const potMatches = querySnapShot.docs.map(function(doc) {
-          return doc.data();
+    if (!settingsState === null) {
+      const max_age = settingsState.match_age_max;
+      const min_age = settingsState.match_age_min;
+      const profiles = firebase
+
+        .firestore()
+        .collection('profiles')
+        .where('age', '>=', min_age)
+        .where('age', '<=', max_age)
+        .limit(6)
+        .get()
+        .then(function(querySnapShot) {
+          const potMatches = querySnapShot.docs.map(function(doc) {
+            return doc.data();
+          });
+
+          matchAlgo(potMatches);
         });
-        // MATCHING LOGIC
-        //.where('age', '>=', match_min_age)
-        //.where('age', '<=', match_max_age)
-        // check if user swipes >= limit
-        // for premium we will set swipes at 8000 that shouldnt be reached
-        // True => Display Card to upgrade
-        // False continue below
-        // SEND results to matching function
-        // skip skipped and liked
-        // Location
-        // Gender
-        // Condition
-        // console.log('POT MATCHES',potMatches);
-        matchAlgo(potMatches);
-        //setProfileData(potMatches);
-      });
+    } else {
+      return <Loading />;
+    }
   }, []);
 
   console.log('ProfileData here', profileData);
@@ -245,7 +255,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <MatchCard
-        className='card'
+        className="card"
         i={i}
         x={x}
         y={y}
