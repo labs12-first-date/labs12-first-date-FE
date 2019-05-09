@@ -51,7 +51,6 @@ const ThunderDeck = ({ history }) => {
       return matchC;
     });
     const moreCondition = conditon.map(c => {
-      console.log('Second matchc', c.value);
       return c.value;
     });
     wantedConds.push(moreCondition);
@@ -65,7 +64,6 @@ const ThunderDeck = ({ history }) => {
       return matchC;
     });
     const moreGender = gender.map(c => {
-      console.log('Second matchc', c.value);
       return c.value;
     });
     wantedGens.push(moreGender);
@@ -75,17 +73,13 @@ const ThunderDeck = ({ history }) => {
   const matchAlgo = potMatch => {
     const zipCodes = [19422, 19148, 10025, 19422, 10010];
     const tempConditions = wantedTraits(profileState)[0];
-    console.log('Check temp contitions', tempConditions);
-    console.log('LOOOK HERE', wantedTraits(profileState));
-
-    const compGender = wantedGenders(profileState);
-    console.log('MATCHES', potMatch);
+    const compGender = wantedGenders(profileState)[0];
     const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
+    console.log('MATCHES', matches);
     let foundMatches = [];
     for (let match of matches) {
       for (let condition of match.conditions) {
         for (let matched_cond of tempConditions) {
-          console.log('Hay yo', matched_cond);
           if (matched_cond === condition.value) {
             foundMatches.push(match);
           }
@@ -245,7 +239,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <MatchCard
-        className="card"
+        className='card'
         i={i}
         x={x}
         y={y}
