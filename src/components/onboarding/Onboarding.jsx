@@ -28,9 +28,9 @@ const initSettings = user => {
           .collection('settings')
           .doc(user.uid)
           .set({
-            match_age_min: '18',
-            match_age_max: '99',
-            match_distance: '1000'
+            match_age_min: 18,
+            match_age_max: 99,
+            match_distance: 100
           });
       }
     });

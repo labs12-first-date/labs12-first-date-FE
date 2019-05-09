@@ -25,6 +25,27 @@ const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [profileState, setprofileState] = useState(null);
   const [profileData, setProfileData] = useState([]);
+  const [settingsState, setsettingsState] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      const docRef = firebase
+        .firestore()
+        .collection('settings')
+        .doc(user.uid);
+
+      docRef
+        .get()
+        .then(function(doc) {
+          setsettingsState(doc.data());
+        })
+        .catch(function(error) {
+          console.log('Error getting document:', error);
+        });
+    }
+  }, [user]);
+
+  console.log('Seting state', settingsState);
 
   // const allowedZip = '10025';
   // const allowedZip1 = '19422';
@@ -44,10 +65,10 @@ const ThunderDeck = ({ history }) => {
 
   // const zipQuery = doc => {
   //   const allowedZips = [10025, 19422, 10010];
-  //   const allowedCond = ['Genital Warts', 'AIDS'];
+  //   const allowedCond = ['Hep B', 'Crabs', 'Gonorrhea'];
   //   const mm = doc.map(p => {
-  //     console.log('CONDITIONS', p.condition);
-  //     const x = p.condition;
+  //     console.log('CONDITIONS', p.conditions);
+  //     const x = p.conditions;
   //     x.map(y => {
   //       console.log(y.value);
   //       if (allowedCond.includes(y.value)) {
@@ -57,49 +78,100 @@ const ThunderDeck = ({ history }) => {
   //       // we need to do the same for gender
   //       // need to move below if statement into here and only return 1 p
   //     });
-  //     if (allowedZips.includes(p.zip_code)) {
-  //       return p;
-  //     } else {
-  //       // discard that profile and move to next
-  //       console.log('no zip match');
-  //     }
+  //     // if (allowedZips.includes(p.zip_code)) {
+  //     //   return p;
+  //     // } else {
+  //     //   // discard that profile and move to next
+  //     //   console.log('no zip match');
+  //     // }
   //   });
   //   setProfileData(mm);
   // };
 
-  // useEffect(() => {
-  //   const profiles = firebase
-  //     .firestore()
-  //     .collection('profiles')
-  //     .limit(5)
-  //     // .where('zip_code', '==', `allowedZip`)
-  //     // .where('zip_code', '==', allowedZip)
-  //     // .where('condition', 'array-contains', 'Herpes')
-  //     // .orderBy('first_name')
-  //     // .limit(4)
-  //     // .where('gender', '==', '{label: Male, value: Male}')
-  //     // .where('first_name', '==', 'G')
-  //     .get()
-  //     .then(function(querySnapShot) {
-  //       const potMatches = querySnapShot.docs.map(function(doc) {
-  //         return doc.data();
-  //       });
-  //       // MATCHING LOGIC
-  //       //.where('age', '>=', match_min_age)
-  //       //.where('age', '<=', match_max_age)
-  //       // check if user swipes >= limit
-  //       // for premium we will set swipes at 8000 that shouldnt be reached
-  //       // True => Display Card to upgrade
-  //       // False continue below
-  //       // SEND results to matching function
-  //       // skip skipped and liked
-  //       // Location
-  //       // Gender
-  //       // Condition
-  //       zipQuery(potMatches);
-  //       // setProfileData(potMatches);
-  //     });
-  // }, []);
+  const matchAlgo = potMatch => {
+    const zipCodes = [19422, 19148, 10025, 19422, 10010];
+    const TempConditions = ['Hep C', 'HIV'];
+    const wantedGender = ['Other', 'Non-binary'];
+    console.log('algo is run before if');
+    console.log('MATCHES', potMatch);
+    const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
+    //zipfiltered is array of filters matches
+    //map through that array to get each match object
+    // console.log('MATCHES', matches);
+    let foundMatches = [];
+    for (let match of matches) {
+      for (let condition of match.conditions) {
+        for (let matched_cond of TempConditions) {
+          if (matched_cond === condition.value) {
+            foundMatches.push(match);
+          }
+        }
+      }
+    }
+    console.log('FOUND', foundMatches);
+
+    let foundGender = [];
+    for (let match of foundMatches) {
+      for (let gender of match.gender) {
+        for (let matched_gen of wantedGender) {
+          if (matched_gen === gender.value) {
+            foundGender.push(match);
+          }
+        }
+      }
+    }
+    console.log('GENDER', foundGender);
+
+    setProfileData(foundGender);
+    // const michael = matches.filter(a => {
+    //   console.log('MICHAEL RUNNING');
+    //   return (
+    //     a.conditions.find(c => {
+    //       return (
+    //         c.value ===
+    //         TempConditions.find(x => {
+    //           return x === c.value;
+    //         })
+    //       );
+    //     }) !== undefined
+    //   );
+    // });
+    // console.log('MICHAEL', michael);
+
+    // const mm = matches.map(p => {
+    //   console.log('CONDITIONS', p.conditions);
+    //   const x = p.conditions;
+    //   x.map(y => {
+    //     console.log(y.value);
+    //     if (TempConditions.includes(y.value)) {
+    //       return p;
+    //     }
+    //   });
+  };
+
+  useEffect(() => {
+    if (!settingsState === null) {
+      const max_age = settingsState.match_age_max;
+      const min_age = settingsState.match_age_min;
+      const profiles = firebase
+
+        .firestore()
+        .collection('profiles')
+        .where('age', '>=', min_age)
+        .where('age', '<=', max_age)
+        .limit(6)
+        .get()
+        .then(function(querySnapShot) {
+          const potMatches = querySnapShot.docs.map(function(doc) {
+            return doc.data();
+          });
+
+          matchAlgo(potMatches);
+        });
+    } else {
+      return <Loading />;
+    }
+  }, []);
 
   console.log('ProfileData here', profileData);
 

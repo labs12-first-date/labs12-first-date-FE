@@ -78,7 +78,7 @@ const Profile = ({ history }) => {
                             {data.last_name}{' '}
                           </li>
                           <li className="col s12">
-                            {`Age: ${data.date_of_birth}`}
+                            {`Age: ${data.age}`}
                           </li>
                           <li className="col s12">Bio: {data.bio}</li>
                           <li className="col s12">
@@ -166,6 +166,7 @@ const Profile = ({ history }) => {
                             onChange={handleChange}
                           />
                           <input
+                            type="number"
                             name="zip_code"
                             placeholder="Zip Code"
                             value={values.zip_code || `${formState.zip_code}`}

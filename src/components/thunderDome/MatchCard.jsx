@@ -49,7 +49,7 @@ const MatchCard = props => {
 
   const {
     first_name,
-    date_of_birth,
+    age,
     zip_code,
     bio,
     gender,
@@ -85,7 +85,7 @@ const MatchCard = props => {
               {<img src={profile_picture} alt='profilePicture' />}
             </Carousel>
             <h2>{first_name},</h2>
-            <h2>{date_of_birth},</h2>
+            <h2>{age},</h2>
             <h5>{zip_code}</h5>
             <h5>{bio}</h5>,
             <h5>
