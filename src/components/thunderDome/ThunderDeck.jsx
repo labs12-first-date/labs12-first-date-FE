@@ -5,6 +5,7 @@ import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
 import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
+import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
 
 const to = i => ({
   x: 10,
@@ -42,16 +43,40 @@ const ThunderDeck = ({ history }) => {
     }
   }, [user]);
 
+  console.log('UID', user.uid);
+
+  const wantedTraits = profileState => {
+    let wantedConds = [];
+
+    const conditon = profileState.match_conditions.map(matchC => {
+      console.log('MatchCCCCCCCC', matchC);
+      return matchC;
+    });
+    const moreCondition = conditon.map(c => {
+      console.log('Second matchc', c.value);
+
+      return c.value;
+    });
+    wantedConds.push(moreCondition);
+    return wantedConds;
+
+    // console.log(wantedConds);
+  };
+
   const matchAlgo = potMatch => {
     const zipCodes = [19422, 19148, 10025, 19422, 10010];
-    const TempConditions = ['Hep C', 'HIV'];
+    const tempConditions = wantedTraits(profileState)[0];
+    console.log('Check temp contitions', tempConditions);
+    console.log('LOOOK HERE', wantedTraits(profileState));
+
     const wantedGender = ['Other', 'Non-binary', 'Female'];
     console.log('MATCHES', potMatch);
     const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
     let foundMatches = [];
     for (let match of matches) {
       for (let condition of match.conditions) {
-        for (let matched_cond of TempConditions) {
+        for (let matched_cond of tempConditions) {
+          console.log('Hay yo', matched_cond);
           if (matched_cond === condition.value) {
             foundMatches.push(match);
           }
@@ -142,6 +167,12 @@ const ThunderDeck = ({ history }) => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   if (profileState && profileState.match_conditions) {
+  //     wantedTraits(profileState);
+  //   }
+  // }, [profileState]);
+
   useEffect(() => {
     if (profileState && !profileState.profile_completed) {
       console.log(profileState);
@@ -205,7 +236,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <MatchCard
-        className='card'
+        className="card"
         i={i}
         x={x}
         y={y}
