@@ -47,20 +47,29 @@ const ThunderDeck = ({ history }) => {
 
   const wantedTraits = profileState => {
     let wantedConds = [];
-
     const conditon = profileState.match_conditions.map(matchC => {
-      console.log('MatchCCCCCCCC', matchC);
       return matchC;
     });
     const moreCondition = conditon.map(c => {
       console.log('Second matchc', c.value);
-
       return c.value;
     });
     wantedConds.push(moreCondition);
     return wantedConds;
+  };
 
-    // console.log(wantedConds);
+  const wantedGenders = profileState => {
+    let wantedGens = [];
+    console.log('Match Gender in wANTED gENDER', profileState.match_gender);
+    const gender = profileState.match_gender.map(matchC => {
+      return matchC;
+    });
+    const moreGender = gender.map(c => {
+      console.log('Second matchc', c.value);
+      return c.value;
+    });
+    wantedGens.push(moreGender);
+    return wantedGens;
   };
 
   const matchAlgo = potMatch => {
@@ -69,7 +78,7 @@ const ThunderDeck = ({ history }) => {
     console.log('Check temp contitions', tempConditions);
     console.log('LOOOK HERE', wantedTraits(profileState));
 
-    const wantedGender = ['Other', 'Non-binary', 'Female'];
+    const compGender = wantedGenders(profileState);
     console.log('MATCHES', potMatch);
     const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
     let foundMatches = [];
@@ -88,7 +97,7 @@ const ThunderDeck = ({ history }) => {
     let foundGender = [];
     for (let match of foundMatches) {
       for (let gender of match.gender) {
-        for (let matched_gen of wantedGender) {
+        for (let matched_gen of compGender) {
           if (matched_gen === gender.value) {
             foundGender.push(match);
           }
@@ -135,7 +144,7 @@ const ThunderDeck = ({ history }) => {
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
-          .limit(5)
+          .limit(10)
           .get()
           .then(function(querySnapShot) {
             const potMatches = querySnapShot.docs.map(function(doc) {
