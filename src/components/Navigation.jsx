@@ -19,7 +19,7 @@ const Navigation = () => {
               return <Loading />;
             } else if (!data.profile_completed) {
               return (
-                <ul>
+                <ul className="nav">
                   <li>
                     <NavLink to="/">Home</NavLink>
                   </li>
