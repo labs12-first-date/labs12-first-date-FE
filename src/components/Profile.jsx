@@ -61,7 +61,7 @@ const Profile = ({ history }) => {
               <div className="box">
                 <Card elevation={Elevation.TWO}>
                   <div className="container">
-                    <div className="card grey lighten-1  ">
+                    <div className="card grey lighten-1">
                       <div className="card-content black-text">
                         <span className="card-title">Profile</span>
                         <ul className="row">

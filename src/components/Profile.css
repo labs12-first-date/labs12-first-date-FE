@@ -25,3 +25,12 @@ span.red-text {
 button.bp3-intent-success {
   margin-top: 20px;
 }
+
+
+@media(max-width:500px) {
+  .row{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
