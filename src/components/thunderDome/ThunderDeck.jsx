@@ -5,6 +5,7 @@ import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
 import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
+import LocationDistance from '../Location/Location';
 
 const to = i => ({
   x: 10,
@@ -204,6 +205,7 @@ const ThunderDeck = ({ history }) => {
   console.log('PDATA', profileData);
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
+      <>
       <MatchCard
         className='card'
         i={i}
@@ -215,6 +217,8 @@ const ThunderDeck = ({ history }) => {
         data={profileData[i]}
         bind={bind}
       />
+      <LocationDistance />
+      </>
     ));
   } else {
     return <Loading />;
