@@ -53,7 +53,7 @@ const LocationDistance = () => {
       const dist = formState.match_distance;
       const getData = async () => {
         const result = await axios(
-          `https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=${zip}&minimumradius=0&maximumradius=${dist}&key=DEMOAPIKEY`
+          `https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=${zip}&minimumradius=0&maximumradius=${dist}&key=79TDJIHGIB3LAHFEUCHK`
         );
 
         setLocation(result.data);
