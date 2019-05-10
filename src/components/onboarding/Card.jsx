@@ -7,6 +7,7 @@ import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
+import './Deck.css';
 
 const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;

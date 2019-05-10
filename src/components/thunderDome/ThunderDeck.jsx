@@ -3,7 +3,7 @@ import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
-import '../onboarding/Deck.css';
+import './ThunderDome.css';
 import MatchCard from './MatchCard';
 import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
 // import LocationDistance from '../Location/Location';

@@ -1,36 +1,82 @@
 .container {
+  max-width: 100%;
   display: flex;
+}
+.box {
+  width: 100%;
+  text-align: center;
+  padding: 0 2%;
+}
+
+ul {
+  width: 100%;
 }
 
 .bp3-card {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 2%;
 }
 .bp3-overlay-content {
   width: 50%;
 }
 
 button.bp3-intent-danger {
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 span.red-text {
   font-style: bold;
-  font-size: 18px;
+  font-size: 1rem;
+  width: 100%;
 }
 
+.row {
+  width: 100%;
+  display: flex;
+}
 .col.s12 {
-  font-size: 18px;
+  font-size: 0.8rem;
+  /* width: 100%; */
+  align-content: center;
 }
 
 button.bp3-intent-success {
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 
-
-@media(max-width:500px) {
-  .row{
-    display:flex;
+@media (max-width: 500px) {
+  .container {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+  .row {
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+  .col.s12 {
+    font-size: 0.8rem;
+    /* width: 100%; */
+    align-content: center;
+  }
+}
+@media (max-width: 830px) {
+  .container {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .col.s12 {
+    font-size: 0.8rem;
+    /* width: 100%; */
+    align-content: center;
   }
 }
