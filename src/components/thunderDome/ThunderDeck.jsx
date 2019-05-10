@@ -195,25 +195,13 @@ const ThunderDeck = ({ history }) => {
   }));
 
   const bind = useGesture(
-    ({
-      args: [index],
-      down,
-      delta: [xDelta],
-      distance,
-      direction: [xDir],
-      velocity
-    }) => {
+    ({ args: [index, uid], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
-      if (profileData) {
-        console.log(index);
-        console.log('XXXXXXX', profileData);
-      }
-      // console.log('OBJECT?', pUid);
-      // console.log('UID?', profileData.profile_uid);
+
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
@@ -223,12 +211,18 @@ const ThunderDeck = ({ history }) => {
         const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
 
         const scale = down ? 1.1 : 1;
-        if (dir === 1) {
-          console.log('WHAT?', profileData);
-          // console.log('Direction: right index:', index);
-        } else {
-          // console.log('Direction: left index:', index);
+        // if (dir === 1) {
+        //   console.log('WHAT?', profileData);
+        //   // console.log('Direction: right index:', index);
+        // } else {
+        //   // console.log('Direction: left index:', index);
+        // }
+
+        if (isGone) {
+          const like = dir === 1;
+          swipe(uid, like);
         }
+
         return {
           x,
           rot,
@@ -239,9 +233,7 @@ const ThunderDeck = ({ history }) => {
       });
 
       if (!down && gone.size === profileData.length)
-        console.log(
-          'Cards are done. Let the DB know this person is ready to date!'
-        );
+        console.log('Cards are done. Let the DB know this person is ready to date!');
     }
   );
 
@@ -249,7 +241,7 @@ const ThunderDeck = ({ history }) => {
     return props.map(({ x, y, rot, scale }, i) => (
       <>
         <MatchCard
-          className='card'
+          className="card"
           i={i}
           x={x}
           y={y}
