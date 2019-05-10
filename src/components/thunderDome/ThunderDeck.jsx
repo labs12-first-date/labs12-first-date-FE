@@ -7,6 +7,7 @@ import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
 import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
 import LocationDistance from '../Location/Location';
+import recordSwipe from '../../swipeActions';
 
 const to = i => ({
   x: 10,
@@ -18,14 +19,17 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [profileState, setprofileState] = useState(null);
   const [profileData, setProfileData] = useState([]);
   const [settingsState, setsettingsState] = useState(null);
+
+  const swipe = (swipedUserId, isLike) => {
+    recordSwipe(user.uid, swipedUserId, isLike);
+  };
 
   useEffect(() => {
     if (user) {
