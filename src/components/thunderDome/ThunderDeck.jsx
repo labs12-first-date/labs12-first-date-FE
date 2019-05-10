@@ -6,7 +6,7 @@ import Loading from '../Loading';
 import '../onboarding/Deck.css';
 import MatchCard from './MatchCard';
 import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
-import LocationDistance from '../Location/Location';
+// import LocationDistance from '../Location/Location';
 import recordSwipe from '../../swipeActions';
 
 const to = i => ({

@@ -62,11 +62,46 @@ const LocationDistance = () => {
     }
   }, [profileState, formState]);
 
-  return !location ? (
-    <Loading />
-  ) : (
-    <div>{/* <p>Location does exist!!!</p> */}</div>
-  );
+  useEffect(() => {
+    if (!location) {
+      console.log('Location State does not exist yet');
+    } else {
+      const zipArray = location.DataList.map(data => {
+        return Number(data.Code);
+      });
+      console.log('ZIPARRAY=====>', zipArray);
+      if (user && zipArray) {
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(user.uid)
+          .update({ nearby_zip: zipArray })
+          .then(res => {
+            console.log('ZipArray added to FireStore!!!');
+          });
+      }
+    }
+  }, [location]);
+
+  console.log('PROFILE STATE is', profileState);
+  console.log('LOCATION is', location);
+  console.log('FORM STATE is', formState);
+  console.log('UID======>', user.uid);
+
+  return <></>;
+  // return (!location) ? (
+  //   <Loading />
+  // ) : (
+  //   <div>
+  //     {/* <p>Location does exist!!!</p> */}
+  //     {console.log(
+  //       'API data is mapped',
+  //       location.DataList.map(data => {
+  //         return data.Code;
+  //       })
+  //     )}
+  //   </div>
+  // );
 };
 
 export default LocationDistance;

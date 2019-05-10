@@ -7,12 +7,28 @@
   background-color: rgb(250, 250, 250);
 }
 
-.container ul {
+.container ul.row {
   display: flex;
   list-style: none;
   font-size: 0.9rem;
   text-align: center;
+  justify-content: space-between;
   margin: 0 auto;
+  width: 100%;
+}
+
+div.card.grey.lighten-1   {
+  width: 95%;
+}
+
+span.card-title {
+  width: 100%;
+}
+
+div.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .container span {
@@ -23,7 +39,7 @@
   display: flex;
   justify-content: space-between;
   padding-top: 30px;
-  margin: 0 10px;
+  margin: 0 auto;
 }
 button.bp3-intent-danger {
   margin: 0 10px;
@@ -55,4 +71,40 @@ button.bp3-intent-danger {
   to {
     top: 90px;
   }
+}
+
+@media(max-width:500px) {
+
+  .buttons {
+    display:flex;
+    justify-content: space-between;
+    width:355px;
+    padding-right:35px;
+  }
+
+  .bp3-button-text {
+    margin:0, auto;
+    padding-left:0px;
+    width:60px;
+    display:flex;
+    justify-content: space-around;
+  }
+
+  button .bp3-intent-danger {
+    padding:0;
+    margin-right:0px;
+  }
+
+  button .bp3-icon-arrow {
+    display:none;
+  }
+
+  button .bp3-icon-refresh {
+    display:none;
+  }
+
+  button .bp3-icon-disable {
+    display:none;
+  }
+
 }
