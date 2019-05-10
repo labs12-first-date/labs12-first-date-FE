@@ -207,7 +207,7 @@ const ThunderDeck = ({ history }) => {
     return props.map(({ x, y, rot, scale }, i) => (
       <>
         <MatchCard
-          className='card'
+          className="card"
           i={i}
           x={x}
           y={y}
