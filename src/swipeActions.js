@@ -64,7 +64,8 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
           }
         ]
       });
-      // indicate to user that match was recorded
+      // TODO indicate to user that match was recorded
+      console.log(`It's a MATCH! users:`, userId, swipedUserId);
     }
   }
 };
