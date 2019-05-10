@@ -1,3 +1,5 @@
+
+
 nav ul {
   background: #45484d; /* Old browsers */
   background: -moz-linear-gradient(
@@ -28,12 +30,37 @@ nav ul {
 }
 
 nav li {
-  width: 5%;
-  margin: 0 20px;
+  width: 100px;;
+  margin: 0 auto;
   list-style: none;
   text-decoration: none;
   color: #25d482;
+  display:flex;
 }
 nav li a {
   color: #25d482;
+  width:100px;
+  height:20px;
+  font-size:1.75rem;
 }
+
+
+  @media(max-width:500px) {
+
+    nav ul{
+      width:435px;
+      padding:0;
+      margin-top:0;
+    }
+
+    nav li {
+      width:55px;
+    }
+
+    nav li a{
+      display:flex;
+      align-items:center;
+      height:40px;
+      font-size:1rem;
+    }
+  }
