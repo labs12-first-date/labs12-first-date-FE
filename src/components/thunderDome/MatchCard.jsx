@@ -47,43 +47,29 @@ const MatchCard = props => {
   const { i, x, y, rot, scale, trans, bind, data } = props;
   console.log('More props', props);
 
-  const {
-    first_name,
-    age,
-    zip_code,
-    bio,
-    gender,
-    profile_picture
-  } = data;
+  const { first_name, age, zip_code, bio, gender, profile_picture, id: uid } = data;
   console.log('This is pics', profile_picture);
 
-  console.log(data);
-  // const renderInput = p => {
   if (data === []) {
     return <Loading />;
   } else {
     return (
       <animated.div
-        className='ani1'
+        className="ani1"
         key={i}
         style={{
-          transform: interpolate(
-            [x, y],
-            (x, y) => `translate3d(${x}px,${y}px,0)`
-          )
+          transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
         }}
       >
         <animated.div
-          className='ani2'
-          {...bind(i)}
+          className="ani2"
+          {...bind(i, uid)}
           style={{
             transform: interpolate([rot, scale], trans)
           }}
         >
-          <div className='card'>
-            <Carousel>
-              {<img src={profile_picture} alt='profilePicture' />}
-            </Carousel>
+          <div className="card">
+            <Carousel>{<img src={profile_picture} alt="profilePicture" />}</Carousel>
             <h2>{first_name},</h2>
             <h2>{age},</h2>
             <h5>{zip_code}</h5>
