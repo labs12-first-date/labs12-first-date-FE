@@ -77,8 +77,8 @@ button.bp3-intent-danger {
 
   .buttons {
     display:flex;
-    justify-content: space-between;
-    width:355px;
+    justify-content: space-around;
+    width:400px;
     padding-right:35px;
   }
 
