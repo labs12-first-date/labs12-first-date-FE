@@ -3,7 +3,7 @@ import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
-import '../onboarding/Deck.css';
+import './ThunderDome.css';
 import MatchCard from './MatchCard';
 import LocationDistance from '../Location/Location';
 
@@ -206,18 +206,18 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <>
-      <MatchCard
-        className='card'
-        i={i}
-        x={x}
-        y={y}
-        rot={rot}
-        scale={scale}
-        trans={trans}
-        data={profileData[i]}
-        bind={bind}
-      />
-      <LocationDistance />
+        <MatchCard
+          className='card'
+          i={i}
+          x={x}
+          y={y}
+          rot={rot}
+          scale={scale}
+          trans={trans}
+          data={profileData[i]}
+          bind={bind}
+        />
+        <LocationDistance />
       </>
     ));
   } else {

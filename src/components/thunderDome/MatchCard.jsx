@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import './CardTh.css';
+import './ThunderDome.css';
 import PropTypes from 'prop-types';
 import { animated, interpolate } from 'react-spring';
 import { auth } from '../../firebase';
@@ -47,14 +47,7 @@ const MatchCard = props => {
   const { i, x, y, rot, scale, trans, bind, data } = props;
   console.log('More props', props);
 
-  const {
-    first_name,
-    age,
-    zip_code,
-    bio,
-    gender,
-    profile_picture
-  } = data;
+  const { first_name, age, zip_code, bio, gender, profile_picture } = data;
   console.log('This is pics', profile_picture);
 
   console.log(data);

@@ -7,6 +7,7 @@ import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 // import Carousel from 'nuka-carousel';
 import Select from 'react-select';
+import './Deck.css';
 
 const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
@@ -96,7 +97,7 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -108,19 +109,22 @@ const Card = props => {
       case 'number':
         return (
           <input
-            type="number"
+            type='number'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
             onChange={e =>
-              handleChange({ field: p.field_name, value: Number(e.target.value) })
+              handleChange({
+                field: p.field_name,
+                value: Number(e.target.value)
+              })
             }
           />
         );
       case 'text_area':
         return (
           <input
-            type="textarea"
+            type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -144,8 +148,8 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept="image/*"
-            name="profile_picture"
+            accept='image/*'
+            name='profile_picture'
             randomizeFilename
             storageRef={firebase.storage().ref('images')}
             // onUploadStart={handleUploadStart}
@@ -161,20 +165,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className="ani1"
+      className='ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className="ani2"
+        className='ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="card">
+        <div className='card'>
           {/* <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt='profilePicture' />

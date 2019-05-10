@@ -42,8 +42,6 @@ const Profile = ({ history }) => {
     toggleState ? settoggleState(false) : settoggleState(true);
   };
 
-  console.log('This value ======>', values);
-
   return (
     <div>
       <FirestoreDocument
@@ -58,50 +56,48 @@ const Profile = ({ history }) => {
             window.location.reload();
           } else {
             return (
-              <div className="box">
+              <div className='box'>
                 <Card elevation={Elevation.TWO}>
-                  <div className="container">
-                    <div className="card grey lighten-1">
-                      <div className="card-content black-text">
-                        <span className="card-title">Profile</span>
-                        <ul className="row">
-                          <li className="col s12">
-                            <span className="red-text text-darken-2">
+                  <div className='container'>
+                    <div className='card grey lighten-1'>
+                      <div className='card-content black-text'>
+                        <span className='card-title'>Profile</span>
+                        <ul className='row'>
+                          <li className='col s12'>
+                            <span className='red-text text-darken-2'>
                               First Name:
                             </span>{' '}
                             {data.first_name}
                           </li>
-                          <li className="col s12">
-                            <span className="red-text text-darken-2">
+                          <li className='col s12'>
+                            <span className='red-text text-darken-2'>
                               Last Name:
                             </span>{' '}
                             {data.last_name}{' '}
                           </li>
-                          <li className="col s12">
-                            {`Age: ${data.age}`}
-                          </li>
-                          <li className="col s12">Bio: {data.bio}</li>
-                          <li className="col s12">
+                          <li className='col s12'>{`Age: ${data.age}`}</li>
+                          <li className='col s12'>Bio: {data.bio}</li>
+                          <li className='col s12'>
                             Condition details: {data.condition_description}
                           </li>
-                          <li className="col s12">Likes: {data.likes || 0}</li>
-                          <li className="col s12">
+                          <li className='col s12'>Likes: {data.likes || 0}</li>
+                          <li className='col s12'>
                             Looking for:{' '}
                             {data.match_gender.map(e => {
                               return e.value;
                             })}
                           </li>
-                          <li className="col s12">
+                          <li className='col s12'>
                             Your contidion:{' '}
                             {data.conditions.map(e => {
                               return e.value;
                             })}
                           </li>
-                          <li className="col s12">Zip Code: {data.zip_code}</li>
+                          <li className='col s12'>Zip Code: {data.zip_code}</li>
                         </ul>
                         <Button
-                          icon="refresh"
-                          intent="danger"
+                          icon='refresh'
+                          intent='danger'
                           onClick={showForm}
                         >
                           Update
@@ -111,18 +107,18 @@ const Profile = ({ history }) => {
 
                     <Overlay usePortal={true} isOpen={toggleState}>
                       <Card elevation={Elevation.TWO}>
-                        <form id="profileForm" onSubmit={handleSubmit}>
+                        <form id='profileForm' onSubmit={handleSubmit}>
                           <input
-                            name="first_name"
-                            placeholder="First Name"
+                            name='first_name'
+                            placeholder='First Name'
                             value={
                               values.first_name || `${formState.first_name}`
                             }
                             onChange={handleChange}
                           />
                           <input
-                            name="last_name"
-                            placeholder="Last Name"
+                            name='last_name'
+                            placeholder='Last Name'
                             value={values.last_name || `${formState.last_name}`}
                             onChange={handleChange}
                           />
@@ -135,14 +131,14 @@ const Profile = ({ history }) => {
                         /> */}
 
                           <input
-                            name="bio"
-                            placeholder="Bio"
+                            name='bio'
+                            placeholder='Bio'
                             value={values.bio || `${formState.bio}`}
                             onChange={handleChange}
                           />
                           <input
-                            name="condition_details"
-                            placeholder="Condition Details"
+                            name='condition_details'
+                            placeholder='Condition Details'
                             value={
                               values.condition_description ||
                               `${formState.condition_description}`
@@ -150,34 +146,34 @@ const Profile = ({ history }) => {
                             onChange={handleChange}
                           />
                           <input
-                            name="looking_for"
-                            placeholder="Looking For"
+                            name='looking_for'
+                            placeholder='Looking For'
                             value={data.match_gender.map(e => {
                               return e.value;
                             })}
                             onChange={handleChange}
                           />
                           <input
-                            name="what_ails_you"
-                            placeholder="Your Condition"
+                            name='what_ails_you'
+                            placeholder='Your Condition'
                             value={data.conditions.map(e => {
                               return e.value;
                             })}
                             onChange={handleChange}
                           />
                           <input
-                            type="number"
-                            name="zip_code"
-                            placeholder="Zip Code"
+                            type='number'
+                            name='zip_code'
+                            placeholder='Zip Code'
                             value={values.zip_code || `${formState.zip_code}`}
                             onChange={handleChange}
                           />
                           <div>
                             <Button
-                              rightIcon="arrow-right"
-                              intent="success"
+                              rightIcon='arrow-right'
+                              intent='success'
                               onClick={showForm}
-                              type="submit"
+                              type='submit'
                             >
                               Update
                             </Button>

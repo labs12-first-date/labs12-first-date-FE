@@ -119,11 +119,13 @@ const Onboarding = ({ history }) => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includesConditions = p.field_name && p.field_name.includes('conditions');
+              const includesConditions =
+                p.field_name && p.field_name.includes('conditions');
               return includesConditions ? { ...p, choices: STDs } : p;
             })
             .map(p => {
-              const includesGender = p.field_name && p.field_name.includes('gender');
+              const includesGender =
+                p.field_name && p.field_name.includes('gender');
               return includesGender ? { ...p, choices: genders } : p;
             })
             .sort((a, b) => a.prompt_order - b.prompt_order);
@@ -144,7 +146,11 @@ const Onboarding = ({ history }) => {
   //   console.log(cardsData);
   // }, [cardsData]);
 
-  return cardsData ? <Deck cardsData={cardsData} /> : <div>Loading...</div>;
+  return cardsData ? (
+    <Deck className='deck' cardsData={cardsData} />
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 export default Onboarding;
