@@ -62,3 +62,21 @@ button.bp3-intent-success {
     align-content: center;
   }
 }
+@media (max-width: 830px) {
+  .container {
+    width: 100%;
+  }
+  .card {
+    width: 100%;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .col.s12 {
+    font-size: 0.8rem;
+    /* width: 100%; */
+    align-content: center;
+  }
+}
