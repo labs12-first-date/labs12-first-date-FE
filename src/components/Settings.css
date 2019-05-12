@@ -1,12 +1,14 @@
 .how {
-  width: 80%;
+  background-color: black;
+  width: 0.1%;
 
   margin: 0 auto;
 }
-.bp3-card {
-  background-color: rgb(250, 250, 250);
-}
 
+.container {
+  color: white;
+  font-size: 19px;
+}
 .container ul.row {
   display: flex;
   list-style: none;
@@ -17,12 +19,13 @@
   width: 100%;
 }
 
-div.card.grey.lighten-1   {
+div.card.grey.lighten-1 {
   width: 95%;
 }
 
 span.card-title {
-  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 div.card-content {
@@ -59,8 +62,18 @@ button.bp3-intent-danger {
   z-index: 20;
   top: 90px;
   left: 25%;
+
   animation-duration: 1s;
   animation-name: slidein;
+}
+.bp3-card.bp3-elevation-2.bp3-overlay-content.bp3-overlay-appear-done.bp3-overlay-enter-done {
+  display: block;
+}
+.bp3-card.bp3-elevation-2.bp3-overlay-content.bp3-overlay-appear-done.bp3-overlay-enter-done
+  input {
+  margin: 0 20px;
+  border-style: none;
+  border-bottom: 1px dotted black;
 }
 
 @keyframes slidein {
@@ -73,38 +86,81 @@ button.bp3-intent-danger {
   }
 }
 
-@media(max-width:500px) {
-
+@media (max-width: 500px) {
   .buttons {
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    width:355px;
-    padding-right:35px;
+    width: 355px;
+    padding-right: 35px;
   }
 
   .bp3-button-text {
-    margin:0, auto;
-    padding-left:0px;
-    width:60px;
-    display:flex;
+    margin: 0, auto;
+    padding-left: 0px;
+    width: 60px;
+    display: flex;
     justify-content: space-around;
   }
 
   button .bp3-intent-danger {
-    padding:0;
-    margin-right:0px;
+    padding: 0;
+    margin-right: 0px;
   }
 
   button .bp3-icon-arrow {
-    display:none;
+    display: none;
   }
 
   button .bp3-icon-refresh {
-    display:none;
+    display: none;
   }
 
   button .bp3-icon-disable {
-    display:none;
+    display: none;
   }
+}
+.btn-update-settings {
+  background-color: #25d381;
+  border-radius: 40px;
+  font-size: 18px;
+  border-style: none;
+  border: 1.5px solid black;
 
+  width: 200px;
+  color: white;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.btn-red-settings {
+  background-color: #e41a0b;
+  border-radius: 40px;
+  font-size: 18px;
+  border-style: none;
+  border: 1.5px solid black;
+  padding: 7px;
+  width: 200px;
+  color: white;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(209, 25, 12, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(209, 25, 12, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(209, 25, 12, 0.37);
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+@media (max-width: 850px) {
+  #setting-ul {
+    display: flex;
+    flex-direction: column;
+  }
+  #setting-ul li {
+    margin: 10px 0;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
