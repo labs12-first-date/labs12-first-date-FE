@@ -1,24 +1,87 @@
 .container {
-  max-width: 100%;
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  margin-top: 10%;
+  max-width: 70%;
+  border-radius: 10px;
   display: flex;
+
+  justify-content: flex-end;
+
+  background-color: #242d3b;
 }
+
+.content-left img {
+  position: relative;
+  top: -20%;
+  left: -30%;
+  max-width: 90%;
+  max-height: 90%;
+  margin: 30px;
+
+  border-radius: 10%;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+}
+
+.right-content {
+  width: 50%;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+  padding-right: 10%;
+}
+
 .box {
   width: 100%;
-  text-align: center;
+
   padding: 0 2%;
 }
 
-ul {
-  width: 100%;
+.btn-update {
+  background-color: #25d381;
+  border-radius: 20px;
+  font-size: 19px;
+  border-style: none;
+  border: 1.5px solid black;
+  padding: 10px;
+  width: 200px;
+  color: white;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
-.bp3-card {
+.udate-dropDown img {
+  width: 80%;
+  border-radius: 20px;
+}
+
+button .bp3-card {
   width: 100%;
   margin: 0 auto;
   padding: 0 2%;
 }
+
+form {
+  display: flex;
+}
+#profileForm input {
+  border-style: none;
+  border-bottom: 1px solid #242d3b;
+  font-size: 19px;
+  padding: 1%;
+  width: 100%;
+}
 .bp3-overlay-content {
-  width: 50%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  background-color: #242d3b;
 }
 
 button.bp3-intent-danger {
@@ -33,11 +96,6 @@ span.red-text {
 .row {
   width: 100%;
   display: flex;
-}
-.col.s12 {
-  font-size: 0.8rem;
-  /* width: 100%; */
-  align-content: center;
 }
 
 button.bp3-intent-success {
@@ -62,21 +120,25 @@ button.bp3-intent-success {
     align-content: center;
   }
 }
-@media (max-width: 830px) {
+
+@media (max-width: 900px) {
+  .content-left img {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
+@media (max-width: 580px) {
   .container {
-    width: 100%;
-  }
-  .card {
-    width: 100%;
-  }
-  .row {
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
   }
-  .col.s12 {
-    font-size: 0.8rem;
-    /* width: 100%; */
-    align-content: center;
+  .right-content {
+    align-items: center;
+    width: 100%;
   }
+}
+.bp3-overlay-content {
+  background-color: #242d3b;
 }
