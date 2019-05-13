@@ -10,15 +10,22 @@ const getSnapshotDataWithId = doc => ({ ...doc.data(), id: doc.id });
 
 const StyledContainer = styled.div`
   margin: 1rem auto;
-  font-size: 1.25rem;
+  /* font-size: 1.1rem; */
   max-width: 60rem;
   color: #eee;
+  @media (min-width: 30rem) {
+    font-size: 1.1rem;
+  }
+  @media (min-width: 60rem) {
+    font-size: 1.25rem;
+  }
   & > div {
     background: #1c242f;
     margin: 0 1rem;
     border-radius: 1.5rem;
     padding: 2rem 1.5rem;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   h2 {
     font-size: 1em;
@@ -28,6 +35,7 @@ const StyledContainer = styled.div`
   .message-stream {
     max-height: calc(100vh - 20rem);
     overflow-y: auto;
+    overflow-x: hidden;
   }
 `;
 
@@ -139,7 +147,9 @@ const Session = ({ match }) => {
           </div>
         ) : (
           <div className="welcome-message">
-            <div>Don't be shy! Strike up a conversation with ...</div>
+            <div>
+              Don't be shy! Strike up a conversation with {participants.matchProfile.first_name}
+            </div>
           </div>
         )}
         <MessageInput send={sendMessage} />
