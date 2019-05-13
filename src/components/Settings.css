@@ -48,10 +48,11 @@ button.bp3-intent-danger {
   margin: 0 10px;
 }
 
-.dropForm {
-  margin: 0 auto;
+input {
+  margin: 0 20px;
+  border-style: none;
+  border-bottom: 1px dotted black;
 }
-
 #drop-form-btn {
   margin-top: 20px;
   text-align: center;
@@ -68,12 +69,6 @@ button.bp3-intent-danger {
 }
 .bp3-card.bp3-elevation-2.bp3-overlay-content.bp3-overlay-appear-done.bp3-overlay-enter-done {
   display: block;
-}
-.bp3-card.bp3-elevation-2.bp3-overlay-content.bp3-overlay-appear-done.bp3-overlay-enter-done
-  input {
-  margin: 0 20px;
-  border-style: none;
-  border-bottom: 1px dotted black;
 }
 
 @keyframes slidein {
