@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ComponentStyles = styled.div`
+  margin-top: 10px;
   form {
     display: flex;
     width: 100%;
