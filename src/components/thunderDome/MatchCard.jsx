@@ -7,8 +7,6 @@ import Loading from '../Loading';
 // import useForm from '../../hooks/useForm';
 // import { MenuItem } from '@blueprintjs/core';
 
-import Carousel from 'nuka-carousel';
-
 // const Card = () => {
 //   return (
 //     <div className='thunder-heading'>
@@ -57,8 +55,6 @@ const MatchCard = props => {
     id: uid
   } = data;
 
-  console.log('This is pics', profile_picture);
-
   if (data === []) {
     return <Loading />;
   } else {
@@ -81,9 +77,7 @@ const MatchCard = props => {
           }}
         >
           <div className='card'>
-            <Carousel>
-              {<img src={profile_picture} alt='profilePicture' />}
-            </Carousel>
+            <img src={profile_picture} alt='profilePicture' />
             <h2>{first_name},</h2>
             <h2>{age},</h2>
             <h5>{zip_code}</h5>
