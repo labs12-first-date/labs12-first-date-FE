@@ -5,6 +5,7 @@ import FileUploader from 'react-firebase-file-uploader';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
+import Navigation from './Navigation';
 import './Profile.css';
 import { Button, Card, Elevation, Overlay } from '@blueprintjs/core';
 
@@ -80,6 +81,7 @@ const Profile = ({ history }) => {
   };
   return (
     <div>
+      <Navigation />
       <FirestoreDocument
         path={`profiles/${user.uid}`}
         render={({ isLoading, data }) => {
@@ -92,16 +94,16 @@ const Profile = ({ history }) => {
             window.location.reload();
           } else {
             return (
-              <div className="box">
-                <div className="container">
-                  <div className="content-left">
-                    <img src={data.profile_picture} alt="profile" />
+              <div className='box'>
+                <div className='container'>
+                  <div className='content-left'>
+                    <img src={data.profile_picture} alt='profile' />
                   </div>
-                  <div className="right-content">
-                    <h2 className="card-title">About</h2>
+                  <div className='right-content'>
+                    <h2 className='card-title'>About</h2>
 
                     <p>
-                      <span className="red-text text-darken-2">Name:</span>{' '}
+                      <span className='red-text text-darken-2'>Name:</span>{' '}
                       {data.first_name} {data.last_name}
                       <hr />
                       Bio : {data.bio}
@@ -125,18 +127,18 @@ const Profile = ({ history }) => {
                     </p>
                     <p>Zip Code: {data.zip_code}</p>
 
-                    <button className="btn-update" onClick={showForm}>
+                    <button className='btn-update' onClick={showForm}>
                       Update
                     </button>
                   </div>
 
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
-                      <div className="udate-dropDown">
-                        <img src={formState.profile_picture} alt="profile" />
+                      <div className='udate-dropDown'>
+                        <img src={formState.profile_picture} alt='profile' />
                         <FileUploader
-                          accept="image/*"
-                          name="profile_picture"
+                          accept='image/*'
+                          name='profile_picture'
                           randomizeFilename
                           storageRef={firebase.storage().ref('images')}
                           // onUploadStart={handleUploadStart}
@@ -146,18 +148,18 @@ const Profile = ({ history }) => {
                         />
                       </div>
 
-                      <form id="profileForm" onSubmit={handleSubmit}>
+                      <form id='profileForm' onSubmit={handleSubmit}>
                         <input
-                          name="first_name"
-                          placeholder="First Name"
+                          name='first_name'
+                          placeholder='First Name'
                           value={
                             values.first_name || ` ${formState.first_name}`
                           }
                           onChange={handleChange}
                         />
                         <input
-                          name="last_name"
-                          placeholder="Last Name"
+                          name='last_name'
+                          placeholder='Last Name'
                           value={values.last_name || ` ${formState.last_name}`}
                           onChange={handleChange}
                         />
@@ -170,14 +172,14 @@ const Profile = ({ history }) => {
                         /> */}
 
                         <input
-                          name="bio"
-                          placeholder="Bio"
+                          name='bio'
+                          placeholder='Bio'
                           value={values.bio || ` ${formState.bio}`}
                           onChange={handleChange}
                         />
                         <input
-                          name="condition_details"
-                          placeholder="Condition Details"
+                          name='condition_details'
+                          placeholder='Condition Details'
                           value={
                             values.condition_description ||
                             ` ${formState.condition_description}`
@@ -185,34 +187,34 @@ const Profile = ({ history }) => {
                           onChange={handleChange}
                         />
                         <input
-                          name="looking_for"
-                          placeholder="Looking For"
+                          name='looking_for'
+                          placeholder='Looking For'
                           value={data.match_gender.map(e => {
                             return e.value;
                           })}
                           onChange={handleChange}
                         />
                         <input
-                          name="what_ails_you"
-                          placeholder="Your Condition"
+                          name='what_ails_you'
+                          placeholder='Your Condition'
                           value={data.conditions.map(e => {
                             return e.value;
                           })}
                           onChange={handleChange}
                         />
                         <input
-                          type="number"
-                          name="zip_code"
-                          placeholder="Zip Code"
+                          type='number'
+                          name='zip_code'
+                          placeholder='Zip Code'
                           value={values.zip_code || `${formState.zip_code}`}
                           onChange={handleChange}
                         />
                         <div>
                           <Button
-                            rightIcon="arrow-right"
-                            intent="success"
+                            rightIcon='arrow-right'
+                            intent='success'
                             onClick={showForm}
-                            type="submit"
+                            type='submit'
                           >
                             Update
                           </Button>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { firebase, auth } from '../../firebase';
 import Message from './Message';
 import MessageInput from './MessageInput';
+import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
@@ -73,7 +74,8 @@ const Session = ({ match }) => {
 
     const getSessionData = async () => {
       const ownProfile = await getProfile(user.uid);
-      const matchId = ownProfile.matches.find(m => m.chat_id === chatId).match_id;
+      const matchId = ownProfile.matches.find(m => m.chat_id === chatId)
+        .match_id;
       const matchProfile = await getProfile(matchId);
       setParticipants({
         ownProfile: { ...ownProfile, uid: user.uid },
@@ -137,6 +139,8 @@ const Session = ({ match }) => {
   };
 
   return participants ? (
+        <>
+      <Navigation />
     <StyledContainer>
       <div>
         <h2>Chat with {participants.matchProfile.first_name}</h2>
@@ -172,6 +176,7 @@ const Session = ({ match }) => {
         <MessageInput send={sendMessage} />
       </div>
     </StyledContainer>
+      </>
   ) : (
     <StyledContainer>Loading...</StyledContainer>
   );

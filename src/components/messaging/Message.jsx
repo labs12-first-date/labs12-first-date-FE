@@ -61,6 +61,7 @@ const Message = ({ messageData, senderProfile, ownMessage }) => {
 
   return (
     <MessageStyles ownMessage={ownMessage}>
+
       <div className="content-container">
         <div className="sender">{senderProfile.first_name}</div>
         <div className="msg-body">

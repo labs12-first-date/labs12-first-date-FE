@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
@@ -86,10 +87,12 @@ const SessionsList = () => {
 
   if (loading) return <SessionsListStyles>Loading...</SessionsListStyles>;
 
+
   return (
     <SessionsListStyles>
       {sessions ? (
         <>
+              <Navigation />
           <h2>Chats</h2>
           {sessions.map(({ chat_id, match_name, match_picture }) => (
             <Session
@@ -110,6 +113,7 @@ const SessionsList = () => {
         </>
       )}
     </SessionsListStyles>
+
   );
 };
 

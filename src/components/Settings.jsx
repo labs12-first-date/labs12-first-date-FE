@@ -3,6 +3,7 @@ import { auth, firebase } from '../firebase';
 import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
+import Navigation from './Navigation';
 import React from 'react';
 import StripeApp from './stripe/StripeApp.jsx';
 import { Button, Card, Overlay, Elevation } from '@blueprintjs/core';
@@ -52,6 +53,7 @@ const Settings = ({ history }) => {
 
   return (
     <div>
+      <Navigation />
       <FirestoreDocument
         path={`settings/${user.uid}`}
         render={({ isLoading, data }) => {
@@ -60,57 +62,57 @@ const Settings = ({ history }) => {
           return isLoading ? (
             <Loading />
           ) : (
-            <div className="how" elevation={Elevation.TWO}>
-              <div className="container">
-                <div className="card grey lighten-1  ">
-                  <div className="card-content black-text">
-                    <span className="card-title">Settings</span>
-                    <ul id="setting-ul" className="row">
-                      <li className="col s12">
-                        <span className="red-text text-darken-2">
+            <div className='how' elevation={Elevation.TWO}>
+              <div className='container'>
+                <div className='card grey lighten-1  '>
+                  <div className='card-content black-text'>
+                    <span className='card-title'>Settings</span>
+                    <ul id='setting-ul' className='row'>
+                      <li className='col s12'>
+                        <span className='red-text text-darken-2'>
                           Maximum Match Age:
                         </span>{' '}
                         {data.match_age_max}
                       </li>
-                      <li className="col s12">
-                        <span className="red-text text-darken-2">
+                      <li className='col s12'>
+                        <span className='red-text text-darken-2'>
                           Minimum Match Age:
                         </span>{' '}
                         {data.match_age_min}{' '}
                       </li>
 
-                      <li className="col s12">
+                      <li className='col s12'>
                         Match Distance Range:{data.match_distance}
                       </li>
                     </ul>
                   </div>
-                  <div className="buttons">
-                    <button className="btn-update-settings" onClick={showForm}>
+                  <div className='buttons'>
+                    <button className='btn-update-settings' onClick={showForm}>
                       Update Match Settings
                     </button>
-                    <button className="btn-red-settings">Reset Password</button>
+                    <button className='btn-red-settings'>Reset Password</button>
                     {/*sends an email to user to reset password */}
                     <button
                       onClick={() => {
                         history.replace('/');
                         auth.deleteProfile();
                       }}
-                      className="btn-red-settings"
+                      className='btn-red-settings'
                     >
                       Delete Your Account
                     </button>
                     {/*deletes the user profile */}
                   </div>
                 </div>
-                <div className="dropForm">
+                <div className='dropForm'>
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
-                      <form id="settingForm" onSubmit={handleSubmit}>
+                      <form id='settingForm' onSubmit={handleSubmit}>
                         {' '}
                         <span>Max Age</span>
                         <input
-                          name="match_age_max"
-                          placeholder="Max Age"
+                          name='match_age_max'
+                          placeholder='Max Age'
                           value={
                             values.match_age_max || `${formState.match_age_max}`
                           }
@@ -118,8 +120,8 @@ const Settings = ({ history }) => {
                         />
                         <span>Min Age</span>
                         <input
-                          name="match_age_min"
-                          placeholder="Min Age"
+                          name='match_age_min'
+                          placeholder='Min Age'
                           value={
                             values.match_age_min || `${formState.match_age_min}`
                           }
@@ -127,8 +129,8 @@ const Settings = ({ history }) => {
                         />
                         <span>Distance</span>
                         <input
-                          name="match_distance"
-                          placeholder="Distance"
+                          name='match_distance'
+                          placeholder='Distance'
                           value={
                             values.match_distance ||
                             `${formState.match_distance}`
@@ -136,20 +138,20 @@ const Settings = ({ history }) => {
                           onChange={handleChange}
                         />
                       </form>
-                      <div id="drop-form-btn">
+                      <div id='drop-form-btn'>
                         <Button
-                          rightIcon="arrow-right"
-                          intent="success"
+                          rightIcon='arrow-right'
+                          intent='success'
                           onClick={handleSubmit}
-                          type="submit"
+                          type='submit'
                         >
                           Submit Settings Changes
                         </Button>
                         <Button
-                          rightIcon="arrow-right"
-                          intent="danger"
+                          rightIcon='arrow-right'
+                          intent='danger'
                           onClick={showForm}
-                          type="submit"
+                          type='submit'
                         >
                           Close
                         </Button>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
+import Navigation from '../Navigation';
 
 const getDocsArray = async collection => {
   const snapshot = await firebase

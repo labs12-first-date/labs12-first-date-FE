@@ -4,6 +4,7 @@ import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import { Button } from '@blueprintjs/core';
 import logo from '../image/UnBlush.png';
+import Navigation from '../components/LoggedoutNavigation';
 import './Login.css';
 
 // Configure FirebaseUI.
@@ -25,27 +26,33 @@ const Login = () => {
     auth.resetPasswordNoLogin(values.email);
   });
   return (
-    <div id="login-signup">
-      <img src={logo} alt="logo" />
+    <>
+      <Navigation />
+      <div id='login-signup'>
+        <img src={logo} alt='logo' />
 
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      <div id="form">
-        <form onSubmit={handleSubmit}>
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={values.email || ''}
-            onChange={handleChange}
-          />
-          <div>
-            <Button intent="danger" icon="refresh">
-              Reset Password
-            </Button>
-          </div>
-        </form>
+        <StyledFirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
+        <div id='form'>
+          <form onSubmit={handleSubmit}>
+            <input
+              name='email'
+              type='email'
+              placeholder='Email'
+              value={values.email || ''}
+              onChange={handleChange}
+            />
+            <div>
+              <Button intent='danger' icon='refresh'>
+                Reset Password
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
