@@ -5,17 +5,14 @@ import Form from './Form';
 export default class App extends React.Component<IAppProps, IAppState> {
 
 
-
-
-
   render() {
     return (
       <>
-      <StripeProvider api="pk_test_ojgxSZHYR90grl2IAcjSjgoc00Rn3bEDfA">
-      <Elements>
-        <Form />
-      </Elements>
-      </StripeProvider>
+        <StripeProvider apiKey="pk_test_ojgxSZHYR90grl2IAcjSjgoc00Rn3bEDfA">
+          <Elements>
+            <Form />
+          </Elements>
+        </StripeProvider>
       </>
     )
   }
