@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { firebase, auth } from '../../firebase';
 import Message from './Message';
 import MessageInput from './MessageInput';
+import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
@@ -58,7 +59,8 @@ const Session = ({ match }) => {
 
     const getSessionData = async () => {
       const ownProfile = await getProfile(user.uid);
-      const matchId = ownProfile.matches.find(m => m.chat_id === chatId).match_id;
+      const matchId = ownProfile.matches.find(m => m.chat_id === chatId)
+        .match_id;
       const matchProfile = await getProfile(matchId);
       setParticipants({
         ownProfile: { ...ownProfile, uid: user.uid },
@@ -122,34 +124,37 @@ const Session = ({ match }) => {
   };
 
   return participants ? (
-    <StyledContainer>
-      <div>
-        <h2>Chat with {participants.matchProfile.first_name}</h2>
-        {messages.length ? (
-          <div className="message-stream" ref={messageStreamContainer}>
-            {messages.map(msg => {
-              const { ownProfile, matchProfile } = participants;
-              const ownUserId = user.uid;
-              const ownMessage = msg.sender_id === ownUserId;
-              const sender = ownMessage ? ownProfile : matchProfile;
-              return (
-                <Message
-                  key={msg.id}
-                  messageData={msg}
-                  senderProfile={sender}
-                  ownMessage={ownMessage}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div className="welcome-message">
-            <div>Don't be shy! Strike up a conversation with ...</div>
-          </div>
-        )}
-        <MessageInput send={sendMessage} />
-      </div>
-    </StyledContainer>
+    <>
+      <Navigation />
+      <StyledContainer>
+        <div>
+          <h2>Chat with {participants.matchProfile.first_name}</h2>
+          {messages.length ? (
+            <div className='message-stream' ref={messageStreamContainer}>
+              {messages.map(msg => {
+                const { ownProfile, matchProfile } = participants;
+                const ownUserId = user.uid;
+                const ownMessage = msg.sender_id === ownUserId;
+                const sender = ownMessage ? ownProfile : matchProfile;
+                return (
+                  <Message
+                    key={msg.id}
+                    messageData={msg}
+                    senderProfile={sender}
+                    ownMessage={ownMessage}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className='welcome-message'>
+              <div>Don't be shy! Strike up a conversation with ...</div>
+            </div>
+          )}
+          <MessageInput send={sendMessage} />
+        </div>
+      </StyledContainer>
+    </>
   ) : (
     <StyledContainer>Loading...</StyledContainer>
   );

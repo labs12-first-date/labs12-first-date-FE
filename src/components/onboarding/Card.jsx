@@ -9,7 +9,6 @@ import Select from 'react-select';
 import './Deck.css';
 
 const Card = props => {
-  // const [user] = useState(auth.getCurrentUser());
   const { user } = useContext(AuthContext);
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
@@ -75,6 +74,10 @@ const Card = props => {
       });
   };
 
+  const handleProgress = filename => {
+    alert('Uploading now!');
+  };
+
   const renderInput = p => {
     switch (p.input_type) {
       case 'text':
@@ -135,7 +138,7 @@ const Card = props => {
             name='profile_picture'
             randomizeFilename
             storageRef={firebase.storage().ref('images')}
-            // onUploadStart={handleUploadStart}
+            onUploadStart={handleProgress}
             // onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}
             // onProgress={handleProgress}

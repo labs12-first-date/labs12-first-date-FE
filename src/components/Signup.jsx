@@ -4,6 +4,7 @@ import logo from '../image/UnBlush.png';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import { withRouter } from 'react-router-dom';
+import Navigation from '../components/LoggedoutNavigation';
 import './Signup.css';
 
 const uiConfig = {
@@ -31,6 +32,7 @@ const Signup = ({ history }) => {
   });
   return (
     <>
+      <Navigation />
       <div id='form1'>
         <img src={logo} alt='logo' />
 

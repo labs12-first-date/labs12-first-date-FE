@@ -53,16 +53,16 @@ const Message = ({ messageData, senderProfile, ownMessage }) => {
 
   return (
     <MessageStyles ownMessage={ownMessage}>
-      <div className="content-container">
-        <div className="sender-photo">
+      <div className='content-container'>
+        <div className='sender-photo'>
           <img
             src={senderProfile.profile_picture}
             alt={senderProfile.first_name}
           />
         </div>
-        <div className="sender">{senderProfile.first_name}</div>
-        <div className="content">{messageData.msg}</div>
-        <div className="time">{relativeTime}</div>
+        <div className='sender'>{senderProfile.first_name}</div>
+        <div className='content'>{messageData.msg}</div>
+        <div className='time'>{relativeTime}</div>
       </div>
     </MessageStyles>
   );

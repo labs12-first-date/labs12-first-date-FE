@@ -8,6 +8,7 @@ import MatchCard from './MatchCard';
 import convertDescriptorToString from 'jest-util/build/convertDescriptorToString';
 import LocationDistance from '../Location/Location';
 import recordSwipe from '../../swipeActions';
+import Navigation from '../Navigation';
 
 const to = i => ({
   x: 10,
@@ -251,6 +252,7 @@ const ThunderDeck = ({ history }) => {
   if (profileData) {
     return props.map(({ x, y, rot, scale }, i) => (
       <>
+        <Navigation />
         <MatchCard
           className='card'
           i={i}

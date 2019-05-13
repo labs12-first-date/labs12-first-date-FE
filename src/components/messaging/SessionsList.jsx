@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
@@ -37,16 +38,19 @@ const SessionsList = () => {
   }, [sessions]);
 
   return sessions ? (
-    <StyledDiv>
-      <h2>Chats</h2>
-      <ul>
-        {sessions.map(({ chat_id, match_name }) => (
-          <li key={chat_id}>
-            Chat with <Link to={`/chats/${chat_id}`}>{match_name}</Link>
-          </li>
-        ))}
-      </ul>
-    </StyledDiv>
+    <>
+      <Navigation />
+      <StyledDiv>
+        <h2>Chats</h2>
+        <ul>
+          {sessions.map(({ chat_id, match_name }) => (
+            <li key={chat_id}>
+              Chat with <Link to={`/chats/${chat_id}`}>{match_name}</Link>
+            </li>
+          ))}
+        </ul>
+      </StyledDiv>
+    </>
   ) : (
     <StyledDiv>Loading...</StyledDiv>
   );

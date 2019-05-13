@@ -55,17 +55,17 @@ const MessageInput = ({ send }) => {
   return (
     <ComponentStyles>
       <form onSubmit={handleSubmit}>
-        <div className="input-box">
+        <div className='input-box'>
           <input
-            type="text"
-            placeholder="Type your message here..."
+            type='text'
+            placeholder='Type your message here...'
             value={inputVal}
             onChange={handleChange}
-            name="message"
+            name='message'
           />
         </div>
-        <div className="control">
-          <button type="submit">Send</button>
+        <div className='control'>
+          <button type='submit'>Send</button>
         </div>
       </form>
     </ComponentStyles>
