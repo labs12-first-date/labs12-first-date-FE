@@ -8,10 +8,17 @@ const MessageStyles = styled.div`
   .content-container {
     position: relative;
     right: 0;
-    /* position: absolute; */
-    max-width: 70%;
     margin: 0 0 auto 0;
     margin: ${props => (props.ownMessage ? '0 0 0 auto' : '0 auto 0 0')};
+    @media (min-width: 600px) {
+      max-width: 70%;
+    }
+  }
+  .msg-body {
+    display: flex;
+    flex: ${props => (props.ownMessage ? '0 0 0 auto' : '0 auto 0 0')};
+    flex-direction: ${props => (props.ownMessage ? 'row-reverse' : 'row')};
+    align-items: center;
   }
   .sender,
   .time {
@@ -27,17 +34,18 @@ const MessageStyles = styled.div`
   .content {
     background: ${props => (props.ownMessage ? '#273342' : '#4f5f6f')};
     padding: 0.8rem 1rem;
-    border-radius: ${props =>
-      props.ownMessage ? '1rem 1rem 0 1rem' : '1rem 1rem 1rem 0;'};
+    border-radius: ${props => (props.ownMessage ? '1rem 1rem 0 1rem' : '1rem 1rem 1rem 0;')};
     display: inline-block;
     text-align: left;
   }
   .sender-photo {
+    padding: ${props => (props.ownMessage ? '0 0 0 1rem' : '0 1rem 0 0')};
+    align-self: flex-start;
     img {
       margin: ${props => (props.ownMessage ? '0 0 0 auto' : '0 auto 0 0')};
       display: block;
-      width: 4rem;
-      height: 4rem;
+      width: 3.5rem;
+      height: 3.5rem;
       object-fit: cover;
       border-radius: 50%;
     }
@@ -53,16 +61,16 @@ const Message = ({ messageData, senderProfile, ownMessage }) => {
 
   return (
     <MessageStyles ownMessage={ownMessage}>
-      <div className='content-container'>
-        <div className='sender-photo'>
-          <img
-            src={senderProfile.profile_picture}
-            alt={senderProfile.first_name}
-          />
+
+      <div className="content-container">
+        <div className="sender">{senderProfile.first_name}</div>
+        <div className="msg-body">
+          <div className="sender-photo">
+            <img src={senderProfile.profile_picture} alt={senderProfile.first_name} />
+          </div>
+          <div className="content">{messageData.msg}</div>
         </div>
-        <div className='sender'>{senderProfile.first_name}</div>
-        <div className='content'>{messageData.msg}</div>
-        <div className='time'>{relativeTime}</div>
+        <div className="time">{relativeTime}</div>
       </div>
     </MessageStyles>
   );

@@ -7,19 +7,26 @@ import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
-const getSnapshotData = doc => ({ ...doc.data(), id: doc.id });
+const getSnapshotDataWithId = doc => ({ ...doc.data(), id: doc.id });
 
 const StyledContainer = styled.div`
   margin: 1rem auto;
-  font-size: 1.25rem;
+  /* font-size: 1.1rem; */
   max-width: 60rem;
   color: #eee;
+  @media (min-width: 30rem) {
+    font-size: 1.1rem;
+  }
+  @media (min-width: 60rem) {
+    font-size: 1.25rem;
+  }
   & > div {
     background: #1c242f;
     margin: 0 1rem;
     border-radius: 1.5rem;
     padding: 2rem 1.5rem;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   h2 {
     font-size: 1em;
@@ -27,8 +34,21 @@ const StyledContainer = styled.div`
     text-align: center;
   }
   .message-stream {
-    max-height: 40rem;
+    max-height: calc(100vh - 20rem);
     overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .welcome-message {
+    img {
+      display: inline-block;
+      margin-bottom: 1rem;
+      width: 5rem;
+      height: 5rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    text-align: center;
+    padding: 5rem 0;
   }
 `;
 
@@ -41,11 +61,6 @@ const Session = ({ match }) => {
   const initialView = useRef(true);
   const messageStreamContainer = useRef(null);
   const shouldScroll = useRef(false);
-
-  // get chat room data from profile
-  // selfId and matchId
-  // profile pics for both
-  // first name for both
 
   // CDM
   useEffect(() => {
@@ -73,9 +88,9 @@ const Session = ({ match }) => {
     }
   }, [user, chatId]);
 
-  useEffect(() => {
-    console.log(participants);
-  }, [participants]);
+  // useEffect(() => {
+  //   console.log(participants);
+  // }, [participants]);
 
   // live-stream new messages
   useEffect(() => {
@@ -85,7 +100,7 @@ const Session = ({ match }) => {
         .orderBy('timestamp', 'asc')
         .limit(100)
         .onSnapshot(querySnapshot => {
-          const messagesArray = querySnapshot.docs.map(getSnapshotData);
+          const messagesArray = querySnapshot.docs.map(getSnapshotDataWithId);
           setMessages(messagesArray);
         });
     };
@@ -124,37 +139,44 @@ const Session = ({ match }) => {
   };
 
   return participants ? (
-    <>
+        <>
       <Navigation />
-      <StyledContainer>
-        <div>
-          <h2>Chat with {participants.matchProfile.first_name}</h2>
-          {messages.length ? (
-            <div className='message-stream' ref={messageStreamContainer}>
-              {messages.map(msg => {
-                const { ownProfile, matchProfile } = participants;
-                const ownUserId = user.uid;
-                const ownMessage = msg.sender_id === ownUserId;
-                const sender = ownMessage ? ownProfile : matchProfile;
-                return (
-                  <Message
-                    key={msg.id}
-                    messageData={msg}
-                    senderProfile={sender}
-                    ownMessage={ownMessage}
-                  />
-                );
-              })}
+    <StyledContainer>
+      <div>
+        <h2>Chat with {participants.matchProfile.first_name}</h2>
+        {messages.length ? (
+          <div className="message-stream" ref={messageStreamContainer}>
+            {messages.map(msg => {
+              const { ownProfile, matchProfile } = participants;
+              const ownUserId = user.uid;
+              const ownMessage = msg.sender_id === ownUserId;
+              const sender = ownMessage ? ownProfile : matchProfile;
+              return (
+                <Message
+                  key={msg.id}
+                  messageData={msg}
+                  senderProfile={sender}
+                  ownMessage={ownMessage}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="welcome-message">
+            <img
+              src={participants.matchProfile.profile_picture}
+              alt={participants.matchProfile.first_name}
+            />
+            <div>
+              Strike up a conversation with {participants.matchProfile.first_name}. <br /> Don't be
+              shy!
             </div>
-          ) : (
-            <div className='welcome-message'>
-              <div>Don't be shy! Strike up a conversation with ...</div>
-            </div>
-          )}
-          <MessageInput send={sendMessage} />
-        </div>
-      </StyledContainer>
-    </>
+          </div>
+        )}
+        <MessageInput send={sendMessage} />
+      </div>
+    </StyledContainer>
+      </>
   ) : (
     <StyledContainer>Loading...</StyledContainer>
   );
