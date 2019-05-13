@@ -6,3 +6,31 @@
 .button.bp3-intent-danger {
   display: block;
 }
+
+#login-signup {
+  width: 25%;
+  padding: 30px;
+  margin: 30px auto;
+  background-color: #242d3b;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#login-signup img {
+  margin-bottom: 20px;
+}
+
+#form form {
+  display: flex;
+}
+
+#form form input {
+  background-color: #242d3b;
+  border-style: none;
+  border-bottom: 2px #25d381 solid;
+  font-size: 19px;
+}
+#form form input::placeholder {
+  color: white;
+}

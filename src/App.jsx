@@ -13,6 +13,7 @@ import SessionsList from './components/messaging/SessionsList';
 import Session from './components/messaging/Session';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
+import MainPage from './components/MainPage'
 // import LocationDistance from './components/Location/Location';
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
         <Navigation userNow={user} />
 
         <Switch>
-          <Route exact path="/" component={Signup} />
+          <Route exact path="/" component={MainPage} />
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
           <Route path="/profile" component={Profile} />
