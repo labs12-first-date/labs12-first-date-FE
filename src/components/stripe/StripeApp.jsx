@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StripeProvider, Elements } from 'react-stripe-elements';
 import Form from './Form';
 
-export default class App extends React.Component<IAppProps, IAppState> {
+export default class StripeApp extends React.Component<IAppProps, IAppState> {
 
 
   render() {

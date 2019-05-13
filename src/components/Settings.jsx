@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
+import StripeApp from './stripe/StripeApp.jsx';
 import { Button, Card, Overlay, Elevation } from '@blueprintjs/core';
 import './Settings.css';
 
@@ -156,6 +157,7 @@ const Settings = ({ history }) => {
                     </Card>
                   </Overlay>
                 </div>
+                < StripeApp />
               </div>
             </div>
           );
