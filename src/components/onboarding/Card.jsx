@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { animated, interpolate } from 'react-spring';
+import React, { useState, useEffect, useContext } from 'react';
 import { auth, firebase } from '../../firebase';
+import { animated, interpolate } from 'react-spring';
 import { ProgressBar } from '@blueprintjs/core';
+import { AuthContext } from '../../contexts/AuthContext';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
-// import Carousel from 'nuka-carousel';
 import Select from 'react-select';
 import './Deck.css';
 
 const Card = props => {
+  // const [user] = useState(auth.getCurrentUser());
+  const { user } = useContext(AuthContext);
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
-  const [user] = useState(auth.getCurrentUser());
   const { cardTitle, onboardingStep, prompts } = data;
   const [photoValues, setphotoValues] = useState({});
 
+  console.log(user);
+
   useEffect(() => {
-    // TODO don't make network call for every keystroke
-    if (user) {
-      firebase
-        .firestore()
-        .collection('profiles')
-        .doc(user.uid)
-        .update(formValues)
-        .then(function() {
-          console.log('Document successfully written!');
-        });
-    }
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(user.uid)
+      .update(formValues)
+      .then(function() {
+        console.log('Document successfully written!');
+      });
   }, [formValues, user]);
 
   useEffect(() => {
@@ -46,11 +45,7 @@ const Card = props => {
           console.log('Error getting document:', error);
         });
     }
-  }, [user]);
-
-  useEffect(() => {
-    console.log('PHOTO STATE CHANGE:', photoValues);
-  }, [photoValues]);
+  }, []);
 
   const handleChange = ({ field, value }) => {
     setFormValues(previousValues => {
@@ -75,22 +70,10 @@ const Card = props => {
             profile_completed: true
           })
           .then(() => {
-            // changeProfileCompleted();
             props.history.replace('/thunderdome');
           });
       });
   };
-
-  // const changeProfileCompleted = () => {
-  //   firebase
-  //     .firestore()
-  //     .collection('profiles')
-  //     .doc(user.uid)
-  //     .update({ profile_completed: true })
-  //     .then(function() {
-  //       console.log('Document successfully written!');
-  //     });
-  // };
 
   const renderInput = p => {
     switch (p.input_type) {
@@ -179,12 +162,6 @@ const Card = props => {
         }}
       >
         <div className='card'>
-          {/* <Carousel>
-              {pics.map((pic, index) => (
-                <img src={pic} key={index} alt='profilePicture' />
-              ))}
-            </Carousel> */}
-
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
@@ -206,13 +183,5 @@ const Card = props => {
     </animated.div>
   );
 };
-
-// Card.propTypes = {
-//   name: PropTypes.string,
-//   age: PropTypes.number,
-//   distance: PropTypes.string,
-//   text: PropTypes.string,
-//   pics: PropTypes.array
-// };
 
 export default withRouter(Card);

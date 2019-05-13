@@ -18,15 +18,21 @@ const uiConfig = {
   ]
 };
 
+const sleep = milliseconds => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
+
 const Signup = ({ history }) => {
   const { values, handleChange, handleSubmit } = useForm(() => {
     auth.createUserWithEmail(values.email, values.password);
-    history.replace('/welcome');
+    sleep(500).then(() => {
+      history.replace('/welcome');
+    });
   });
   return (
     <>
-      <div id="form1">
-        <img src={logo} alt="logo" />
+      <div id='form1'>
+        <img src={logo} alt='logo' />
 
         <StyledFirebaseAuth
           uiConfig={uiConfig}
@@ -35,20 +41,20 @@ const Signup = ({ history }) => {
 
         <form onSubmit={handleSubmit}>
           <input
-            name="email"
-            type="email"
-            placeholder="Email"
+            name='email'
+            type='email'
+            placeholder='Email'
             value={values.email || ''}
             onChange={handleChange}
           />
           <input
-            name="password"
-            type="password"
-            placeholder="Password"
+            name='password'
+            type='password'
+            placeholder='Password'
             value={values.password || ''}
             onChange={handleChange}
           />
-          <button id="signup-btn">Sign up</button>
+          <button id='signup-btn'>Sign up</button>
         </form>
       </div>
     </>

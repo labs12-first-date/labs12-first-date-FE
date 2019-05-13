@@ -80,7 +80,8 @@ const ThunderDeck = ({ history }) => {
     const zipCodes = profileState.nearby_zip;
     const tempConditions = wantedTraits(profileState)[0];
     const compGender = wantedGenders(profileState)[0];
-    const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
+    // const matches = potMatch.filter(match => zipCodes.includes(match.zip_code)); //filter by zipcode;
+    const matches = potMatch;
     let foundMatches = [];
     for (let match of matches) {
       for (let condition of match.conditions) {
