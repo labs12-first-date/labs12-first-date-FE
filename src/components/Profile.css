@@ -64,16 +64,20 @@ form {
   border-bottom: 1px solid #242d3b;
   font-size: 19px;
   padding: 1%;
-  width: 100%;
+  width: 60%;
+  display: flex;
+  flex-flow: wrap;
 }
 .bp3-overlay-content img {
   width: 200px;
   height: 250px;
 
   justify-content: center;
-  background-color: #242d3b;
 }
-
+.udate-dropDown {
+  background: green;
+  width: 10%;
+}
 button.bp3-intent-danger {
   margin-top: 1rem;
 }

@@ -52,13 +52,12 @@ input {
   margin: 0 20px;
   border-style: none;
   border-bottom: 1px dotted black;
-  background-color: #242d3b;
+
   font-size: 19px;
-  color: white;
 }
 
 input::placeholder {
-  color: white;
+  color: black;
 }
 #drop-form-btn {
   margin-top: 20px;

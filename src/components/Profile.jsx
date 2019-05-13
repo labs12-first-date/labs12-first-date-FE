@@ -129,7 +129,7 @@ const Profile = ({ history }) => {
                       Update
                     </button>
                   </div>
-
+                  <div id="profile-card-modal">
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
                       <div className="udate-dropDown">
@@ -220,6 +220,7 @@ const Profile = ({ history }) => {
                       </form>
                     </Card>
                   </Overlay>
+                  </div>
                 </div>
               </div>
             );
