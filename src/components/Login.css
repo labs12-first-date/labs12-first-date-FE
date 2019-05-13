@@ -18,7 +18,10 @@
 }
 
 #login-signup img {
+  margin: 0 auto;
   margin-bottom: 20px;
+
+  width: 65%;
 }
 
 #form form {
@@ -33,4 +36,7 @@
 }
 #form form input::placeholder {
   color: white;
+}
+#google-auth-btn {
+  align-content: center;
 }

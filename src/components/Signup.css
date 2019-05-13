@@ -1,3 +1,37 @@
 #form1 {
   text-align: center;
+  background-color: #242d3b;
+  border-radius: 10px;
+  width: 25%;
+  padding: 10px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#form1 form {
+  display: block;
+}
+
+#form1 img {
+  width: 65%;
+  margin-bottom: 20px;
+}
+
+#form1 form input {
+  margin: 0 10px;
+  margin-bottom: 20px;
+  border-style: none;
+  font-size: 18px;
+  background-color: #242d3b;
+  border-bottom: 2px #25d381 solid;
+}
+#form1 form input::placeholder {
+  color: white;
+}
+
+button#signup-btn {
+  width: 55%;
+  margin-bottom: 20px;
 }
