@@ -1,4 +1,4 @@
-import { firebase } from './firebase';
+import { firebase } from '../firebase';
 
 const db = firebase.firestore();
 
@@ -48,7 +48,8 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
           {
             match_id: swipedUserId,
             chat_id: chatRoomRef.id,
-            match_name: swipedUserProfile.first_name
+            match_name: swipedUserProfile.first_name,
+            match_picture: swipedUserProfile.profile_picture
           }
         ]
       });
@@ -60,7 +61,8 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
           {
             match_id: userId,
             chat_id: chatRoomRef.id,
-            match_name: userProfile.first_name
+            match_name: userProfile.first_name,
+            match_picture: userProfile.profile_picture
           }
         ]
       });
