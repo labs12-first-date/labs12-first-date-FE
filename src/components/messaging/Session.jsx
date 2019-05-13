@@ -26,7 +26,7 @@ const StyledContainer = styled.div`
     text-align: center;
   }
   .message-stream {
-    max-height: 40rem;
+    max-height: calc(100vh - 20rem);
     overflow-y: auto;
   }
 `;
@@ -40,11 +40,6 @@ const Session = ({ match }) => {
   const initialView = useRef(true);
   const messageStreamContainer = useRef(null);
   const shouldScroll = useRef(false);
-
-  // get chat room data from profile
-  // selfId and matchId
-  // profile pics for both
-  // first name for both
 
   // CDM
   useEffect(() => {
@@ -71,9 +66,9 @@ const Session = ({ match }) => {
     }
   }, [user, chatId]);
 
-  useEffect(() => {
-    console.log(participants);
-  }, [participants]);
+  // useEffect(() => {
+  //   console.log(participants);
+  // }, [participants]);
 
   // live-stream new messages
   useEffect(() => {

@@ -30,7 +30,7 @@ const initSettings = user => {
           .set({
             match_age_min: 18,
             match_age_max: 99,
-            match_distance: 100
+            match_distance: 10
           });
       }
     });
