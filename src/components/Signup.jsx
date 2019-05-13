@@ -1,5 +1,6 @@
 import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import logo from '../image/UnBlush.png';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import { withRouter } from 'react-router-dom';
@@ -25,7 +26,13 @@ const Signup = ({ history }) => {
   return (
     <>
       <div id="form1">
-        <h1>Sign up now to find the love of your life!</h1>
+        <img src={logo} alt="logo" />
+
+        <StyledFirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
+
         <form onSubmit={handleSubmit}>
           <input
             name="email"
@@ -41,10 +48,9 @@ const Signup = ({ history }) => {
             value={values.password || ''}
             onChange={handleChange}
           />
-          <button>Sign up</button>
+          <button id="signup-btn">Sign up</button>
         </form>
       </div>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
     </>
   );
 };

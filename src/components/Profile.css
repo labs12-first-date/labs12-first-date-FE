@@ -56,17 +56,6 @@
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
-.udate-dropDown img {
-  width: 80%;
-  border-radius: 20px;
-}
-
-button .bp3-card {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 2%;
-}
-
 form {
   display: flex;
 }
@@ -77,9 +66,10 @@ form {
   padding: 1%;
   width: 100%;
 }
-.bp3-overlay-content {
-  width: 60%;
-  display: flex;
+.bp3-overlay-content img {
+  width: 200px;
+  height: 250px;
+
   justify-content: center;
   background-color: #242d3b;
 }
