@@ -36,14 +36,9 @@
 
 .card img {
   height: 380px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.card button[aria-label='previous'],
-.card button[aria-label='next'] {
-  background: salmon !important;
-  color: black !important;
+  width: 280px;
+  border-radius: 10px;
+  margin: 0 auto;
 }
 
 .card h2 {
