@@ -38,6 +38,14 @@ const StyledContainer = styled.div`
     overflow-x: hidden;
   }
   .welcome-message {
+    img {
+      display: inline-block;
+      margin-bottom: 1rem;
+      width: 5rem;
+      height: 5rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
     text-align: center;
     padding: 5rem 0;
   }
@@ -151,6 +159,10 @@ const Session = ({ match }) => {
           </div>
         ) : (
           <div className="welcome-message">
+            <img
+              src={participants.matchProfile.profile_picture}
+              alt={participants.matchProfile.first_name}
+            />
             <div>
               Strike up a conversation with {participants.matchProfile.first_name}. <br /> Don't be
               shy!
