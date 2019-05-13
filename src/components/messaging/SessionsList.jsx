@@ -14,6 +14,44 @@ const SessionsListStyles = styled.div`
   font-size: 1.5em;
 `;
 
+const SessionStyles = styled(Link)`
+  display: flex;
+  background: #1c242f;
+  margin-bottom: 1.5rem;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  align-items: center;
+  color: inherit;
+  .name {
+    font-size: 1.25em;
+    margin-left: 1.5rem;
+  }
+  img {
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  &:hover {
+    text-decoration: none;
+    background: #273342;
+    color: inherit;
+  }
+`;
+
+const Session = ({ chat_id, match_name, match_picture }) => {
+  console.log(match_picture);
+  return (
+    <SessionStyles to={`/chats/${chat_id}`}>
+      <div className="photo">
+        <img src={match_picture} alt="{match_name}" />
+      </div>
+      <div className="name">{match_name}</div>
+    </SessionStyles>
+  );
+};
+
 const SessionsList = () => {
   const { user } = useContext(AuthContext);
   const [sessions, setSessions] = useState(null);
@@ -53,13 +91,14 @@ const SessionsList = () => {
       {sessions ? (
         <>
           <h2>Chats</h2>
-          <ul>
-            {sessions.map(({ chat_id, match_name }) => (
-              <li key={chat_id}>
-                Chat with <Link to={`/chats/${chat_id}`}>{match_name}</Link>
-              </li>
-            ))}
-          </ul>
+          {sessions.map(({ chat_id, match_name, match_picture }) => (
+            <Session
+              key={chat_id}
+              chat_id={chat_id}
+              match_name={match_name}
+              match_picture={match_picture}
+            />
+          ))}
         </>
       ) : (
         <>
