@@ -59,42 +59,45 @@ const Settings = ({ history }) => {
           return isLoading ? (
             <Loading />
           ) : (
-            <Card className="how" elevation={Elevation.TWO}>
+            <div className="how" elevation={Elevation.TWO}>
               <div className="container">
                 <div className="card grey lighten-1  ">
                   <div className="card-content black-text">
                     <span className="card-title">Settings</span>
-                    <ul className="row">
+                    <ul id="setting-ul" className="row">
                       <li className="col s12">
-                        <span className="red-text text-darken-2">Maximum Match Age:</span>{' '}
+                        <span className="red-text text-darken-2">
+                          Maximum Match Age:
+                        </span>{' '}
                         {data.match_age_max}
                       </li>
                       <li className="col s12">
-                        <span className="red-text text-darken-2">Minimum Match Age:</span>{' '}
+                        <span className="red-text text-darken-2">
+                          Minimum Match Age:
+                        </span>{' '}
                         {data.match_age_min}{' '}
                       </li>
 
-                      <li className="col s12">Match Distance Range:{data.match_distance}</li>
+                      <li className="col s12">
+                        Match Distance Range:{data.match_distance}
+                      </li>
                     </ul>
                   </div>
                   <div className="buttons">
-                    <Button intent="success" icon="arrow" onClick={showForm}>
+                    <button className="btn-update-settings" onClick={showForm}>
                       Update Match Settings
-                    </Button>
-                    <Button intent="danger" icon="refresh" onClick={auth.resetPassword}>
-                      Reset Password
-                    </Button>{' '}
+                    </button>
+                    <button className="btn-red-settings">Reset Password</button>
                     {/*sends an email to user to reset password */}
-                    <Button
+                    <button
                       onClick={() => {
                         history.replace('/');
                         auth.deleteProfile();
                       }}
-                      icon="disable"
-                      intent="danger"
+                      className="btn-red-settings"
                     >
                       Delete Your Account
-                    </Button>{' '}
+                    </button>
                     {/*deletes the user profile */}
                   </div>
                 </div>
@@ -102,22 +105,33 @@ const Settings = ({ history }) => {
                   <Overlay usePortal={true} isOpen={toggleState}>
                     <Card elevation={Elevation.TWO}>
                       <form id="settingForm" onSubmit={handleSubmit}>
+                        {' '}
+                        <span>Max Age</span>
                         <input
                           name="match_age_max"
                           placeholder="Max Age"
-                          value={values.match_age_max || `${formState.match_age_max}`}
+                          value={
+                            values.match_age_max || `${formState.match_age_max}`
+                          }
                           onChange={handleChange}
                         />
+                        <span>Min Age</span>
                         <input
                           name="match_age_min"
                           placeholder="Min Age"
-                          value={values.match_age_min || `${formState.match_age_min}`}
+                          value={
+                            values.match_age_min || `${formState.match_age_min}`
+                          }
                           onChange={handleChange}
                         />
+                        <span>Distance</span>
                         <input
                           name="match_distance"
                           placeholder="Distance"
-                          value={values.match_distance || `${formState.match_distance}`}
+                          value={
+                            values.match_distance ||
+                            `${formState.match_distance}`
+                          }
                           onChange={handleChange}
                         />
                       </form>
@@ -143,7 +157,7 @@ const Settings = ({ history }) => {
                   </Overlay>
                 </div>
               </div>
-            </Card>
+            </div>
           );
         }}
       />
