@@ -3,6 +3,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import { Button } from '@blueprintjs/core';
+import logo from '../image/UnBlush.png';
 import './Login.css';
 
 // Configure FirebaseUI.
@@ -24,7 +25,9 @@ const Login = () => {
     auth.resetPasswordNoLogin(values.email);
   });
   return (
-    <div>
+    <div id="login-signup">
+      <img src={logo} alt="logo" />
+
       <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
       <div id="form">
         <form onSubmit={handleSubmit}>
