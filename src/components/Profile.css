@@ -8,8 +8,6 @@
   display: flex;
 
   justify-content: flex-end;
-
-  background-color: #242d3b;
 }
 
 .content-left img {
@@ -61,7 +59,7 @@ form {
 }
 #profileForm input {
   border-style: none;
-  border-bottom: 1px solid #242d3b;
+
   font-size: 19px;
   padding: 1%;
   width: 100%;
@@ -69,9 +67,6 @@ form {
 .bp3-overlay-content img {
   width: 200px;
   height: 250px;
-
-  justify-content: center;
-  background-color: #242d3b;
 }
 
 button.bp3-intent-danger {

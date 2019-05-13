@@ -48,13 +48,13 @@ button.bp3-intent-danger {
   margin: 0 10px;
 }
 
-input {
+.dropForm input {
   margin: 0 20px;
   border-style: none;
   border-bottom: 1px dotted black;
-  background-color: #242d3b;
+
   font-size: 19px;
-  color: white;
+  color: black;
 }
 
 input::placeholder {
