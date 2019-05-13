@@ -5,9 +5,6 @@ import Form from './Form';
 export default class App extends React.Component<IAppProps, IAppState> {
 
 
-
-
-
   render() {
     return (
       <>
