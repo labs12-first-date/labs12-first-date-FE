@@ -37,6 +37,10 @@ const StyledContainer = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
   }
+  .welcome-message {
+    text-align: center;
+    padding: 5rem 0;
+  }
 `;
 
 const Session = ({ match }) => {
@@ -148,7 +152,8 @@ const Session = ({ match }) => {
         ) : (
           <div className="welcome-message">
             <div>
-              Don't be shy! Strike up a conversation with {participants.matchProfile.first_name}
+              Strike up a conversation with {participants.matchProfile.first_name}. <br /> Don't be
+              shy!
             </div>
           </div>
         )}
