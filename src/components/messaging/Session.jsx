@@ -6,7 +6,7 @@ import MessageInput from './MessageInput';
 
 const db = firebase.firestore();
 
-const getSnapshotData = doc => ({ ...doc.data(), id: doc.id });
+const getSnapshotDataWithId = doc => ({ ...doc.data(), id: doc.id });
 
 const StyledContainer = styled.div`
   margin: 1rem auto;
@@ -83,7 +83,7 @@ const Session = ({ match }) => {
         .orderBy('timestamp', 'asc')
         .limit(100)
         .onSnapshot(querySnapshot => {
-          const messagesArray = querySnapshot.docs.map(getSnapshotData);
+          const messagesArray = querySnapshot.docs.map(getSnapshotDataWithId);
           setMessages(messagesArray);
         });
     };
