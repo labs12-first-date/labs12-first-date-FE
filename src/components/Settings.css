@@ -52,6 +52,7 @@ input {
   margin: 0 20px;
   border-style: none;
   border-bottom: 1px dotted black;
+  background-color: #242d3b;
 }
 #drop-form-btn {
   margin-top: 20px;
