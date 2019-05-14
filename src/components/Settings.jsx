@@ -100,8 +100,6 @@ const Settings = ({ history }) => {
       <FirestoreDocument
         path={`settings/${user.uid}`}
         render={({ isLoading, data }) => {
-          console.log(data);
-
           return isLoading ? (
             <Loading />
           ) : (
