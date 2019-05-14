@@ -60,7 +60,7 @@ const MatchCard = props => {
   } else {
     return (
       <animated.div
-        className='ani1'
+        className='td-ani1'
         key={i}
         style={{
           transform: interpolate(
@@ -70,13 +70,13 @@ const MatchCard = props => {
         }}
       >
         <animated.div
-          className='ani2'
+          className='td-ani2'
           {...bind(i, uid)}
           style={{
             transform: interpolate([rot, scale], trans)
           }}
         >
-          <div className='card'>
+          <div className='td-card'>
             <img src={profile_picture} alt='profilePicture' />
             <h2>{first_name},</h2>
             <h2>{age},</h2>

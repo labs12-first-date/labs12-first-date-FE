@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import Card from './Card';
-import './Deck.css';
+import './OnBoarding.css';
 
 //Questions
 //1. Intro(first and last name,)
@@ -81,7 +81,7 @@ const Deck = ({ cardsData }) => {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className="card"
+      className='ob-card'
       i={i}
       x={x}
       y={y}

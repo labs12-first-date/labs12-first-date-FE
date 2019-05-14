@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
-import './Deck.css';
+import './OnBoarding.css';
 
 const Card = props => {
   const { user } = useContext(AuthContext);
@@ -151,20 +151,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className='ani1'
+      className='ob-ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className='ani2'
+        className='ob-ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className='card'>
+        <div className='ob-card'>
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
