@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
-import Navigation from '../Navigation';
 
 const db = firebase.firestore();
 
@@ -10,10 +9,6 @@ const getDocsArray = async collection => {
   const snapshot = await db.collection(collection).get();
   return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 };
-
-// 1 funcion create setting doc for the user uid
-// 2 function check profile is created if completed is false check profile step. send user to step +1
-//if completed is true send to thunderdome.
 
 const initSettings = user => {
   db.collection('settings')
@@ -117,11 +112,6 @@ const Onboarding = ({ history }) => {
       setCardsData(cardsData);
     }
   }, [prompts, STDs, genders]);
-
-  // logging, safe to remove
-  // useEffect(() => {
-  //   console.log(cardsData);
-  // }, [cardsData]);
 
   return cardsData ? <Deck className="deck" cardsData={cardsData} /> : <div>Loading...</div>;
 };
