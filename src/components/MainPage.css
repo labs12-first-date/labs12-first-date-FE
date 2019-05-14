@@ -1,0 +1,106 @@
+.MPcontainer {
+  width: 1400px;
+  margin: 0 auto;
+}
+.section1 {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: wrap;
+}
+.s1LeftSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  color: white;
+  text-align: center;
+}
+.s1LeftSide h1 {
+  font-size: 40px;
+}
+.s1LeftSide h1 span {
+  color: #25d381;
+}
+
+.s1RightSide {
+  width: 50%;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section2 .s2Top {
+  text-align: center;
+  color: white;
+}
+
+.section2 .s2Top h1 {
+  font-size: 70px;
+}
+
+.section2 .s2Top p {
+  font-size: 30px;
+  padding: 0 20%;
+}
+
+.section2 .s2Middle {
+  margin-top: 15%;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.section2 .s2Middle #s2img2 #I2 {
+  margin-bottom: 60px;
+}
+
+.section2 .s2Line {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section3 h1 {
+  text-align: center;
+  color: white;
+  font-size: 70px;
+}
+
+.section3 .s3Line {
+  margin-top: 5%;
+}
+
+.section4 h1 {
+  padding: 0 10%;
+  color: white;
+  font-size: 70px;
+  text-align: center;
+}
+
+.section4 .s4heart {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.section4 .s4heart img {
+  margin: 15% 0;
+}
+
+footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer #footerText {
+  color: #25d381;
+  font-size: 22px;
+  margin-left: 4%;
+}
