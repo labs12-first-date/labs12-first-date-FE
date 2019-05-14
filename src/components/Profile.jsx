@@ -10,6 +10,8 @@ import React from 'react';
 import Navigation from './Navigation';
 import './Profile.css';
 
+// TODO: get cancel button to work. right now we are editing everything live so if you hit close the changes are saved. no way to cancel
+
 const ToggleContent = ({ toggle, content }) => {
   const [isShown, setIsShown] = useState(false);
   const hide = () => setIsShown(false);
@@ -122,6 +124,10 @@ const Profile = ({ history }) => {
       });
   };
 
+  const handleProgress = filename => {
+    alert('Uploading now!');
+  };
+
   return (
     <div>
       <Navigation />
@@ -185,7 +191,7 @@ const Profile = ({ history }) => {
                               // onUploadStart={handleUploadStart}
                               // onUploadError={handleUploadError}
                               onUploadSuccess={handleUploadSuccess}
-                              // onProgress={handleProgress}
+                              onProgress={handleProgress}
                             />
                             <form id='profileForm'>
                               What is your first name?
