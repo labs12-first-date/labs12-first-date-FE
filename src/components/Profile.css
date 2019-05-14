@@ -1,4 +1,4 @@
-.container {
+/* .container {
   position: fixed;
   left: 10%;
   right: 10%;
@@ -110,7 +110,7 @@ button.bp3-intent-success {
   .col.s12 {
     font-size: 0.8rem;
     /* width: 100%; */
-    align-content: center;
+/* align-content: center;
   }
 }
 
@@ -131,7 +131,7 @@ button.bp3-intent-success {
     align-items: center;
     width: 100%;
   }
-}
+} */
 /* .bp3-overlay-content {
   background-color: #242d3b;
 } */
