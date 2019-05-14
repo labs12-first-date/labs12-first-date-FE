@@ -8,6 +8,9 @@ import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import './Deck.css';
 
+const db = firebase.firestore();
+const storage = firebase.storage();
+
 const Card = props => {
   const { user } = useContext(AuthContext);
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
@@ -18,9 +21,7 @@ const Card = props => {
   console.log(user);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection('profiles')
+    db.collection('profiles')
       .doc(user.uid)
       .update(formValues)
       .then(function() {
@@ -30,10 +31,7 @@ const Card = props => {
 
   useEffect(() => {
     if (user && user.uid) {
-      const docRef = firebase
-        .firestore()
-        .collection('profiles')
-        .doc(user.uid);
+      const docRef = db.collection('profiles').doc(user.uid);
 
       docRef
         .get()
@@ -54,16 +52,13 @@ const Card = props => {
 
   const handleUploadSuccess = filename => {
     setphotoValues({ profile_picture: filename });
-    firebase
-      .storage()
+    storage
       .ref('images')
       .child(filename)
       .getDownloadURL()
       .then(url => {
         handleChange({ field: 'profile_picture', value: url });
-        firebase
-          .firestore()
-          .collection('profiles')
+        db.collection('profiles')
           .doc(user.uid)
           .update({
             profile_completed: true
@@ -83,19 +78,17 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type='text'
+            type="text"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
         return (
           <input
-            type='number'
+            type="number"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -110,13 +103,11 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type='textarea'
+            type="textarea"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'multi_select':
@@ -124,9 +115,7 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value =>
-              handleChange({ field: p.field_name, value: value })
-            }
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
@@ -134,10 +123,10 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept='image/*'
-            name='profile_picture'
+            accept="image/*"
+            name="profile_picture"
             randomizeFilename
-            storageRef={firebase.storage().ref('images')}
+            storageRef={storage.ref('images')}
             onUploadStart={handleProgress}
             // onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}
@@ -151,20 +140,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className='ani1'
+      className="ani1"
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className='ani2'
+        className="ani2"
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className='card'>
+        <div className="card">
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
@@ -175,11 +164,7 @@ const Card = props => {
             ))}
 
             <br />
-            <ProgressBar
-              animate={false}
-              stripes={false}
-              value={onboardingStep / totalSteps}
-            />
+            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
           </form>
         </div>
       </animated.div>
