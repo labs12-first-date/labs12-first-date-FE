@@ -1,5 +1,6 @@
 .MPcontainer {
-  width: 1400px;
+  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
 }
 .section1 {
@@ -23,8 +24,8 @@
   color: #25d381;
 }
 
-.s1RightSide {
-  width: 50%;
+.section1 .s1RightSide img {
+  width: 80%;
 
   display: flex;
   justify-content: flex-end;
@@ -49,15 +50,16 @@
   margin-bottom: 5%;
   display: flex;
   justify-content: space-evenly;
-}
-
-.section2 .s2Middle #s2img2 #I2 {
-  margin-bottom: 60px;
+  width: 100%;
 }
 
 .section2 .s2Line {
   display: flex;
   justify-content: flex-end;
+}
+
+.section2 img {
+  width: 80%;
 }
 
 .section3 h1 {
@@ -66,8 +68,15 @@
   font-size: 70px;
 }
 
-.section3 .s3Line {
+.section3 .Line {
   margin-top: 5%;
+}
+
+.section3 img {
+  width: 80%;
+}
+.rline {
+  width: 80%;
 }
 
 .section4 h1 {
@@ -91,16 +100,28 @@
 footer {
   display: flex;
   justify-content: space-evenly;
+  flex-flow: wrap;
+}
+
+footer a img {
+  width: 80%;
 }
 
 footer a {
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
 
 footer #footerText {
   color: #25d381;
-  font-size: 22px;
+  font-size: 1.5rem;
   margin-left: 4%;
+}
+
+@media (max-width: 750px) {
+  .section4 h1 {
+    font-size: 50px;
+  }
 }

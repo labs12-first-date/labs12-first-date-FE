@@ -16,8 +16,8 @@ import './MainPage.css';
 const MainPage = () => {
   return (
     <div>
+      <Navigation />
       <div className="MPcontainer">
-        <Navigation />
         <section className="section1">
           <div className="s1LeftSide">
             <h1>
@@ -28,8 +28,8 @@ const MainPage = () => {
           <div className="s1RightSide">
             <img src={largePhone} alt="phone" />
           </div>
-          <div className="s1line">
-            <img src={Line} alt="greenLine" />
+          <div className="line">
+            <img className="rline" src={Line} alt="greenLine" />
           </div>
         </section>
         <section className="section2">
@@ -53,14 +53,14 @@ const MainPage = () => {
             </div>
           </div>
           <div className="s2Line">
-            <img src={Line} alt="line" />
+            <img className="rline" src={Line} alt="line" />
           </div>
         </section>
         <section className="section3">
           <h1>In App Messaging</h1>
           <img src={messaging} alt="messaging" />
-          <div className="s3Line">
-            <img src={Line} alt="line" />
+          <div className="Line">
+            <img className="rline" src={Line} alt="line" />
           </div>
         </section>
         <section className="section4">
