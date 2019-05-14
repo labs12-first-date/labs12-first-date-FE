@@ -5,12 +5,32 @@ import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import Navigation from './Navigation';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import StripeApp from './stripe/StripeApp.jsx';
-import { Button, Card, Overlay, Elevation } from '@blueprintjs/core';
 import './Settings.css';
+
+const ToggleContent = ({ toggle, content }) => {
+  const [isShown, setIsShown] = useState(false);
+  const hide = () => setIsShown(false);
+  const show = () => setIsShown(true);
+
+  return (
+    <>
+      {toggle(show)}
+      {isShown && content(hide)}
+    </>
+  );
+};
+
+const Modal = ({ children }) =>
+  ReactDOM.createPortal(
+    <div className='modal'>{children}</div>,
+    document.getElementById('modal-root')
+  );
 
 const Settings = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
+  const [formValues, setformValues] = useState({});
   const [formState, setformState] = useState({});
   const [toggleState, settoggleState] = useState(false);
 
@@ -20,7 +40,6 @@ const Settings = ({ history }) => {
         .firestore()
         .collection('settings')
         .doc(user.uid);
-
       docRef
         .get()
         .then(function(doc) {
@@ -31,6 +50,26 @@ const Settings = ({ history }) => {
         });
     }
   }, [user]);
+
+  useEffect(() => {
+    // TODO don't make network call for every keystroke
+    if (user) {
+      firebase
+        .firestore()
+        .collection('settings')
+        .doc(user.uid)
+        .update(formValues)
+        .then(function() {
+          console.log('Document successfully written!');
+        });
+    }
+  }, [formValues, user]);
+
+  const handleChanges = ({ field, value }) => {
+    setformValues(previousValues => {
+      return { ...previousValues, [field]: value };
+    });
+  };
 
   const { values, handleChange, handleSubmit } = useForm(() => {
     firebase
@@ -43,12 +82,6 @@ const Settings = ({ history }) => {
       });
   });
 
-  const showForm = () => {
-    toggleState ? settoggleState(false) : settoggleState(true);
-  };
-
-  // console.log('This value ======>', values);
-
   if (!user) return <div>No user logged in</div>;
 
   return (
@@ -57,28 +90,26 @@ const Settings = ({ history }) => {
       <FirestoreDocument
         path={`settings/${user.uid}`}
         render={({ isLoading, data }) => {
-          // console.log(data);
+          console.log(data);
 
           return isLoading ? (
             <Loading />
           ) : (
-            <div className='how' elevation={Elevation.TWO}>
+            <div className='how'>
               <div className='container'>
                 <div className='card grey lighten-1  '>
                   <div className='card-content black-text'>
                     <span className='card-title'>Settings</span>
                     <ul id='setting-ul' className='row'>
                       <li className='col s12'>
+                        Minimum Match Age:
+                        {data.match_age_min}
+                      </li>
+                      <li className='col s12'>
                         <span className='red-text text-darken-2'>
                           Maximum Match Age:
                         </span>{' '}
                         {data.match_age_max}
-                      </li>
-                      <li className='col s12'>
-                        <span className='red-text text-darken-2'>
-                          Minimum Match Age:
-                        </span>{' '}
-                        {data.match_age_min}{' '}
                       </li>
 
                       <li className='col s12'>
@@ -87,9 +118,69 @@ const Settings = ({ history }) => {
                     </ul>
                   </div>
                   <div className='buttons'>
-                    <button className='btn-update-settings' onClick={showForm}>
-                      Update Match Settings
-                    </button>
+                    <ToggleContent
+                      className='modal'
+                      toggle={show => (
+                        <button className='btn-update' onClick={show}>
+                          Update Profile
+                        </button>
+                      )}
+                      content={hide => (
+                        <Modal>
+                          <>
+                            <p>
+                              What is the Minimum Age you would like to match
+                              with?
+                              <input
+                                type='number'
+                                name='match_age_min'
+                                placeholder='Min Age'
+                                value={data.match_age_min}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'match_age_min',
+                                    value: Number(e.target.value)
+                                  })
+                                }
+                              />
+                            </p>
+                            <p>
+                              What is the Maximum Age you would like to match
+                              with?
+                              <input
+                                type='number'
+                                name='match_age_max'
+                                placeholder='Max Age'
+                                value={data.match_age_max}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'match_age_max',
+                                    value: Number(e.target.value)
+                                  })
+                                }
+                              />
+                            </p>
+                            <p>
+                              How far would you travel for love?
+                              <input
+                                type='number'
+                                name='match_distance'
+                                placeholder='distance'
+                                value={data.match_distance}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'match_distance',
+                                    value: Number(e.target.value)
+                                  })
+                                }
+                              />
+                            </p>
+                          </>
+                          <button onClick={(handleSubmit, hide)}>Update</button>{' '}
+                          <button onClick={hide}>Close</button>
+                        </Modal>
+                      )}
+                    />
                     <button className='btn-red-settings'>Reset Password</button>
                     {/*sends an email to user to reset password */}
                     <button
@@ -102,64 +193,16 @@ const Settings = ({ history }) => {
                       Delete Your Account
                     </button>
                     {/*deletes the user profile */}
+                    <button className='btn-update-settings' onClick={() => {
+                      history.replace('/upgrade')
+                    }}>
+                      Upgrade Account
+                    </button>
                   </div>
                 </div>
                 <div className='dropForm'>
-                  <Overlay usePortal={true} isOpen={toggleState}>
-                    <Card elevation={Elevation.TWO}>
-                      <form id='settingForm' onSubmit={handleSubmit}>
-                        {' '}
-                        <span>Max Age</span>
-                        <input
-                          name='match_age_max'
-                          placeholder='Max Age'
-                          value={
-                            values.match_age_max || `${formState.match_age_max}`
-                          }
-                          onChange={handleChange}
-                        />
-                        <span>Min Age</span>
-                        <input
-                          name='match_age_min'
-                          placeholder='Min Age'
-                          value={
-                            values.match_age_min || `${formState.match_age_min}`
-                          }
-                          onChange={handleChange}
-                        />
-                        <span>Distance</span>
-                        <input
-                          name='match_distance'
-                          placeholder='Distance'
-                          value={
-                            values.match_distance ||
-                            `${formState.match_distance}`
-                          }
-                          onChange={handleChange}
-                        />
-                      </form>
-                      <div id='drop-form-btn'>
-                        <Button
-                          rightIcon='arrow-right'
-                          intent='success'
-                          onClick={handleSubmit}
-                          type='submit'
-                        >
-                          Submit Settings Changes
-                        </Button>
-                        <Button
-                          rightIcon='arrow-right'
-                          intent='danger'
-                          onClick={showForm}
-                          type='submit'
-                        >
-                          Close
-                        </Button>
-                      </div>
-                    </Card>
-                  </Overlay>
+                  <div id='modal-root' />
                 </div>
-                < StripeApp />
               </div>
             </div>
           );

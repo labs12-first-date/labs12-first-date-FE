@@ -54,6 +54,14 @@
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
+.modal {
+  position: fixed;
+  top: 12px;
+  padding: 12px;
+  background-color: black;
+  border: 1px solid grey;
+}
+
 form {
   display: flex;
 }

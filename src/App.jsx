@@ -13,6 +13,7 @@ import Session from './components/messaging/Session';
 import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
 import MainPage from './components/MainPage';
+import StripeApp from './components/stripe/StripeApp';
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/signup" component={Signup} />
         <Route path="/welcome" component={Onboarding} />
         <Route path="/settings" component={Settings} />
+        <Route path="/upgrade" component={StripeApp} />
         <Route path="/thunderdome" component={Thunderdome} />
         <Route exact path="/chats" component={SessionsList} />
         <Route path="/chats/:chatId" component={Session} />
