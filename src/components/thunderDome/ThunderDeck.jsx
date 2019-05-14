@@ -177,7 +177,7 @@ const ThunderDeck = ({ history }) => {
           return (
             <MatchCard
               key={match.id}
-              className="card"
+              className="td-card"
               i={i}
               x={x}
               y={y}

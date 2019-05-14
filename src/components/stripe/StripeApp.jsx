@@ -2,8 +2,9 @@ import * as React from 'react';
 import { StripeProvider, Elements } from 'react-stripe-elements';
 import Navigation from '../Navigation';
 import Form from './Form';
+import { withRouter } from 'react-router-dom';
 
-export default class StripeApp extends React.Component<IAppProps, IAppState> {
+class StripeApp extends React.Component {
 
 
   render() {
@@ -14,7 +15,7 @@ export default class StripeApp extends React.Component<IAppProps, IAppState> {
         <h3>To receive premium features!</h3>
         <StripeProvider apiKey="pk_test_ojgxSZHYR90grl2IAcjSjgoc00Rn3bEDfA">
           <Elements>
-            <Form />
+            <Form history={this.props.history}/>
           </Elements>
         </StripeProvider>
       </>
@@ -22,7 +23,4 @@ export default class StripeApp extends React.Component<IAppProps, IAppState> {
   }
 }
 
-
-interface IAppProps { }
-
-interface IAppState { }
+export default withRouter(StripeApp);

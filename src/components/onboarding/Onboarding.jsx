@@ -113,7 +113,7 @@ const Onboarding = ({ history }) => {
     }
   }, [prompts, STDs, genders]);
 
-  return cardsData ? <Deck className="deck" cardsData={cardsData} /> : <div>Loading...</div>;
+  return cardsData ? <Deck className="ob-deck" cardsData={cardsData} /> : <div>Loading...</div>;
 };
 
 export default Onboarding;

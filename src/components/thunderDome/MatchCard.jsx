@@ -16,24 +16,32 @@ const MatchCard = props => {
       }}
     >
       <animated.div
-        className="ani2"
-        {...bind(i, uid)}
+        className="td-ani1"
+        key={i}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="card">
-          <img src={profile_picture} alt="profilePicture" />
-          <h2>{first_name},</h2>
-          <h2>{age},</h2>
-          <h5>{zip_code}</h5>
-          <h5>{bio}</h5>,
-          <h5>
-            {gender.map(g => {
-              return g.value + '  ';
-            })}
-          </h5>
-        </div>
+        <animated.div
+          className="td-ani2"
+          {...bind(i, uid)}
+          style={{
+            transform: interpolate([rot, scale], trans)
+          }}
+        >
+          <div className="td-card">
+            <img src={profile_picture} alt="profilePicture" />
+            <h2>{first_name},</h2>
+            <h2>{age},</h2>
+            <h5>{zip_code}</h5>
+            <h5>{bio}</h5>,
+            <h5>
+              {gender.map(g => {
+                return g.value + '  ';
+              })}
+            </h5>
+          </div>
+        </animated.div>
       </animated.div>
     </animated.div>
   );
