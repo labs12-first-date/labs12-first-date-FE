@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { auth, firebase } from '../../firebase';
+import { firebase } from '../../firebase';
 import { animated, interpolate } from 'react-spring';
 import { ProgressBar } from '@blueprintjs/core';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -7,6 +7,7 @@ import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import './Deck.css';
+import setUserNearbyZips from '../../helpers/setUserNearbyZips';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -16,19 +17,18 @@ const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
   const { cardTitle, onboardingStep, prompts } = data;
-  const [photoValues, setphotoValues] = useState({});
+  // const [photoValues, setphotoValues] = useState({});
 
-  console.log(user);
+  // console.log(user);
 
+  // save form input values
   useEffect(() => {
     db.collection('profiles')
       .doc(user.uid)
-      .update(formValues)
-      .then(function() {
-        console.log('Document successfully written!');
-      });
+      .update(formValues);
   }, [formValues, user]);
 
+  // populate form values with any existing profile data
   useEffect(() => {
     if (user && user.uid) {
       const docRef = db.collection('profiles').doc(user.uid);
@@ -50,23 +50,34 @@ const Card = props => {
     });
   };
 
-  const handleUploadSuccess = filename => {
-    setphotoValues({ profile_picture: filename });
-    storage
+  const completeProfile = async () => {
+    const profileRef = db.collection('profiles').doc(user.uid);
+    const profileSnapshot = await profileRef.get();
+    const profile = profileSnapshot.data();
+    const zipCode = profile.zip_code || null;
+    if (!zipCode) {
+      console.error('Zip code not set on user profile, cannot get matches');
+    } else {
+      setUserNearbyZips(user.uid, zipCode);
+    }
+    await db
+      .collection('profiles')
+      .doc(user.uid)
+      .update({
+        profile_completed: true
+      });
+    props.history.replace('/thunderdome');
+  };
+
+  const handleUploadSuccess = async filename => {
+    const photoUrl = await storage
       .ref('images')
       .child(filename)
-      .getDownloadURL()
-      .then(url => {
-        handleChange({ field: 'profile_picture', value: url });
-        db.collection('profiles')
-          .doc(user.uid)
-          .update({
-            profile_completed: true
-          })
-          .then(() => {
-            props.history.replace('/thunderdome');
-          });
-      });
+      .getDownloadURL();
+
+    handleChange({ field: 'profile_picture', value: photoUrl });
+    // uploading a photo is the final step in on-boarding
+    completeProfile();
   };
 
   const handleProgress = filename => {
