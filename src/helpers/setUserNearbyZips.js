@@ -5,10 +5,13 @@ const db = firebase.firestore();
 
 async function getZipsInRadius(zipCode, distanceMiles) {
   try {
+    // const response = await axios(
+    //   `https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=${zipCode}&minimumradius=0&maximumradius=${distanceMiles}&key=${API_KEY}`
+    // );
     const { data } = await axios(
-      `https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=${zipCode}&minimumradius=0&maximumradius=${distanceMiles}&key=79TDJIHGIB3LAHFEUCHK`
+      `https://us-central1-awk-dating.cloudfunctions.net/getZip?zip=${zipCode}&distance=${distanceMiles}`
     );
-    return data.DataList.map(z => z.Code);
+    return data;
   } catch (error) {
     console.error('Error fetching zip codes: ', error);
   }
