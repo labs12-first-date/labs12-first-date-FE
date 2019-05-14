@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 .ob-ani1 {
   position: absolute;
   width: 100vw;
