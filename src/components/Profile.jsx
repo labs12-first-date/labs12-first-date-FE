@@ -1,23 +1,43 @@
 import { firebase, auth } from '../firebase';
 import { FirestoreDocument } from 'react-firestore';
 import { useState, useEffect } from 'react';
+import Select from 'react-select';
 import FileUploader from 'react-firebase-file-uploader';
+import ReactDOM from 'react-dom';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
 import Navigation from './Navigation';
 import './Profile.css';
-import { Button, Card, Elevation, Overlay } from '@blueprintjs/core';
+
+const ToggleContent = ({ toggle, content }) => {
+  const [isShown, setIsShown] = useState(false);
+  const hide = () => setIsShown(false);
+  const show = () => setIsShown(true);
+
+  return (
+    <>
+      {toggle(show)}
+      {isShown && content(hide)}
+    </>
+  );
+};
+
+const Modal = ({ children }) =>
+  ReactDOM.createPortal(
+    <div className='modal'>{children}</div>,
+    document.getElementById('modal-root')
+  );
 
 const Profile = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
   const [photoValues, setphotoValues] = useState({});
   const [formValues, setFormValues] = useState({});
 
-  console.log(`this one => ${user.uid}`);
-
   const [formState, setformState] = useState({});
-  const [toggleState, settoggleState] = useState(false);
+  const [stdState, setstdState] = useState({});
+  const [genderState, setgenderState] = useState({});
+
   useEffect(() => {
     const docRef = firebase
       .firestore()
@@ -32,6 +52,32 @@ const Profile = ({ history }) => {
         console.log('Error getting document:', error);
       });
   }, [user.uid]);
+
+  useEffect(() => {
+    const dbStds = firebase
+      .firestore()
+      .collection('stds')
+      .get()
+      .then(function(querySnapShot) {
+        const stds = querySnapShot.docs.map(function(doc) {
+          return { ...doc.data() };
+        });
+        setstdState(stds);
+      });
+  }, []);
+
+  useEffect(() => {
+    const dbGender = firebase
+      .firestore()
+      .collection('gender')
+      .get()
+      .then(function(querySnapShot) {
+        const genders = querySnapShot.docs.map(function(doc) {
+          return { ...doc.data() };
+        });
+        setgenderState(genders);
+      });
+  }, []);
 
   useEffect(() => {
     // TODO don't make network call for every keystroke
@@ -57,9 +103,6 @@ const Profile = ({ history }) => {
         console.log('Document successfully written!');
       });
   });
-  const showForm = () => {
-    toggleState ? settoggleState(false) : settoggleState(true);
-  };
 
   const handleChanges = ({ field, value }) => {
     setFormValues(previousValues => {
@@ -76,17 +119,15 @@ const Profile = ({ history }) => {
       .getDownloadURL()
       .then(url => {
         handleChanges({ field: 'profile_picture', value: url });
-        showForm();
       });
   };
+
   return (
     <div>
       <Navigation />
       <FirestoreDocument
         path={`profiles/${user.uid}`}
         render={({ isLoading, data }) => {
-          console.log('DATA', data);
-
           if (isLoading) {
             return <Loading />;
           } else if (!data.profile_completed) {
@@ -100,128 +141,178 @@ const Profile = ({ history }) => {
                     <img src={data.profile_picture} alt='profile' />
                   </div>
                   <div className='right-content'>
-                    <h2 className='card-title'>About</h2>
-
+                    <h2 className='card-title'>My Profile</h2>
                     <p>
-                      <span className='red-text text-darken-2'>Name:</span>{' '}
-                      {data.first_name} {data.last_name}
-                      <hr />
-                      Bio : {data.bio}
+                      Name: {data.first_name} {data.last_name}
                     </p>
-
-                    <p>{`Age: ${data.age}`}</p>
-
-                    <p>Condition details: {data.condition_description}</p>
-                    <p>Likes: {data.likes || 0}</p>
+                    <p>Bio : {data.bio}</p>
+                    <p>Age: {data.age}</p>
                     <p>
                       Looking for:{' '}
                       {data.match_gender.map(e => {
-                        return e.value;
+                        return e.value + ', ';
                       })}
                     </p>
                     <p>
-                      Your contidion:{' '}
+                      My condition(s):{' '}
                       {data.conditions.map(e => {
-                        return e.value;
+                        return e.value + ', ';
                       })}
                     </p>
+                    <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
-
-                    <button className='btn-update' onClick={showForm}>
-                      Update
-                    </button>
+                    <p>Likes: {data.likes || 0}</p>
+                    <div id='modal-root' />
+                    <ToggleContent
+                      className='modal'
+                      toggle={show => (
+                        <button className='btn-update' onClick={show}>
+                          Update Profile
+                        </button>
+                      )}
+                      content={hide => (
+                        <Modal>
+                          <>
+                            <img
+                              src={formState.profile_picture}
+                              alt='profile'
+                            />
+                            <FileUploader
+                              accept='image/*'
+                              name='profile_picture'
+                              randomizeFilename
+                              storageRef={firebase.storage().ref('images')}
+                              // onUploadStart={handleUploadStart}
+                              // onUploadError={handleUploadError}
+                              onUploadSuccess={handleUploadSuccess}
+                              // onProgress={handleProgress}
+                            />
+                            <form id='profileForm'>
+                              What is your first name?
+                              <input
+                                type='text'
+                                name='first_name'
+                                placeholder='First Name'
+                                value={data.first_name}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'first_name',
+                                    value: e.target.value
+                                  })
+                                }
+                              />
+                              What is your last name?
+                              <input
+                                type='text'
+                                name='last_name'
+                                placeholder='Last Name'
+                                value={data.last_name}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'last_name',
+                                    value: e.target.value
+                                  })
+                                }
+                              />
+                              How old are you?
+                              <input
+                                type='number'
+                                name='age'
+                                placeholder='age'
+                                value={data.age}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'age',
+                                    value: Number(e.target.value)
+                                  })
+                                }
+                              />
+                              What do you want your ideal match to know about
+                              you?
+                              <input
+                                type='textarea'
+                                name='bio'
+                                placeholder='Bio'
+                                value={data.bio}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'bio',
+                                    value: e.target.value
+                                  })
+                                }
+                              />
+                              How does your ideal match define their gender?
+                              <Select
+                                value={data.match_gender.map(e => {
+                                  return e;
+                                })}
+                                name={
+                                  genderState.map(e => {
+                                    return e;
+                                  }) || ''
+                                }
+                                onChange={value =>
+                                  handleChanges({
+                                    field: 'match_gender',
+                                    value: value
+                                  })
+                                }
+                                options={genderState}
+                                isMulti
+                              />
+                              What condition(s) do you have?
+                              <Select
+                                value={data.conditions.map(e => {
+                                  return e;
+                                })}
+                                name={
+                                  stdState.map(e => {
+                                    return e;
+                                  }) || ''
+                                }
+                                onChange={value =>
+                                  handleChanges({
+                                    field: 'conditions',
+                                    value: value
+                                  })
+                                }
+                                options={stdState}
+                                isMulti
+                              />
+                              Care to share some details on your condition?
+                              <input
+                                type='textarea'
+                                name='condition_description'
+                                placeholder='condition_description'
+                                value={data.condition_description}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'condition_description',
+                                    value: e.target.value
+                                  })
+                                }
+                              />
+                              What is your zip code?
+                              <input
+                                type='number'
+                                name='zip_code'
+                                placeholder='Zip Code'
+                                value={data.zip_code}
+                                onChange={e =>
+                                  handleChanges({
+                                    field: 'zip_code',
+                                    value: Number(e.target.value)
+                                  })
+                                }
+                              />
+                            </form>
+                          </>
+                          <button onClick={(handleSubmit, hide)}>Update</button>{' '}
+                          <button onClick={hide}>Close</button>
+                        </Modal>
+                      )}
+                    />
                   </div>
-
-                  <Overlay usePortal={true} isOpen={toggleState}>
-                    <Card elevation={Elevation.TWO}>
-                      <div className='udate-dropDown'>
-                        <img src={formState.profile_picture} alt='profile' />
-                        <FileUploader
-                          accept='image/*'
-                          name='profile_picture'
-                          randomizeFilename
-                          storageRef={firebase.storage().ref('images')}
-                          // onUploadStart={handleUploadStart}
-                          // onUploadError={handleUploadError}
-                          onUploadSuccess={handleUploadSuccess}
-                          // onProgress={handleProgress}
-                        />
-                      </div>
-
-                      <form id='profileForm' onSubmit={handleSubmit}>
-                        <input
-                          name='first_name'
-                          placeholder='First Name'
-                          value={
-                            values.first_name || ` ${formState.first_name}`
-                          }
-                          onChange={handleChange}
-                        />
-                        <input
-                          name='last_name'
-                          placeholder='Last Name'
-                          value={values.last_name || ` ${formState.last_name}`}
-                          onChange={handleChange}
-                        />
-                        {/* <input
-
-                          name='DOB'
-                          placeholder='DOB'
-                          value={values.DOB || ` ${formState.DOB}`}
-                          onChange={handleChange}
-                        /> */}
-
-                        <input
-                          name='bio'
-                          placeholder='Bio'
-                          value={values.bio || ` ${formState.bio}`}
-                          onChange={handleChange}
-                        />
-                        <input
-                          name='condition_details'
-                          placeholder='Condition Details'
-                          value={
-                            values.condition_description ||
-                            ` ${formState.condition_description}`
-                          }
-                          onChange={handleChange}
-                        />
-                        <input
-                          name='looking_for'
-                          placeholder='Looking For'
-                          value={data.match_gender.map(e => {
-                            return e.value;
-                          })}
-                          onChange={handleChange}
-                        />
-                        <input
-                          name='what_ails_you'
-                          placeholder='Your Condition'
-                          value={data.conditions.map(e => {
-                            return e.value;
-                          })}
-                          onChange={handleChange}
-                        />
-                        <input
-                          type='number'
-                          name='zip_code'
-                          placeholder='Zip Code'
-                          value={values.zip_code || `${formState.zip_code}`}
-                          onChange={handleChange}
-                        />
-                        <div>
-                          <Button
-                            rightIcon='arrow-right'
-                            intent='success'
-                            onClick={showForm}
-                            type='submit'
-                          >
-                            Update
-                          </Button>
-                        </div>
-                      </form>
-                    </Card>
-                  </Overlay>
                 </div>
               </div>
             );
