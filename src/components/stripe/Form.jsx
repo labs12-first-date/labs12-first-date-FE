@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
 import './Stripe.css';
+import { Redirect } from 'react-router';
 
-class Form extends React.Component<IFormProps, IFormState> {
+class Form extends React.Component {
 
-    constructor(props: IFormProps) {
+    constructor(props) {
         super(props);
         this.state = {
             name: '',
-            amount: '',
+            amount: ''
         }
     }
 
@@ -16,24 +17,28 @@ class Form extends React.Component<IFormProps, IFormState> {
                 console.log(this.state);
         }
 
-        handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        handleSubmit = async (e) => {
             e.preventDefault();
             try {
                 let token = await this.props.stripe.createToken({ name: this.state.name });
                 console.log(token);
+                this.props.history.push('/settings')
             }catch(e) {
                 throw e;
             }
         }
 
-        selectPriceMonthly = ((e: React.ChangeEvent<HTMLInputElement>) => {
-            this.setState({ amount: 2.99 })
+        
+        selectPriceMonthly = ((e) => {
+            this.setState({ amount: "2.99" })
             this.handleSubmit(e);
         });
-        selectPriceAnnual = ((e: React.ChangeEvent<HTMLInputElement>) => {
-            this.setState({ amount: 19.99 });
+
+        selectPriceAnnual = ((e) => {
+            this.setState({ amount: "19.99" });
             this.handleSubmit(e);
         });
+
     
     render() {
         return (
@@ -44,26 +49,17 @@ class Form extends React.Component<IFormProps, IFormState> {
                 type="text"
                 className="input"
                 value={this.state.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({ name: e.target.value })}
+                onChange={(e) => this.setState({ name: e.target.value })}
             />
 
             <label>CC Number -- Exp. Date -- CVC</label>
             <CardElement className="stripe-card"/>
             <label>Charge it!</label>
-            <button onClick={this.selectPriceMonthly}>Monthly: $2.99</button>
-            <button onClick={this.selectPriceAnnual}>Annual: $19.99</button>
+            <button onClick={this.selectPriceMonthly}>1000 swipes: $2.99</button>
+            <button onClick={this.selectPriceAnnual}>Annual: $49.99</button>
             </form>
         </div>
         )}
-}
-
-
-
-interface IFormProps extends ReactStripeElements.InjectedStripeProps{ }
-
-interface IFormState {
-    name: string;
-    amount: string;
 }
 
 export default injectStripe(Form);
