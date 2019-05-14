@@ -193,12 +193,16 @@ const Settings = ({ history }) => {
                       Delete Your Account
                     </button>
                     {/*deletes the user profile */}
+                    <button className='btn-update-settings' onClick={() => {
+                      history.replace('/upgrade')
+                    }}>
+                      Upgrade Account
+                    </button>
                   </div>
                 </div>
                 <div className='dropForm'>
                   <div id='modal-root' />
                 </div>
-                <StripeApp />
               </div>
             </div>
           );
