@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
+import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 
@@ -36,7 +37,8 @@ const initProfile = user => {
         db.collection('profiles')
           .doc(user.uid)
           .set({
-            swipes_remaining: 10
+            swipes_remaining: appConfig.profileDefaults.swipes_remaining,
+            last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp()
           });
       }
     });
