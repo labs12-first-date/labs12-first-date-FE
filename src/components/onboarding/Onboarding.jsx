@@ -35,7 +35,9 @@ const initProfile = user => {
       if (!snapshot.exists) {
         db.collection('profiles')
           .doc(user.uid)
-          .set({});
+          .set({
+            swipes_remaining: 10
+          });
       }
     });
 };
