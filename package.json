@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-stripe-elements": "^1.1.10",
+    "@types/stripe": "^6.25.16",
     "axios": "^0.18.0",
     "firebase": "^5.11.1",
     "moment": "^2.24.0",
@@ -21,7 +23,8 @@
     "react-stripe-elements": "^3.0.0",
     "react-with-gesture": "^4.0.8",
     "stripe": "^6.34.0",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "typescript": "^3.4.5"
   },
   "scripts": {
     "start": "react-scripts start",
