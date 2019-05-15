@@ -1,8 +1,27 @@
 import { firebase } from '../firebase';
+import appConfig from '../appConfig';
 
 const db = firebase.firestore();
 
 // TODO functions for un-like, un-skip, and un-match
+
+const resetSwipeLimitAfter = async (userId, intervalHours = 24) => {
+  const userProfileRef = db.collection('profiles').doc(userId);
+  const userProfileSnapshot = await userProfileRef.get();
+  const userProfile = userProfileSnapshot.data();
+  const lastSwipeTimestamp = userProfile.last_swipe_timestamp;
+  const intervalMilliseconds = 60000 * 60 * intervalHours;
+  const resetIntervalHasElapsed = new Date() - lastSwipeTimestamp.toDate() > intervalMilliseconds;
+  const swipesRemaining = userProfile.swipes_remaining;
+  // if user has purchased additional swipes, don't reset to default
+  const resetSwipesCount =
+    swipesRemaining > 20 ? swipesRemaining : appConfig.profileDefaults.swipes_remaining;
+  if (resetIntervalHasElapsed) {
+    userProfileRef.update({
+      swipes_remaining: resetSwipesCount
+    });
+  }
+};
 
 const recordSwipe = async (userId, swipedUserId, isLike) => {
   const userProfileRef = db.collection('profiles').doc(userId);
@@ -78,4 +97,4 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
   }
 };
 
-export default recordSwipe;
+export { recordSwipe, resetSwipeLimitAfter };
