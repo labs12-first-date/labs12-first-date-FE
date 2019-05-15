@@ -8,11 +8,15 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
   const userProfileRef = db.collection('profiles').doc(userId);
   const userProfileSnapshot = await userProfileRef.get();
   const userProfile = userProfileSnapshot.data();
+  const remainingSwipes = userProfile.swipes_remaining || 0;
+  const decrementedSwipes = remainingSwipes < 1 ? 0 : remainingSwipes - 1;
 
   const skip = () => {
     const userSkips = userProfile.skipped_users || [];
     if (!userSkips.includes(swipedUserId)) {
       userProfileRef.update({
+        last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        swipes_remaining: decrementedSwipes,
         skipped_users: [...userSkips, swipedUserId]
       });
     }
@@ -22,6 +26,8 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
     const userLikes = userProfile.liked_users || [];
     if (!userLikes.includes(swipedUserId)) {
       userProfileRef.update({
+        last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        swipes_remaining: decrementedSwipes,
         liked_users: [...userLikes, swipedUserId]
       });
     }
