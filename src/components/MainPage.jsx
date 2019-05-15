@@ -12,6 +12,7 @@ import insta from '../image/insta.png';
 import web from '../image/website.png';
 
 import './MainPage.css';
+console.log('this is the new branch');
 
 const MainPage = () => {
   return (
