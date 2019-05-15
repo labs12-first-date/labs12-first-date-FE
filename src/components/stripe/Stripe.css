@@ -1,40 +1,76 @@
-@media(max-width:1280px) {
+@media(max-width:1920px) {
+
+    h1 {
+      color: #25d482;
+    }
+
+    h2 {
+      color: #25d482;
+    }
+
+    .charge {
+      margin-left:220px;
+    }
+
+    .btn {
+      cursor:pointer;
+      border-radius:5px;
+      background-color: #25d482;
+      width:150px;
+      margin-left:180px;
+    }
+
     .stripe-container {
       width: 400px;
       height:130px;
-      margin-left:440px;
-      display: flex;
-
+      margin-top:140px;
+      margin-left:740px;
     }
+
+    .form-div {
+      width:500px;
+      height:200px;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+
     .stripe-form {
+      background-color:white;  
+      width:500px;    
+      height:200px;
       margin:0, auto;
     }
+
     .stripe-card {
       border: solid lightgray 1px;
-      width:400px;
-      margin-left:25px;
+      width:500px;
       background-color: white;
     }
+
     input {
       border: solid lightgray 1px;
       font-size: 1rem;
     }
-    button {
-      border: solid lightgray 1px;
-    }
+
   }
+
+
+
   
-  @media(max-width:500px) {
+  @media(max-width:400px) {
+
     .stripe-container {
+      margin-top:0px;
       margin-left:0px;
-      display: flex;
     }
-    .stripe-form {
-      width:100%;
+
+    .btn {
+      margin-left:120px;
     }
-    .stripe-card {
-      width:350px;
-      margin-left:15px;
-      background-color: white;
+
+    .charge {
+      margin-left:160px;
     }
+
   }
