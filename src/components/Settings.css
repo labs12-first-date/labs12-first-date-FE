@@ -51,6 +51,15 @@ input::placeholder {
   animation-duration: 1.5s;
   animation-name: slidein;
 }
+@keyframes slidein {
+  from {
+    top: -1000px;
+  }
+
+  to {
+    top: -300px;
+  }
+}
 
 .set-container .modal input {
   display: block;
@@ -75,16 +84,6 @@ input::placeholder {
   border-radius: 10px;
   background-color: #e41a0b;
   color: white;
-}
-
-@keyframes slidein {
-  from {
-    top: -1000px;
-  }
-
-  to {
-    top: -300px;
-  }
 }
 
 @media (max-width: 500px) {
