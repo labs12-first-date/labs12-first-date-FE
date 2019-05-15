@@ -14,10 +14,6 @@ class Form extends React.Component {
     };
   }
 
-  componentDidUpdate(previousProps, previousState) {
-    console.log(this.state);
-  }
-
   addOneHundoSwipes = async () => {
     const user = auth.getCurrentUser();
     const userProfileRef = firebase
@@ -91,16 +87,21 @@ class Form extends React.Component {
     e.preventDefault();
     try {
       let token = await this.props.stripe.createToken({ name: this.state.name });
-      console.log(token);
-      if (this.state.amount === '2.99') {
-        this.addOneHundoSwipes();
-        this.props.history.push('/settings');
-      } else if (this.state.amount === '5.99') {
-        this.addTwoFittySwipes();
-        this.props.history.push('/settings');
-      } else if (this.state.amount === '9.99') {
-        this.addOneThouSwipes();
-        this.props.history.push('/settings');
+      if (token.error) {
+        console.log('Invalid Payment Credentials');
+        // TODO: add toast alert ==> invalid payment credentials
+      } else if (token.token) {
+        if (this.state.amount === '2.99') {
+          this.addOneHundoSwipes();
+          this.props.history.push('/settings');
+        } else if (this.state.amount === '5.99') {
+          this.addTwoFittySwipes();
+          this.props.history.push('/settings');
+        } else if (this.state.amount === '9.99') {
+          this.addOneThouSwipes();
+          this.props.history.push('/settings');
+        }
+        console.log('Valid');
       }
     } catch (e) {
       throw e;

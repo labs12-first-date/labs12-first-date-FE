@@ -1,4 +1,4 @@
-  .container {
+.container {
   position: fixed;
   left: 10%;
   right: 10%;
@@ -23,10 +23,9 @@
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
-
 .right-content {
   width: 300px;
-  height:170px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -34,13 +33,11 @@
   padding-right: 10%;
 }
 
-
 .box {
   width: 100%;
 
   padding: 0 2%;
 }
-
 
 .btn-update {
   background-color: #25d381;
@@ -56,7 +53,6 @@
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
-
 .modal {
   position: fixed;
   top: 12px;
@@ -64,12 +60,6 @@
   background-color: black;
   border: 1px solid grey;
 }
-
-
-form {
-  display: flex;
-}
-
 
 #profileForm input {
   border-style: none;
@@ -79,17 +69,14 @@ form {
   width: 100%;
 }
 
-
 .bp3-overlay-content img {
   width: 200px;
   height: 250px;
 }
 
-
 button.bp3-intent-danger {
   margin-top: 1rem;
 }
-
 
 span.red-text {
   font-style: bold;
@@ -97,23 +84,19 @@ span.red-text {
   width: 100%;
 }
 
-
 .row {
   width: 100%;
   display: flex;
 }
 
-
 button.bp3-intent-success {
   margin-top: 1rem;
 }
 
-
 @media (max-width: 500px) {
-
   .container {
     width: 100%;
-    margin-left:10px;
+    margin-left: 10px;
   }
 
   .card {
@@ -133,25 +116,19 @@ button.bp3-intent-success {
   }
 
   .right-content {
-    margin-left:40px;
+    margin-left: 40px;
   }
-
 }
 
-
 @media (max-width: 900px) {
-
   .content-left img {
     position: relative;
     top: 0;
     left: 0;
   }
-
 }
 
-
 @media (max-width: 580px) {
-
   .container {
     flex-direction: column;
     justify-content: center;
@@ -162,8 +139,7 @@ button.bp3-intent-success {
     align-items: center;
     width: 100%;
   }
-
-} 
+}
 
 .bp3-overlay-content {
   background-color: #242d3b;

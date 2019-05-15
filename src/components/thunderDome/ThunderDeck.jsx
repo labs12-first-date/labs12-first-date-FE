@@ -10,7 +10,7 @@ import runMatchAlgo from '../../helpers/matching';
 import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
 import appConfig from '../../appConfig';
-import './ThunderDome.css';
+import '../thunderDome/ThunderDome.css';
 import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
@@ -99,7 +99,10 @@ const ThunderDeck = ({ history }) => {
           .where('age', '<=', max_age)
           .limit(50)
           .get();
-        const profiles = profilesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        const profiles = profilesSnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         const potentialMatches = runMatchAlgo(userProfile, profiles);
         if (!potentialMatches.length) {
           setNoMatches(true);
