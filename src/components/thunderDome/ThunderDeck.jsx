@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
-import './ThunderDome.css';
 import MatchCard from './MatchCard';
-
 import runMatchAlgo from '../../helpers/matching';
 import recordSwipe from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
+
+import './ThunderDome.css';
 
 const db = firebase.firestore();
 
@@ -31,7 +31,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const user = auth.getCurrentUser();
@@ -92,7 +93,10 @@ const ThunderDeck = ({ history }) => {
         .where('age', '<=', max_age)
         .limit(50)
         .get();
-      const profiles = profilesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      const profiles = profilesSnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id
+      }));
       const potentialMatches = runMatchAlgo(userProfile, profiles);
       if (!potentialMatches.length) {
         setNoMatches(true);
@@ -116,7 +120,14 @@ const ThunderDeck = ({ history }) => {
   }));
 
   const bind = useGesture(
-    ({ args: [index, uid], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
+    ({
+      args: [index, uid],
+      down,
+      delta: [xDelta],
+      distance,
+      direction: [xDir],
+      velocity
+    }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -154,7 +165,9 @@ const ThunderDeck = ({ history }) => {
       });
 
       if (!down && gone.size === potentialMatches.length)
-        console.log('Cards are done. Let the DB know this person is ready to date!');
+        console.log(
+          'Cards are done. Let the DB know this person is ready to date!'
+        );
     }
   );
 
@@ -163,7 +176,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <NoMatches>
-          Sorry, no matches :/ <br /> <Link to="/settings">Update settings</Link>
+          Sorry, no matches :/ <br />{' '}
+          <Link to='/settings'>Update settings</Link>
         </NoMatches>
       </div>
     );
@@ -177,7 +191,7 @@ const ThunderDeck = ({ history }) => {
           return (
             <MatchCard
               key={match.id}
-              className="td-card"
+              className='td-card'
               i={i}
               x={x}
               y={y}

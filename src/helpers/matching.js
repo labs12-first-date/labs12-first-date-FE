@@ -23,12 +23,29 @@ const wantedGenders = userProfile => {
 };
 
 const runMatchAlgo = (userProfile, potentialMatches) => {
+  console.log('user', userProfile);
+  console.log('potentials', potentialMatches);
   const zipCodes = userProfile.nearby_zip;
+  const skipped = userProfile.skipped_users || [];
+  console.log('skipped', skipped);
+  const liked = userProfile.liked_users || [];
+  console.log('liked', liked);
   const tempConditions = wantedTraits(userProfile)[0];
   const compGender = wantedGenders(userProfile)[0];
-  const matches = potentialMatches.filter(match => zipCodes.includes(match.zip_code));
+  const noSkipped = potentialMatches.filter(
+    skips => !skipped.includes(skips.skipped)
+  );
+  console.log('noskipped', noSkipped);
+  const noLiked = noSkipped.filter(likes => !liked.includes(likes.liked));
+  console.log('noliked', noLiked);
+  console.log('zip', zipCodes);
+  const matches = potentialMatches.filter(match =>
+    zipCodes.includes(match.zip_code)
+  );
+  console.log('matches', matches);
   let foundMatches = [];
   for (let match of matches) {
+    console.log('match', match);
     for (let condition of match.conditions) {
       for (let matched_cond of tempConditions) {
         if (matched_cond === condition.value) {
