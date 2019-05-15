@@ -32,6 +32,15 @@
 }
 
 button#signup-btn {
-  width: 55%;
+  width: 60%;
   margin-bottom: 20px;
+  margin-top: 10px;
+  display: inline-block;
+
+  border-style: none;
+  background: #25d381;
+  border-radius: 2px;
+  color: white;
+  padding: 5px;
+  font-size: 18px;
 }

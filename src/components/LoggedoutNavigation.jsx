@@ -7,7 +7,9 @@ const LoggedoutNavigation = () => {
   return (
     <nav>
       <ul>
-        <img src={logo} alt="logo" />
+        <NavLink to="/">
+          <img src={logo} alt="logo" />
+        </NavLink>
         <li>
           <NavLink to="/login">Log in</NavLink>
         </li>

@@ -1,6 +1,6 @@
+import { useState, useEffect, useRef } from 'react';
 import { firebase, auth } from '../firebase';
 import { FirestoreDocument } from 'react-firestore';
-import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import FileUploader from 'react-firebase-file-uploader';
 import ReactDOM from 'react-dom';
@@ -9,6 +9,9 @@ import Loading from './Loading';
 import React from 'react';
 import Navigation from './Navigation';
 import './Profile.css';
+import { toast } from 'react-toastify';
+
+const db = firebase.firestore();
 
 // TODO: get cancel button to work. right now we are editing everything live so if you hit close the changes are saved. no way to cancel
 
@@ -27,24 +30,20 @@ const ToggleContent = ({ toggle, content }) => {
 
 const Modal = ({ children }) =>
   ReactDOM.createPortal(
-    <div className='modal'>{children}</div>,
+    <div className="modal">{children}</div>,
     document.getElementById('modal-root')
   );
 
 const Profile = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
-  const [photoValues, setphotoValues] = useState({});
   const [formValues, setFormValues] = useState({});
-
   const [formState, setformState] = useState({});
   const [stdState, setstdState] = useState({});
   const [genderState, setgenderState] = useState({});
+  const uploadingToastId = useRef(null);
 
   useEffect(() => {
-    const docRef = firebase
-      .firestore()
-      .collection('profiles')
-      .doc(user.uid);
+    const docRef = db.collection('profiles').doc(user.uid);
     docRef
       .get()
       .then(function(doc) {
@@ -56,9 +55,7 @@ const Profile = ({ history }) => {
   }, [user.uid]);
 
   useEffect(() => {
-    const dbStds = firebase
-      .firestore()
-      .collection('stds')
+    db.collection('stds')
       .get()
       .then(function(querySnapShot) {
         const stds = querySnapShot.docs.map(function(doc) {
@@ -69,9 +66,7 @@ const Profile = ({ history }) => {
   }, []);
 
   useEffect(() => {
-    const dbGender = firebase
-      .firestore()
-      .collection('gender')
+    db.collection('gender')
       .get()
       .then(function(querySnapShot) {
         const genders = querySnapShot.docs.map(function(doc) {
@@ -84,9 +79,7 @@ const Profile = ({ history }) => {
   useEffect(() => {
     // TODO don't make network call for every keystroke
     if (user) {
-      firebase
-        .firestore()
-        .collection('profiles')
+      db.collection('profiles')
         .doc(user.uid)
         .update(formValues)
         .then(function() {
@@ -95,10 +88,8 @@ const Profile = ({ history }) => {
     }
   }, [formValues, user]);
 
-  const { values, handleChange, handleSubmit } = useForm(() => {
-    firebase
-      .firestore()
-      .collection('profiles')
+  const { values, handleSubmit } = useForm(() => {
+    db.collection('profiles')
       .doc(user.uid)
       .update(values)
       .then(function() {
@@ -113,10 +104,8 @@ const Profile = ({ history }) => {
   };
 
   const handleUploadSuccess = filename => {
-    setphotoValues({ profile_picture: filename });
-    firebase
-      .storage()
-      .ref('images')
+    toast.dismiss(uploadingToastId.current);
+    db.ref('images')
       .child(filename)
       .getDownloadURL()
       .then(url => {
@@ -125,7 +114,7 @@ const Profile = ({ history }) => {
   };
 
   const handleProgress = filename => {
-    alert('Uploading now!');
+    uploadingToastId.current = toast.info('Uploading your sexy mug...');
   };
 
   return (
@@ -141,13 +130,13 @@ const Profile = ({ history }) => {
             window.location.reload();
           } else {
             return (
-              <div className='box'>
-                <div className='container'>
-                  <div className='content-left'>
-                    <img src={data.profile_picture} alt='profile' />
+              <div className="box">
+                <div className="container">
+                  <div className="content-left">
+                    <img src={data.profile_picture} alt="profile" />
                   </div>
-                  <div className='right-content'>
-                    <h2 className='card-title'>My Profile</h2>
+                  <div className="right-content">
+                    <h2 className="card-title">My Profile</h2>
                     <p>
                       Name: {data.first_name} {data.last_name}
                     </p>
@@ -168,17 +157,18 @@ const Profile = ({ history }) => {
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
                     <p>Likes: {data.likes || 0}</p>
-                    <div id='modal-root' />
+                    <div id="modal-root" />
                     <ToggleContent
 
                       toggle={show => (
-                        <button className='btn-update' onClick={show}>
+                        <button className="btn-update" onClick={show}>
                           Update Profile
                         </button>
                       )}
                       content={hide => (
                         <div class="profile-modal">
                           <>
+
                             <img
                               class="profile-img"
                               src={formState.profile_picture}
@@ -188,6 +178,7 @@ const Profile = ({ history }) => {
                               class="uploader"
                               accept='image/*'
                               name='profile_picture'
+
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
                               // onUploadStart={handleUploadStart}
@@ -195,12 +186,12 @@ const Profile = ({ history }) => {
                               onUploadSuccess={handleUploadSuccess}
                               onProgress={handleProgress}
                             />
-                            <form id='profileForm'>
+                            <form id="profileForm">
                               What is your first name?
                               <input
-                                type='text'
-                                name='first_name'
-                                placeholder='First Name'
+                                type="text"
+                                name="first_name"
+                                placeholder="First Name"
                                 value={data.first_name}
                                 onChange={e =>
                                   handleChanges({
@@ -211,9 +202,9 @@ const Profile = ({ history }) => {
                               />
                               What is your last name?
                               <input
-                                type='text'
-                                name='last_name'
-                                placeholder='Last Name'
+                                type="text"
+                                name="last_name"
+                                placeholder="Last Name"
                                 value={data.last_name}
                                 onChange={e =>
                                   handleChanges({
@@ -224,9 +215,9 @@ const Profile = ({ history }) => {
                               />
                               How old are you?
                               <input
-                                type='number'
-                                name='age'
-                                placeholder='age'
+                                type="number"
+                                name="age"
+                                placeholder="age"
                                 value={data.age}
                                 onChange={e =>
                                   handleChanges({
@@ -235,12 +226,11 @@ const Profile = ({ history }) => {
                                   })
                                 }
                               />
-                              What do you want your ideal match to know about
-                              you?
+                              What do you want your ideal match to know about you?
                               <input
-                                type='textarea'
-                                name='bio'
-                                placeholder='Bio'
+                                type="textarea"
+                                name="bio"
+                                placeholder="Bio"
                                 value={data.bio}
                                 onChange={e =>
                                   handleChanges({
@@ -289,9 +279,9 @@ const Profile = ({ history }) => {
                               />
                               Care to share some details on your condition?
                               <input
-                                type='textarea'
-                                name='condition_description'
-                                placeholder='condition_description'
+                                type="textarea"
+                                name="condition_description"
+                                placeholder="condition_description"
                                 value={data.condition_description}
                                 onChange={e =>
                                   handleChanges({
@@ -302,9 +292,9 @@ const Profile = ({ history }) => {
                               />
                               What is your zip code?
                               <input
-                                type='number'
-                                name='zip_code'
-                                placeholder='Zip Code'
+                                type="number"
+                                name="zip_code"
+                                placeholder="Zip Code"
                                 value={data.zip_code}
                                 onChange={e =>
                                   handleChanges({

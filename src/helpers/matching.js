@@ -24,9 +24,15 @@ const wantedGenders = userProfile => {
 
 const runMatchAlgo = (userProfile, potentialMatches) => {
   const zipCodes = userProfile.nearby_zip;
+  const skipped = userProfile.skipped_users || [];
+  const liked = userProfile.liked_users || [];
   const tempConditions = wantedTraits(userProfile)[0];
   const compGender = wantedGenders(userProfile)[0];
-  const matches = potentialMatches.filter(match => zipCodes.includes(match.zip_code));
+  const noSkipped = potentialMatches.filter(
+    skips => !skipped.includes(skips.id)
+  );
+  const noLiked = noSkipped.filter(likes => !liked.includes(likes.id));
+  const matches = noLiked.filter(match => zipCodes.includes(match.zip_code));
   let foundMatches = [];
   for (let match of matches) {
     for (let condition of match.conditions) {

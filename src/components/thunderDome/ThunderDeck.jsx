@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
-import './ThunderDome.css';
 import MatchCard from './MatchCard';
 import runMatchAlgo from '../../helpers/matching';
 import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
 import appConfig from '../../appConfig';
+import '../thunderDome/ThunderDome.css';
+import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
 
@@ -98,7 +99,10 @@ const ThunderDeck = ({ history }) => {
           .where('age', '<=', max_age)
           .limit(50)
           .get();
-        const profiles = profilesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        const profiles = profilesSnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         const potentialMatches = runMatchAlgo(userProfile, profiles);
         if (!potentialMatches.length) {
           setNoMatches(true);
@@ -162,8 +166,10 @@ const ThunderDeck = ({ history }) => {
         };
       });
 
-      if (!down && gone.size === potentialMatches.length)
-        console.log('Cards are done. Let the DB know this person is ready to date!');
+      if (!down && gone.size === potentialMatches.length) {
+        // all cards have been swiped
+        toast.info(`That's all we have for you right now. Check back later!`);
+      }
     }
   );
 
