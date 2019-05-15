@@ -12,6 +12,7 @@ import insta from '../image/insta.png';
 import web from '../image/website.png';
 
 import './MainPage.css';
+console.log('this is the new branch');
 
 const MainPage = () => {
   return (
@@ -21,7 +22,7 @@ const MainPage = () => {
         <section className="section1">
           <div className="s1LeftSide">
             <h1>
-              Finaly an app that is aimed at taking the stigma out of being{' '}
+              Finally an app that is aimed at taking the stigma out of being{' '}
               <span>positive</span>.
             </h1>
           </div>
@@ -59,11 +60,11 @@ const MainPage = () => {
         <section className="section3">
           <h1>In App Messaging</h1>
           <img src={messaging} alt="messaging" />
+        </section>
+        <section className="section4">
           <div className="s3Line">
             <img src={Line} alt="line" />
           </div>
-        </section>
-        <section className="section4">
           <h1>Your New Relationship Just A Few Swipes Away</h1>
           <div className="s4heart">
             <img src={heart} alt="heart" />

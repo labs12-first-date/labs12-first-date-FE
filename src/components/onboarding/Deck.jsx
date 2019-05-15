@@ -43,7 +43,7 @@ const Deck = ({ cardsData }) => {
       direction: [xDir],
       velocity
     }) => {
-      const trigger = velocity > 1.2;
+      const trigger = velocity > 1.0;
 
       const dir = xDir < 0 ? -1 : 1;
 

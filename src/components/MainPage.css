@@ -1,5 +1,6 @@
 .MPcontainer {
-  width: 1400px;
+  max-width: 1400px;
+  width: 100%;
   margin: 0 auto;
 }
 .section1 {
@@ -7,7 +8,8 @@
   display: flex;
   flex-flow: wrap;
 }
-.s1LeftSide {
+
+.section1 .s1LeftSide {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,11 +25,21 @@
   color: #25d381;
 }
 
-.s1RightSide {
-  width: 50%;
-
+.section1 .s1RightSide {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 5%;
+}
+
+.section1 .s1RightSide img {
+  width: 70%;
+  height: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section1 img {
+  width: 80%;
 }
 
 .section2 .s2Top {
@@ -49,15 +61,22 @@
   margin-bottom: 5%;
   display: flex;
   justify-content: space-evenly;
-}
-
-.section2 .s2Middle #s2img2 #I2 {
-  margin-bottom: 60px;
+  width: 100%;
 }
 
 .section2 .s2Line {
   display: flex;
   justify-content: flex-end;
+}
+
+.section2 img {
+  width: 80%;
+}
+.section3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .section3 h1 {
@@ -66,8 +85,20 @@
   font-size: 70px;
 }
 
-.section3 .s3Line {
+.section3 img {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.rline {
+  width: 80%;
+}
+.section4 .s3Line {
   margin-top: 5%;
+}
+
+.section4 .s3Line img {
+  width: 80%;
 }
 
 .section4 h1 {
@@ -91,16 +122,40 @@
 footer {
   display: flex;
   justify-content: space-evenly;
+  flex-flow: wrap;
+}
+
+footer a img {
+  width: 80%;
 }
 
 footer a {
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
 
 footer #footerText {
   color: #25d381;
-  font-size: 22px;
+  font-size: 1.5rem;
   margin-left: 4%;
+}
+
+@media (max-width: 850px) {
+  .section1 .s1LeftSide {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .section4 h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .section1 .s1LeftSide h1 {
+    font-size: 30px;
+  }
 }
