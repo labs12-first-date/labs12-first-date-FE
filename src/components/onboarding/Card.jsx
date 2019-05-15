@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { animated, interpolate } from 'react-spring';
-import { ProgressBar } from '@blueprintjs/core';
+import { Progress } from 'react-sweet-progress';
+import 'react-sweet-progress/lib/style.css';
 import { AuthContext } from '../../contexts/AuthContext';
 import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
@@ -89,17 +90,19 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'number':
         return (
           <input
-            type="number"
+            type='number'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -114,11 +117,13 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type="textarea"
+            type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'multi_select':
@@ -126,7 +131,9 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value => handleChange({ field: p.field_name, value: value })}
+            onChange={value =>
+              handleChange({ field: p.field_name, value: value })
+            }
             options={p.choices}
             isMulti
           />
@@ -134,8 +141,8 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept="image/*"
-            name="profile_picture"
+            accept='image/*'
+            name='profile_picture'
             randomizeFilename
             storageRef={storage.ref('images')}
             onUploadStart={handleProgress}
@@ -151,20 +158,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className="ob-ani1"
+      className='ob-ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className="ob-ani2"
+        className='ob-ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="ob-card">
+        <div className='ob-card'>
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
@@ -173,9 +180,10 @@ const Card = props => {
                 {p.field_name && renderInput(p)}
               </div>
             ))}
-
             <br />
-            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
+            <Progress
+              percent={Math.round((onboardingStep / totalSteps) * 100)}
+            />
           </form>
         </div>
       </animated.div>

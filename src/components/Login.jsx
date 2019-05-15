@@ -2,7 +2,6 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
-import { Button } from '@blueprintjs/core';
 import logo from '../image/UnBlush.png';
 import Navigation from '../components/LoggedoutNavigation';
 import './Login.css';
@@ -45,9 +44,9 @@ const Login = () => {
               onChange={handleChange}
             />
             <div>
-              <Button intent='danger' icon='refresh'>
+              <button intent='danger' icon='refresh'>
                 Reset Password
-              </Button>
+              </button>
             </div>
           </form>
         </div>
