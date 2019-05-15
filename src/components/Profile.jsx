@@ -170,20 +170,22 @@ const Profile = ({ history }) => {
                     <p>Likes: {data.likes || 0}</p>
                     <div id='modal-root' />
                     <ToggleContent
-                      className='modal'
+
                       toggle={show => (
                         <button className='btn-update' onClick={show}>
                           Update Profile
                         </button>
                       )}
                       content={hide => (
-                        <Modal>
+                        <div class="profile-modal">
                           <>
                             <img
+                              class="profile-img"
                               src={formState.profile_picture}
                               alt='profile'
                             />
                             <FileUploader
+                              class="uploader"
                               accept='image/*'
                               name='profile_picture'
                               randomizeFilename
@@ -313,9 +315,9 @@ const Profile = ({ history }) => {
                               />
                             </form>
                           </>
-                          <button onClick={(handleSubmit, hide)}>Update</button>{' '}
-                          <button onClick={hide}>Close</button>
-                        </Modal>
+                          <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
+                          <button class="modal-btn2" onClick={hide}>Close</button>
+                        </div>
                       )}
                     />
                   </div>

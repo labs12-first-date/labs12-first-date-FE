@@ -1,4 +1,4 @@
-  .container {
+.container {
   position: fixed;
   left: 10%;
   right: 10%;
@@ -37,7 +37,6 @@
 
 .box {
   width: 100%;
-
   padding: 0 2%;
 }
 
@@ -56,13 +55,34 @@
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
+.modal-btn1 {
+  background-color: #25d381;
+  border-radius: 20px;
+  font-size: 19px;
+  border-style: none;
+  border: 1.5px solid black;
+  padding: 10px;
+  width: 200px;
+  margin-top:10px;
+  color: white;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+}
 
-.modal {
-  position: fixed;
-  top: 12px;
-  padding: 12px;
-  background-color: black;
-  border: 1px solid grey;
+.modal-btn2 {
+  background-color: #e41a0b;
+  border-radius: 20px;
+  font-size: 19px;
+  border-style: none;
+  border: 1.5px solid black;
+  padding: 10px;
+  width: 200px;
+  margin-top:10px;
+  color: white;
+  -webkit-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
+  box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
 
 
@@ -73,10 +93,12 @@ form {
 
 #profileForm input {
   border-style: none;
-
+  background-color: #242d3b;
   font-size: 19px;
   padding: 1%;
   width: 100%;
+  border-bottom: solid#25d381 2px;
+  color:#25d381;
 }
 
 
@@ -167,4 +189,118 @@ button.bp3-intent-success {
 
 .bp3-overlay-content {
   background-color: #242d3b;
+}
+
+.uploader {
+  width:210px;
+  height:24px;
+}
+
+.profile-modal {
+  position: relative;
+  right:410px;
+  top: -380px;
+  margin: 0 auto;
+  padding: 30px;
+  width:490px;
+  height:690px;
+  border-radius: 20px;
+  background-color: #242d3b;
+  animation-duration: 1.5s;
+  animation-name: slidein;
+}
+@keyframes slidein {
+  from {
+    top: -1000px;
+  }
+
+  to {
+    top: -380px;
+  }
+}
+
+.profile-img {
+  height:250px;
+}
+
+#profileForm {
+  display:flex;
+  flex-direction: column;
+  width:470px;
+  height:400px;
+}
+
+@media(max-width:400px) {
+  .profile-modal {
+    position: relative;
+    right:80px;
+    top: -600px;
+    margin: 0 auto;
+    padding: 30px;
+    width:400px;
+    height:640px;
+    border-radius: 20px;
+    background-color: #242d3b;
+    animation-duration: 1.5s;
+    animation-name: slidein;
+  }
+  @keyframes slidein {
+    from {
+      top: -1000px;
+    }
+  
+    to {
+      top: -600px;
+    }
+  }
+
+  #profileForm {
+    width:400px;
+    height:320px;
+  }
+
+  #profileForm input {
+    display:flex;
+    flex-direction: column;
+    width:385px;
+    height:10px;
+    background-color: #242d3b;
+    color:#25d381;
+  }
+
+  .modal-btn1 {
+    width:190px;
+    height:40px;
+  }
+
+  .modal-btn2 {
+    width:190px;
+    height:40px;
+  }
+}
+
+@media(max-width:1280px) {
+
+  .profile-modal {
+    position: relative;
+    right:280px;
+    top: -350px;
+    margin: 0 auto;
+    padding: 30px;
+    width:490px;
+    height:690px;
+    border-radius: 20px;
+    background-color: #242d3b;
+    animation-duration: 1.5s;
+    animation-name: slidein;
+  }
+  @keyframes slidein {
+    from {
+      top: -1000px;
+    }
+    to {
+      top: -350px;
+    }
+  }
+  
 }
