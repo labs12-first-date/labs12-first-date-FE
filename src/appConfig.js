@@ -1,6 +1,6 @@
 export default {
   profileDefaults: {
-    swipes_remaining: 10
+    swipes_remaining: 20
   },
   settingsDefaults: {
     match_age_min: 18,
