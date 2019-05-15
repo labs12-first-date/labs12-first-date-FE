@@ -10,6 +10,7 @@ import MatchCard from './MatchCard';
 import runMatchAlgo from '../../helpers/matching';
 import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
+import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 
@@ -85,12 +86,12 @@ const ThunderDeck = ({ history }) => {
     const fetchProfilesForMatching = async () => {
       // if all profiles and settings are init'd properly, we don't have to supply defaults with these || statements
       resetSwipeLimitAfter(user.uid, 24);
-      const swipesRemaining = userProfile.swipes_remaining || 10;
+      const swipesRemaining = parseInt(userProfile.swipes_remaining);
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age = userSettings.match_age_min || 18;
-        const max_age = userSettings.match_age_max || 99;
+        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
+        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
