@@ -3,10 +3,6 @@
   text-align: center;
 }
 
-.button.bp3-intent-danger {
-  display: block;
-}
-
 #login-signup {
   width: 25%;
   padding: 30px;
@@ -26,6 +22,20 @@
 
 #form form {
   display: flex;
+}
+#form form button {
+  display: block;
+}
+#btn-reset {
+  margin-top: 10px;
+  display: inline-block;
+  width: 97%;
+  border-style: none;
+  background: #25d381;
+  border-radius: 2px;
+  color: white;
+  padding: 5px;
+  font-size: 18px;
 }
 
 #form form input {

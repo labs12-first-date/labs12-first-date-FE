@@ -11,7 +11,7 @@ import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
 import appConfig from '../../appConfig';
 
-import './ThunderDome.css';
+import '../thunderDome/ThunderDome.css';
 
 const db = firebase.firestore();
 
@@ -92,15 +92,22 @@ const ThunderDeck = ({ history }) => {
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
-        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
+        const min_age =
+          userSettings.match_age_min ||
+          appConfig.settingsDefaults.match_age_min;
+        const max_age =
+          userSettings.match_age_max ||
+          appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
           .limit(50)
           .get();
-        const profiles = profilesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        const profiles = profilesSnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         const potentialMatches = runMatchAlgo(userProfile, profiles);
         if (!potentialMatches.length) {
           setNoMatches(true);
@@ -194,7 +201,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
+          Sorry, no matches :/ <br />{' '}
+          <Link to="/settings">Update match settings</Link>
         </MessageDisplay>
       </div>
     );
@@ -208,7 +216,7 @@ const ThunderDeck = ({ history }) => {
           return (
             <MatchCard
               key={match.id}
-              className='td-card'
+              className="td-card"
               i={i}
               x={x}
               y={y}
