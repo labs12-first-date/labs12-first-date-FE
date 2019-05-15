@@ -14,6 +14,14 @@ import Profile from './components/Profile';
 import Onboarding from './components/onboarding/Onboarding';
 import MainPage from './components/MainPage';
 import StripeApp from './components/stripe/StripeApp';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure({
+  autoClose: 8000,
+  draggable: false,
+  position: 'top-center'
+});
 
 const App = () => {
   const { isInitialized, user } = useContext(AuthContext);

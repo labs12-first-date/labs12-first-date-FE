@@ -1,5 +1,6 @@
 import { firebase } from '../firebase';
 import appConfig from '../appConfig';
+import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
 
@@ -63,6 +64,8 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
     const swipedUserLikes = swipedUserProfile.liked_users || [];
     if (swipedUserLikes.includes(userId)) {
       // brown chicken, brown cow, it's a match!
+      // TODO make this notification more exciting, add link to start chatting
+      toast.success(`You matched with ${swipedUserProfile.first_name}!`);
       // create a chat for users to share
       const chatRoomRef = db.collection('chatrooms').doc();
       // update user profile

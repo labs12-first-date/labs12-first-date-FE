@@ -10,8 +10,8 @@ import runMatchAlgo from '../../helpers/matching';
 import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
 import appConfig from '../../appConfig';
-
 import '../thunderDome/ThunderDome.css';
+import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
 
@@ -32,8 +32,7 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const user = auth.getCurrentUser();
@@ -92,12 +91,8 @@ const ThunderDeck = ({ history }) => {
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age =
-          userSettings.match_age_min ||
-          appConfig.settingsDefaults.match_age_min;
-        const max_age =
-          userSettings.match_age_max ||
-          appConfig.settingsDefaults.match_age_max;
+        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
+        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
@@ -134,14 +129,7 @@ const ThunderDeck = ({ history }) => {
   }));
 
   const bind = useGesture(
-    ({
-      args: [index, uid],
-      down,
-      delta: [xDelta],
-      distance,
-      direction: [xDir],
-      velocity
-    }) => {
+    ({ args: [index, uid], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -178,10 +166,10 @@ const ThunderDeck = ({ history }) => {
         };
       });
 
-      if (!down && gone.size === potentialMatches.length)
-        console.log(
-          'Cards are done. Let the DB know this person is ready to date!'
-        );
+      if (!down && gone.size === potentialMatches.length) {
+        // all cards have been swiped
+        toast.info(`That's all we have for you right now. Check back later!`);
+      }
     }
   );
 
@@ -201,8 +189,7 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          Sorry, no matches :/ <br />{' '}
-          <Link to="/settings">Update match settings</Link>
+          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
         </MessageDisplay>
       </div>
     );
