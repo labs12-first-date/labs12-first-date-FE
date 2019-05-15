@@ -1,15 +1,12 @@
-/* .how {
-  background-color: black;
-  width: 0.1%;
-
+.set-container {
   margin: 0 auto;
-}
-
-.container {
   color: white;
   font-size: 19px;
+  width: 70%;
+  text-align: center;
+  margin-top: 15%;
 }
-.container ul.row {
+.set-container ul.row {
   display: flex;
   list-style: none;
   font-size: 0.9rem;
@@ -19,73 +16,74 @@
   width: 100%;
 }
 
-div.card.grey.lighten-1 {
-  width: 95%;
-}
-
-span.card-title {
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-
-div.card-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.container span {
+.set-container span {
   padding: 0 10px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
-  padding-top: 30px;
+  padding-top: 40px;
   margin: 0 auto;
-}
-button.bp3-intent-danger {
-  margin: 0 10px;
-}
-
-.dropForm input {
-  margin: 0 20px;
-  border-style: none;
-  border-bottom: 1px dotted black;
-
-  font-size: 19px;
-  color: black;
 }
 
 input::placeholder {
   color: white;
 }
-#drop-form-btn {
-  margin-top: 20px;
-  text-align: center;
+
+.set-card-content {
+  padding: 0px 5%;
+}
+#set-settings {
+  display: inline-block;
+  font-size: 30px;
+  margin-bottom: 20px;
 }
 
-.bp3-overlay-content {
-  position: absolute;
-  z-index: 20;
-  top: 90px;
-  left: 25%;
-
-  animation-duration: 1s;
+.set-container .modal {
+  position: relative;
+  top: -300px;
+  margin: 0 auto;
+  padding: 30px;
+  width: 60%;
+  border-radius: 20px;
+  background-color: #242d3b;
+  animation-duration: 1.5s;
   animation-name: slidein;
 }
-.bp3-card.bp3-elevation-2.bp3-overlay-content.bp3-overlay-appear-done.bp3-overlay-enter-done {
-  display: block;
-}
-
 @keyframes slidein {
   from {
-    top: -10px;
+    top: -1000px;
   }
 
   to {
-    top: 90px;
+    top: -300px;
   }
+}
+
+.set-container .modal input {
+  display: block;
+  margin: 1% auto;
+  text-align: center;
+  color: white;
+  border-style: none;
+  background-color: #242d3b;
+  border-bottom: 2px solid #25d381;
+}
+.set-container .modal #update {
+  border-style: none;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #25d381;
+  color: white;
+}
+
+.set-container .modal #close {
+  border-style: none;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #e41a0b;
+  color: white;
 }
 
 @media (max-width: 500px) {
@@ -94,31 +92,6 @@ input::placeholder {
     justify-content: space-between;
     width: 355px;
     padding-right: 35px;
-  }
-
-  .bp3-button-text {
-    margin: 0, auto;
-    padding-left: 0px;
-    width: 60px;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  button .bp3-intent-danger {
-    padding: 0;
-    margin-right: 0px;
-  }
-
-  button .bp3-icon-arrow {
-    display: none;
-  }
-
-  button .bp3-icon-refresh {
-    display: none;
-  }
-
-  button .bp3-icon-disable {
-    display: none;
   }
 }
 .btn-update-settings {
@@ -165,4 +138,4 @@ input::placeholder {
     flex-direction: column;
     align-items: center;
   }
-} */
+}
