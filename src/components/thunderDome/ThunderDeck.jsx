@@ -8,7 +8,7 @@ import Loading from '../Loading';
 import './ThunderDome.css';
 import MatchCard from './MatchCard';
 import runMatchAlgo from '../../helpers/matching';
-import recordSwipe from '../../helpers/swipeActions';
+import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
 
 const db = firebase.firestore();
@@ -84,6 +84,7 @@ const ThunderDeck = ({ history }) => {
   useEffect(() => {
     const fetchProfilesForMatching = async () => {
       // if all profiles and settings are init'd properly, we don't have to supply defaults with these || statements
+      resetSwipeLimitAfter(user.uid, 24);
       const swipesRemaining = userProfile.swipes_remaining || 10;
       if (swipesRemaining) {
         setSwipeLimitReached(false);
