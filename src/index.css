@@ -127,3 +127,165 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.MPcontainer {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+.section1 {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: wrap;
+}
+
+.section1 .s1LeftSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  color: white;
+  text-align: center;
+}
+.s1LeftSide h1 {
+  font-size: 40px;
+}
+.s1LeftSide h1 span {
+  color: #25d381;
+}
+
+.section1 .s1RightSide {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5%;
+}
+
+.section1 .s1RightSide img {
+  width: 70%;
+  height: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section1 img {
+  width: 80%;
+}
+
+.section2 .s2Top {
+  text-align: center;
+  color: white;
+}
+
+.section2 .s2Top h1 {
+  font-size: 70px;
+}
+
+.section2 .s2Top p {
+  font-size: 30px;
+  padding: 0 20%;
+}
+
+.section2 .s2Middle {
+  margin-top: 15%;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.section2 .s2Line {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.section2 img {
+  width: 80%;
+}
+.section3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section3 h1 {
+  text-align: center;
+  color: white;
+  font-size: 70px;
+}
+
+.section3 img {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.rline {
+  width: 80%;
+}
+.section4 .s3Line {
+  margin-top: 5%;
+}
+
+.section4 .s3Line img {
+  width: 80%;
+}
+
+.section4 h1 {
+  padding: 0 10%;
+  color: white;
+  font-size: 70px;
+  text-align: center;
+}
+
+.section4 .s4heart {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.section4 .s4heart img {
+  margin: 15% 0;
+}
+
+footer {
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+}
+
+footer a img {
+  width: 80%;
+}
+
+footer a {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+footer #footerText {
+  color: #25d381;
+  font-size: 1.5rem;
+  margin-left: 4%;
+}
+
+@media (max-width: 850px) {
+  .section1 .s1LeftSide {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 750px) {
+  .section4 h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .section1 .s1LeftSide h1 {
+    font-size: 30px;
+  }
+}

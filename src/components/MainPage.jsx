@@ -22,7 +22,7 @@ const MainPage = () => {
         <section className="section1">
           <div className="s1LeftSide">
             <h1>
-              Finaly an app that is aimed at taking the stigma out of being{' '}
+              Finally an app that is aimed at taking the stigma out of being{' '}
               <span>positive</span>.
             </h1>
           </div>
