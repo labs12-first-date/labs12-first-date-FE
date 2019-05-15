@@ -3,29 +3,20 @@ import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
 
+const db = firebase.firestore();
+
 const getDocsArray = async collection => {
-  const snapshot = await firebase
-    .firestore()
-    .collection(collection)
-    .get();
+  const snapshot = await db.collection(collection).get();
   return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 };
 
-// 1 funcion create setting doc for the user uid
-// 2 function check profile is created if completed is false check profile step. send user to step +1
-//if completed is true send to thunderdome.
-
 const initSettings = user => {
-  firebase
-    .firestore()
-    .collection('settings')
+  db.collection('settings')
     .doc(user.uid)
     .get()
     .then(snapshot => {
       if (!snapshot.exists) {
-        firebase
-          .firestore()
-          .collection('settings')
+        db.collection('settings')
           .doc(user.uid)
           .set({
             match_age_min: 18,
@@ -37,16 +28,12 @@ const initSettings = user => {
 };
 
 const initProfile = user => {
-  firebase
-    .firestore()
-    .collection('profiles')
+  db.collection('profiles')
     .doc(user.uid)
     .get()
     .then(snapshot => {
       if (!snapshot.exists) {
-        firebase
-          .firestore()
-          .collection('profiles')
+        db.collection('profiles')
           .doc(user.uid)
           .set({});
       }
@@ -84,19 +71,6 @@ const Onboarding = ({ history }) => {
 
   // CDM
   useEffect(() => {
-    // firebase
-    //   .firestore()
-    //   .collection('profiles')
-    //   .doc(user.uid)
-    //   .get()
-    //   .then(function(doc) {
-    //     if (doc.data().profile_completed) {
-    //       console.log(doc.data().profile_completed);
-    //       history.replace('/thunderdome');
-    //     } else {
-    //       const currentStep = doc.data().profile_step;
-    //     }
-    //   });
     getPrompts();
     getSTDs();
     getGenders();
@@ -119,13 +93,11 @@ const Onboarding = ({ history }) => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includesConditions =
-                p.field_name && p.field_name.includes('conditions');
+              const includesConditions = p.field_name && p.field_name.includes('conditions');
               return includesConditions ? { ...p, choices: STDs } : p;
             })
             .map(p => {
-              const includesGender =
-                p.field_name && p.field_name.includes('gender');
+              const includesGender = p.field_name && p.field_name.includes('gender');
               return includesGender ? { ...p, choices: genders } : p;
             })
             .sort((a, b) => a.prompt_order - b.prompt_order);
@@ -141,16 +113,7 @@ const Onboarding = ({ history }) => {
     }
   }, [prompts, STDs, genders]);
 
-  // logging, safe to remove
-  // useEffect(() => {
-  //   console.log(cardsData);
-  // }, [cardsData]);
-
-  return cardsData ? (
-    <Deck className='ob-deck' cardsData={cardsData} />
-  ) : (
-    <div>Loading...</div>
-  );
+  return cardsData ? <Deck className="ob-deck" cardsData={cardsData} /> : <div>Loading...</div>;
 };
 
 export default Onboarding;

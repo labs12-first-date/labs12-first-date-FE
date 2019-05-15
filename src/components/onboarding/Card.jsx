@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { auth, firebase } from '../../firebase';
+import { firebase } from '../../firebase';
 import { animated, interpolate } from 'react-spring';
 import { ProgressBar } from '@blueprintjs/core';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -7,33 +7,31 @@ import FileUploader from 'react-firebase-file-uploader';
 import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import './OnBoarding.css';
+import setUserNearbyZips from '../../helpers/setUserNearbyZips';
+
+const db = firebase.firestore();
+const storage = firebase.storage();
 
 const Card = props => {
   const { user } = useContext(AuthContext);
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
   const { cardTitle, onboardingStep, prompts } = data;
-  const [photoValues, setphotoValues] = useState({});
+  // const [photoValues, setphotoValues] = useState({});
 
-  console.log(user);
+  // console.log(user);
 
+  // save form input values
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection('profiles')
+    db.collection('profiles')
       .doc(user.uid)
-      .update(formValues)
-      .then(function() {
-        console.log('Document successfully written!');
-      });
+      .update(formValues);
   }, [formValues, user]);
 
+  // populate form values with any existing profile data
   useEffect(() => {
     if (user && user.uid) {
-      const docRef = firebase
-        .firestore()
-        .collection('profiles')
-        .doc(user.uid);
+      const docRef = db.collection('profiles').doc(user.uid);
 
       docRef
         .get()
@@ -52,26 +50,34 @@ const Card = props => {
     });
   };
 
-  const handleUploadSuccess = filename => {
-    setphotoValues({ profile_picture: filename });
-    firebase
-      .storage()
+  const completeProfile = async () => {
+    const profileRef = db.collection('profiles').doc(user.uid);
+    const profileSnapshot = await profileRef.get();
+    const profile = profileSnapshot.data();
+    const zipCode = profile.zip_code || null;
+    if (!zipCode) {
+      console.error('Zip code not set on user profile, cannot get matches');
+    } else {
+      setUserNearbyZips(user.uid, zipCode);
+    }
+    await db
+      .collection('profiles')
+      .doc(user.uid)
+      .update({
+        profile_completed: true
+      });
+    props.history.replace('/thunderdome');
+  };
+
+  const handleUploadSuccess = async filename => {
+    const photoUrl = await storage
       .ref('images')
       .child(filename)
-      .getDownloadURL()
-      .then(url => {
-        handleChange({ field: 'profile_picture', value: url });
-        firebase
-          .firestore()
-          .collection('profiles')
-          .doc(user.uid)
-          .update({
-            profile_completed: true
-          })
-          .then(() => {
-            props.history.replace('/thunderdome');
-          });
-      });
+      .getDownloadURL();
+
+    handleChange({ field: 'profile_picture', value: photoUrl });
+    // uploading a photo is the final step in on-boarding
+    completeProfile();
   };
 
   const handleProgress = filename => {
@@ -83,19 +89,17 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type='text'
+            type="text"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
         return (
           <input
-            type='number'
+            type="number"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -110,13 +114,11 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type='textarea'
+            type="textarea"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'multi_select':
@@ -124,9 +126,7 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value =>
-              handleChange({ field: p.field_name, value: value })
-            }
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
@@ -134,10 +134,10 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept='image/*'
-            name='profile_picture'
+            accept="image/*"
+            name="profile_picture"
             randomizeFilename
-            storageRef={firebase.storage().ref('images')}
+            storageRef={storage.ref('images')}
             onUploadStart={handleProgress}
             // onUploadError={handleUploadError}
             onUploadSuccess={handleUploadSuccess}
@@ -151,20 +151,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className='ob-ani1'
+      className="ob-ani1"
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className='ob-ani2'
+        className="ob-ani2"
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className='ob-card'>
+        <div className="ob-card">
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
@@ -175,11 +175,7 @@ const Card = props => {
             ))}
 
             <br />
-            <ProgressBar
-              animate={false}
-              stripes={false}
-              value={onboardingStep / totalSteps}
-            />
+            <ProgressBar animate={false} stripes={false} value={onboardingStep / totalSteps} />
           </form>
         </div>
       </animated.div>

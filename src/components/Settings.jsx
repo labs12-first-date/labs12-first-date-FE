@@ -1,13 +1,15 @@
 import { FirestoreDocument } from 'react-firestore';
 import { auth, firebase } from '../firebase';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import Navigation from './Navigation';
-import React from 'react';
 import ReactDOM from 'react-dom';
+import setUserNearbyZips from '../helpers/setUserNearbyZips';
 import StripeApp from './stripe/StripeApp.jsx';
 import './Settings.css';
+
+const db = firebase.firestore();
 
 const ToggleContent = ({ toggle, content }) => {
   const [isShown, setIsShown] = useState(false);
@@ -24,7 +26,7 @@ const ToggleContent = ({ toggle, content }) => {
 
 const Modal = ({ children }) =>
   ReactDOM.createPortal(
-    <div className='modal'>{children}</div>,
+    <div className="modal">{children}</div>,
     document.getElementById('modal-root')
   );
 
@@ -53,16 +55,14 @@ const Settings = ({ history }) => {
 
   useEffect(() => {
     // TODO don't make network call for every keystroke
-    if (user) {
-      firebase
-        .firestore()
-        .collection('settings')
+    const persistFormValues = async () => {
+      console.log('setting');
+      db.collection('settings')
         .doc(user.uid)
-        .update(formValues)
-        .then(function() {
-          console.log('Document successfully written!');
-        });
-    }
+        .update(formValues);
+    };
+
+    if (user) persistFormValues();
   }, [formValues, user]);
 
   const handleChanges = ({ field, value }) => {
@@ -72,6 +72,15 @@ const Settings = ({ history }) => {
   };
 
   const { values, handleChange, handleSubmit } = useForm(() => {
+    const getNearbyZips = async () => {
+      const profileSnapshot = await db
+        .collection('profiles')
+        .doc(user.uid)
+        .get();
+      const zip = profileSnapshot.data().zip_code || null;
+      if (zip) setUserNearbyZips(user.uid, zip);
+    };
+
     firebase
       .firestore()
       .collection('settings')
@@ -80,6 +89,7 @@ const Settings = ({ history }) => {
       .then(function() {
         console.log('Document successfully written!');
       });
+    getNearbyZips();
   });
 
   if (!user) return <div>No user logged in</div>;
@@ -90,38 +100,32 @@ const Settings = ({ history }) => {
       <FirestoreDocument
         path={`settings/${user.uid}`}
         render={({ isLoading, data }) => {
-          console.log(data);
-
           return isLoading ? (
             <Loading />
           ) : (
-            <div className='how'>
-              <div className='container'>
-                <div className='card grey lighten-1  '>
-                  <div className='card-content black-text'>
-                    <span className='card-title'>Settings</span>
-                    <ul id='setting-ul' className='row'>
-                      <li className='col s12'>
+            <div className="how">
+              <div className="container">
+                <div className="card grey lighten-1  ">
+                  <div className="card-content black-text">
+                    <span className="card-title">Settings</span>
+                    <ul id="setting-ul" className="row">
+                      <li className="col s12">
                         Minimum Match Age:
                         {data.match_age_min}
                       </li>
-                      <li className='col s12'>
-                        <span className='red-text text-darken-2'>
-                          Maximum Match Age:
-                        </span>{' '}
+                      <li className="col s12">
+                        <span className="red-text text-darken-2">Maximum Match Age:</span>{' '}
                         {data.match_age_max}
                       </li>
 
-                      <li className='col s12'>
-                        Match Distance Range:{data.match_distance}
-                      </li>
+                      <li className="col s12">Match Distance Range:{data.match_distance}</li>
                     </ul>
                   </div>
-                  <div className='buttons'>
+                  <div className="buttons">
                     <ToggleContent
-                      className='modal'
+                      className="modal"
                       toggle={show => (
-                        <button className='btn-update' onClick={show}>
+                        <button className="btn-update" onClick={show}>
                           Update Profile
                         </button>
                       )}
@@ -129,12 +133,11 @@ const Settings = ({ history }) => {
                         <Modal>
                           <>
                             <p>
-                              What is the Minimum Age you would like to match
-                              with?
+                              What is the Minimum Age you would like to match with?
                               <input
-                                type='number'
-                                name='match_age_min'
-                                placeholder='Min Age'
+                                type="number"
+                                name="match_age_min"
+                                placeholder="Min Age"
                                 value={data.match_age_min}
                                 onChange={e =>
                                   handleChanges({
@@ -145,12 +148,11 @@ const Settings = ({ history }) => {
                               />
                             </p>
                             <p>
-                              What is the Maximum Age you would like to match
-                              with?
+                              What is the Maximum Age you would like to match with?
                               <input
-                                type='number'
-                                name='match_age_max'
-                                placeholder='Max Age'
+                                type="number"
+                                name="match_age_max"
+                                placeholder="Max Age"
                                 value={data.match_age_max}
                                 onChange={e =>
                                   handleChanges({
@@ -163,9 +165,9 @@ const Settings = ({ history }) => {
                             <p>
                               How far would you travel for love?
                               <input
-                                type='number'
-                                name='match_distance'
-                                placeholder='distance'
+                                type="number"
+                                name="match_distance"
+                                placeholder="distance"
                                 value={data.match_distance}
                                 onChange={e =>
                                   handleChanges({
@@ -176,32 +178,42 @@ const Settings = ({ history }) => {
                               />
                             </p>
                           </>
-                          <button onClick={(handleSubmit, hide)}>Update</button>{' '}
+                          <button
+                            onClick={e => {
+                              handleSubmit(e);
+                              hide(e);
+                            }}
+                          >
+                            Update
+                          </button>{' '}
                           <button onClick={hide}>Close</button>
                         </Modal>
                       )}
                     />
-                    <button className='btn-red-settings'>Reset Password</button>
+                    <button className="btn-red-settings">Reset Password</button>
                     {/*sends an email to user to reset password */}
                     <button
                       onClick={() => {
                         history.replace('/');
                         auth.deleteProfile();
                       }}
-                      className='btn-red-settings'
+                      className="btn-red-settings"
                     >
                       Delete Your Account
                     </button>
                     {/*deletes the user profile */}
-                    <button className='btn-update-settings' onClick={() => {
-                      history.replace('/upgrade')
-                    }}>
+                    <button
+                      className="btn-update-settings"
+                      onClick={() => {
+                        history.replace('/upgrade');
+                      }}
+                    >
                       Upgrade Account
                     </button>
                   </div>
                 </div>
-                <div className='dropForm'>
-                  <div id='modal-root' />
+                <div className="dropForm">
+                  <div id="modal-root" />
                 </div>
               </div>
             </div>
