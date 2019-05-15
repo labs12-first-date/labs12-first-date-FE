@@ -1,3 +1,7 @@
+body {
+  background-color: white;
+}
+
 .td-ani1 {
   position: absolute;
   width: 100vw;
