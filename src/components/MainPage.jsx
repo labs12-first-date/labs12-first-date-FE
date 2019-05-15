@@ -59,11 +59,11 @@ const MainPage = () => {
         <section className="section3">
           <h1>In App Messaging</h1>
           <img src={messaging} alt="messaging" />
+        </section>
+        <section className="section4">
           <div className="s3Line">
             <img src={Line} alt="line" />
           </div>
-        </section>
-        <section className="section4">
           <h1>Your New Relationship Just A Few Swipes Away</h1>
           <div className="s4heart">
             <img src={heart} alt="heart" />
