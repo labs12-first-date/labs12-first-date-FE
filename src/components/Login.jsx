@@ -27,28 +27,24 @@ const Login = () => {
   return (
     <>
       <Navigation />
-      <div id='login-signup'>
-        <img src={logo} alt='logo' />
+      <div id="login-signup">
+        <img src={logo} alt="logo" />
 
         <StyledFirebaseAuth
           uiConfig={uiConfig}
           firebaseAuth={firebase.auth()}
         />
-        <div id='form'>
+        <div id="form">
           <form onSubmit={handleSubmit}>
             <input
-              name='email'
-              type='email'
-              placeholder='Email'
+              name="email"
+              type="email"
+              placeholder="Email"
               value={values.email || ''}
               onChange={handleChange}
             />
-            <div>
-              <button intent='danger' icon='refresh'>
-                Reset Password
-              </button>
-            </div>
           </form>
+          <button id="btn-reset">Reset Password</button>
         </div>
       </div>
     </>

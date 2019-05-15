@@ -26,6 +26,9 @@ nav ul {
 
   border-bottom: #25d482 2px solid;
 }
+nav ul img {
+  margin-left: 20%;
+}
 
 nav li {
   width: 100px;
