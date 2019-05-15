@@ -87,33 +87,33 @@ const SessionsList = () => {
 
   if (loading) return <SessionsListStyles>Loading...</SessionsListStyles>;
 
-
   return (
-    <SessionsListStyles>
-      {sessions ? (
-        <>
-              <Navigation />
-          <h2>Chats</h2>
-          {sessions.map(({ chat_id, match_name, match_picture }) => (
-            <Session
-              key={chat_id}
-              chat_id={chat_id}
-              match_name={match_name}
-              match_picture={match_picture}
-            />
-          ))}
-        </>
-      ) : (
-        <>
-          <h2>Chats</h2>
-          <p>
-            You have no matches yet! <Link to="/thunderdome">Get swiping</Link> to make a
-            connection.
-          </p>
-        </>
-      )}
-    </SessionsListStyles>
-
+    <>
+      <Navigation />
+      <SessionsListStyles>
+        {sessions ? (
+          <>
+            <h2>Chats</h2>
+            {sessions.map(({ chat_id, match_name, match_picture }) => (
+              <Session
+                key={chat_id}
+                chat_id={chat_id}
+                match_name={match_name}
+                match_picture={match_picture}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            <h2>Chats</h2>
+            <p>
+              You have no matches yet! <Link to="/thunderdome">Get swiping</Link> to make a
+              connection.
+            </p>
+          </>
+        )}
+      </SessionsListStyles>
+    </>
   );
 };
 

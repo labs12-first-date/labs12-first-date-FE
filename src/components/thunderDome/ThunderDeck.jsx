@@ -7,14 +7,15 @@ import { auth, firebase } from '../../firebase';
 import Loading from '../Loading';
 import MatchCard from './MatchCard';
 import runMatchAlgo from '../../helpers/matching';
-import recordSwipe from '../../helpers/swipeActions';
+import { recordSwipe, resetSwipeLimitAfter } from '../../helpers/swipeActions';
 import Navigation from '../Navigation';
+import appConfig from '../../appConfig';
 
 import './ThunderDome.css';
 
 const db = firebase.firestore();
 
-const NoMatches = styled.div`
+const MessageDisplay = styled.div`
   color: #eee;
   font-size: 2em;
   text-align: center;
@@ -40,6 +41,7 @@ const ThunderDeck = ({ history }) => {
   const [userSettings, setUserSettings] = useState(null);
   const [potentialMatches, setPotentialMatches] = useState([]);
   const [noMatches, setNoMatches] = useState(false);
+  const [swipeLimitReached, setSwipeLimitReached] = useState(false);
 
   // 1. on mount, get user profile, check if complete
   useEffect(() => {
@@ -84,24 +86,29 @@ const ThunderDeck = ({ history }) => {
   // 3. after we have user settings, fetch potential matches
   useEffect(() => {
     const fetchProfilesForMatching = async () => {
-      setNoMatches(false);
-      const min_age = userSettings.match_age_min || 18;
-      const max_age = userSettings.match_age_max || 99;
-      const profilesSnapshot = await db
-        .collection('profiles')
-        .where('age', '>=', min_age)
-        .where('age', '<=', max_age)
-        .limit(50)
-        .get();
-      const profiles = profilesSnapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-      }));
-      const potentialMatches = runMatchAlgo(userProfile, profiles);
-      if (!potentialMatches.length) {
-        setNoMatches(true);
+      // if all profiles and settings are init'd properly, we don't have to supply defaults with these || statements
+      resetSwipeLimitAfter(user.uid, 24);
+      const swipesRemaining = parseInt(userProfile.swipes_remaining);
+      if (swipesRemaining) {
+        setSwipeLimitReached(false);
+        setNoMatches(false);
+        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
+        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
+        const profilesSnapshot = await db
+          .collection('profiles')
+          .where('age', '>=', min_age)
+          .where('age', '<=', max_age)
+          .limit(50)
+          .get();
+        const profiles = profilesSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        const potentialMatches = runMatchAlgo(userProfile, profiles);
+        if (!potentialMatches.length) {
+          setNoMatches(true);
+        } else {
+          setPotentialMatches(potentialMatches);
+        }
       } else {
-        setPotentialMatches(potentialMatches);
+        setSwipeLimitReached(true);
       }
     };
 
@@ -171,14 +178,24 @@ const ThunderDeck = ({ history }) => {
     }
   );
 
+  if (swipeLimitReached)
+    return (
+      <div>
+        <Navigation />
+        <MessageDisplay>
+          You've reached your swipe limit for today! <br />
+          <Link to="/upgrade">Upgrade your account</Link>
+        </MessageDisplay>
+      </div>
+    );
+
   if (noMatches)
     return (
       <div>
         <Navigation />
-        <NoMatches>
-          Sorry, no matches :/ <br />{' '}
-          <Link to='/settings'>Update settings</Link>
-        </NoMatches>
+        <MessageDisplay>
+          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
+        </MessageDisplay>
       </div>
     );
 
