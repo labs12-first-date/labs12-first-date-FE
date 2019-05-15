@@ -11,8 +11,6 @@ class StripeApp extends React.Component {
     return (
       <>
         <Navigation />
-        <h1>Upgrade Your Account</h1>
-        <h3>To receive premium features!</h3>
         <StripeProvider apiKey="pk_test_ojgxSZHYR90grl2IAcjSjgoc00Rn3bEDfA">
           <Elements>
             <Form history={this.props.history}/>

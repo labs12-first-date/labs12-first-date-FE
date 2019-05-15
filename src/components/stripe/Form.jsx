@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
+import '../../index';
 import './Stripe.css';
-import { Redirect } from 'react-router';
 
 class Form extends React.Component {
 
@@ -43,20 +43,22 @@ class Form extends React.Component {
     render() {
         return (
         <div className="stripe-container">
+            <h1>Upgrade Your Account</h1>
+            <h2>To receive premium features!</h2>
             <form className="stripe-form">
-            <label>Name</label>
-            <input
-                type="text"
-                className="input"
-                value={this.state.name}
-                onChange={(e) => this.setState({ name: e.target.value })}
-            />
-
-            <label>CC Number -- Exp. Date -- CVC</label>
-            <CardElement className="stripe-card"/>
-            <label>Charge it!</label>
-            <button onClick={this.selectPriceMonthly}>1000 swipes: $2.99</button>
-            <button onClick={this.selectPriceAnnual}>Annual: $49.99</button>
+                <div className="form-div">
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        className="input"
+                        value={this.state.name}
+                        onChange={(e) => this.setState({ name: e.target.value })}
+                    />
+                    <CardElement className="stripe-card"/>
+                    <label className="charge">Charge it!</label>
+                    <button class="btn" onClick={this.selectPriceMonthly}>1000 swipes: $2.99</button>
+                    <button class="btn" onClick={this.selectPriceAnnual}>Annual: $49.99</button>
+                </div>
             </form>
         </div>
         )}
