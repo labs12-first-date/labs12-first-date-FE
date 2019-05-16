@@ -159,7 +159,6 @@ const Profile = ({ history }) => {
                     <p>Likes: {data.likes || 0}</p>
                     <div id="modal-root" />
                     <ToggleContent
-
                       toggle={show => (
                         <button className="btn-update" onClick={show}>
                           Update Profile
@@ -178,6 +177,7 @@ const Profile = ({ history }) => {
                               class="uploader"
                               accept='image/*'
                               name='profile_picture'
+
 
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
