@@ -305,8 +305,10 @@ const Profile = ({ history }) => {
                               />
                             </form>
                           </>
-                          <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
-                          <button class="modal-btn2" onClick={hide}>Close</button>
+                          <div class="modal-btns">
+                            <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
+                            <button class="modal-btn2" onClick={hide}>Close</button>
+                          </div>
                         </div>
                       )}
                     />
