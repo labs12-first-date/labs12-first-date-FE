@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
     console.log(zip, distance);
     const endPoint = `https://www.zipcodeapi.com/rest/${API_KEY}/radius.json/${zip}/${distance}/mile`;
     const { data } = await axios.get(endPoint);
-    zips = data.zip_codes.map(z => parseInt(z.zip_code));
+    zips = data.zip_codes.map(z => z.zip_code);
     return res.status(200).json(zips);
   } catch (error) {
     return res.status(400).json({ error: `${error}` });
