@@ -33,7 +33,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const user = auth.getCurrentUser();
@@ -92,13 +93,17 @@ const ThunderDeck = ({ history }) => {
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
-        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
+        const min_age =
+          userSettings.match_age_min ||
+          appConfig.settingsDefaults.match_age_min;
+        const max_age =
+          userSettings.match_age_max ||
+          appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
-          .limit(50)
+          .limit(20)
           .get();
         const profiles = profilesSnapshot.docs.map(doc => ({
           ...doc.data(),
@@ -188,7 +193,7 @@ const ThunderDeck = ({ history }) => {
         <MessageDisplay>
           You've reached your swipe limit for today! Come back in 24 hours!
           <br />
-          <Link to="/upgrade">Upgrade your account</Link>
+          <Link to='/upgrade'>Upgrade your account</Link>
         </MessageDisplay>
       </div>
     );
@@ -198,7 +203,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
+          Sorry, no matches :/ <br />{' '}
+          <Link to='/settings'>Update match settings</Link>
         </MessageDisplay>
       </div>
     );
@@ -212,7 +218,7 @@ const ThunderDeck = ({ history }) => {
           return (
             <MatchCard
               key={match.id}
-              className="td-card"
+              className='td-card'
               i={i}
               x={x}
               y={y}
