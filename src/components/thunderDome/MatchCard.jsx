@@ -5,37 +5,37 @@ import { animated, interpolate } from 'react-spring';
 import './ThunderDome.css';
 
 const MatchCard = props => {
-  const { i, x, y, rot, scale, trans, bind, data } = props;
+  const { i, x, y, rot, scale, trans, bind, data, matchNotify } = props;
   const { first_name, age, bio, gender, profile_picture, id: uid } = data;
 
   return (
     <animated.div
-      className='td-ani1'
+      className="td-ani1"
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className='td-ani1'
+        className="td-ani1"
         key={i}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
         <animated.div
-          className='td-ani2'
-          {...bind(i, uid)}
+          className="td-ani2"
+          {...bind(i, uid, matchNotify)}
           style={{
             transform: interpolate([rot, scale], trans)
           }}
         >
-          <div className='td-card'>
-            <img src={profile_picture} alt='profilePicture' />
+          <div className="td-card">
+            <img src={profile_picture} alt="profilePicture" />
             <h2>{first_name},</h2>
             <h2>{age}</h2>
             <h5>
-              <span className='bio'>Bio:</span> {bio}
+              <span className="bio">Bio:</span> {bio}
             </h5>
             <h5>
               {gender.map(g => {
