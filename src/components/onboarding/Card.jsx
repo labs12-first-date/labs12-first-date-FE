@@ -10,6 +10,7 @@ import Select from 'react-select';
 import './OnBoarding.css';
 import setUserNearbyZips from '../../helpers/setUserNearbyZips';
 import { toast } from 'react-toastify';
+import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -53,6 +54,10 @@ const Card = props => {
     });
   };
 
+  const sleep = milliseconds => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
+
   const completeProfile = async () => {
     const profileRef = db.collection('profiles').doc(user.uid);
     const profileSnapshot = await profileRef.get();
@@ -67,9 +72,14 @@ const Card = props => {
       .collection('profiles')
       .doc(user.uid)
       .update({
-        profile_completed: true
+        profile_completed: true,
+        swipes_remaining: appConfig.profileDefaults.swipes_remaining,
+        // last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        last_swipe_timestamp: Date.now()
       });
-    props.history.replace('/thunderdome');
+    sleep(1000).then(() => {
+      props.history.replace('/thunderdome');
+    });
   };
 
   const handleUploadSuccess = async filename => {

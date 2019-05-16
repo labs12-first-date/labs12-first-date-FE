@@ -43,7 +43,6 @@ const runMatchAlgo = (userProfile, potentialMatches) => {
       }
     }
   }
-
   let foundGender = [];
   for (let match of foundMatches) {
     for (let gender of match.gender) {
