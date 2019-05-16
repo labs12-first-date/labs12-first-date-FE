@@ -93,17 +93,21 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            className='ob-text'
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'number':
         return (
           <input
-            type="number"
+            className='ob-nums'
+            type='number'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -118,6 +122,7 @@ const Card = props => {
       case 'text_area':
         return (
           <input
+            className='ob-textarea'
             type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
@@ -130,6 +135,7 @@ const Card = props => {
       case 'multi_select':
         return (
           <Select
+            className='ob-select'
             value={formValues[p.field_name] || []}
             name={p.field_name}
             onChange={value =>
@@ -142,6 +148,7 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
+            className='ob-uploader'
             accept='image/*'
             name='profile_picture'
             randomizeFilename
