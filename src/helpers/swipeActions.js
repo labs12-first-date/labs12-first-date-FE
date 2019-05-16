@@ -12,11 +12,14 @@ const resetSwipeLimitAfter = async (userId, intervalHours = 24) => {
   const userProfile = userProfileSnapshot.data();
   const lastSwipeTimestamp = userProfile.last_swipe_timestamp;
   const intervalMilliseconds = 60000 * 60 * intervalHours;
-  const resetIntervalHasElapsed = new Date() - lastSwipeTimestamp.toDate() > intervalMilliseconds;
+  const resetIntervalHasElapsed =
+    new Date() - lastSwipeTimestamp > intervalMilliseconds;
   const swipesRemaining = userProfile.swipes_remaining;
   // if user has purchased additional swipes, don't reset to default
   const resetSwipesCount =
-    swipesRemaining > 20 ? swipesRemaining : appConfig.profileDefaults.swipes_remaining;
+    swipesRemaining > 20
+      ? swipesRemaining
+      : appConfig.profileDefaults.swipes_remaining;
   if (resetIntervalHasElapsed) {
     userProfileRef.update({
       swipes_remaining: resetSwipesCount
@@ -35,7 +38,7 @@ const recordSwipe = async (userId, swipedUserId, isLike, matchCallback) => {
     const userSkips = userProfile.skipped_users || [];
     if (!userSkips.includes(swipedUserId)) {
       userProfileRef.update({
-        last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        last_swipe_timestamp: Date.now(),
         swipes_remaining: decrementedSwipes,
         skipped_users: [...userSkips, swipedUserId]
       });
@@ -46,7 +49,7 @@ const recordSwipe = async (userId, swipedUserId, isLike, matchCallback) => {
     const userLikes = userProfile.liked_users || [];
     if (!userLikes.includes(swipedUserId)) {
       userProfileRef.update({
-        last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        last_swipe_timestamp: Date.now(),
         swipes_remaining: decrementedSwipes,
         liked_users: [...userLikes, swipedUserId]
       });
