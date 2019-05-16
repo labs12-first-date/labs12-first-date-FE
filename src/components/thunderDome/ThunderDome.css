@@ -68,3 +68,9 @@ body {
 .bio {
   color: black;
 }
+
+#nav {
+  position: absolute;
+  z-index: 900000;
+  width: 100%;
+}
