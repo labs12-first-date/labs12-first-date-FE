@@ -188,14 +188,16 @@ const ThunderDeck = ({ history }) => {
 
   if (swipeLimitReached)
     return (
-      <div>
+      <>
         <Navigation />
-        <MessageDisplay>
-          You've reached your swipe limit for today! Come back in 24 hours!
-          <br />
-          <Link to='/upgrade'>Upgrade your account</Link>
-        </MessageDisplay>
-      </div>
+        <div>
+          <MessageDisplay>
+            You've reached your swipe limit for today! Come back in 24 hours!
+            <br />
+            <Link to='/upgrade'>Upgrade your account</Link>
+          </MessageDisplay>
+        </div>
+      </>
     );
 
   if (noMatches)
@@ -212,25 +214,29 @@ const ThunderDeck = ({ history }) => {
   if (potentialMatches.length) {
     return (
       <>
-        <Navigation />
-        {props.map(({ x, y, rot, scale }, i) => {
-          const match = potentialMatches[i];
-          return (
-            <MatchCard
-              key={match.id}
-              className='td-card'
-              i={i}
-              x={x}
-              y={y}
-              rot={rot}
-              scale={scale}
-              trans={trans}
-              data={match}
-              bind={bind}
-              matchNotify={matchNotify}
-            />
-          );
-        })}
+        <div id='nav'>
+          <Navigation />
+        </div>
+        <div>
+          {props.map(({ x, y, rot, scale }, i) => {
+            const match = potentialMatches[i];
+            return (
+              <MatchCard
+                key={match.id}
+                className='td-card'
+                i={i}
+                x={x}
+                y={y}
+                rot={rot}
+                scale={scale}
+                trans={trans}
+                data={match}
+                bind={bind}
+                matchNotify={matchNotify}
+              />
+            );
+          })}
+        </div>
       </>
     );
   } else {
