@@ -178,7 +178,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          You've reached your swipe limit for today! <br />
+          You've reached your swipe limit for today! Come back in 24 hours!
+          <br />
           <Link to="/upgrade">Upgrade your account</Link>
         </MessageDisplay>
       </div>
