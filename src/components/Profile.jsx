@@ -149,6 +149,12 @@ const Profile = ({ history }) => {
                       })}
                     </p>
                     <p>
+                      Their condition(s):{' '}
+                      {data.match_conditions.map(e => {
+                        return e.value + ', ';
+                      })}
+                    </p>
+                    <p>
                       My condition(s):{' '}
                       {data.conditions.map(e => {
                         return e.value + ', ';
@@ -156,7 +162,6 @@ const Profile = ({ history }) => {
                     </p>
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
-                    <p>Likes: {data.likes || 0}</p>
                     <div id='modal-root' />
                     <ToggleContent
                       toggle={show => (
@@ -256,6 +261,25 @@ const Profile = ({ history }) => {
                                 options={genderState}
                                 isMulti
                               />
+                              What condition(s) are you OK with?
+                              <Select
+                                value={data.match_conditions.map(e => {
+                                  return e;
+                                })}
+                                name={
+                                  stdState.map(e => {
+                                    return e;
+                                  }) || ''
+                                }
+                                onChange={value =>
+                                  handleChanges({
+                                    field: 'match_conditions',
+                                    value: value
+                                  })
+                                }
+                                options={stdState}
+                                isMulti
+                              />
                               What condition(s) do you have?
                               <Select
                                 value={data.conditions.map(e => {
@@ -303,7 +327,6 @@ const Profile = ({ history }) => {
                               />
                             </form>
                           </>
-
                         </div>
                       )}
                     />
