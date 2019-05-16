@@ -157,6 +157,7 @@ const Profile = ({ history }) => {
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
                     <p>Likes: {data.likes || 0}</p>
+                    <p>Remaining Swipes: {data.swipes_remaining}</p>
                     <div id='modal-root' />
                     <ToggleContent
                       toggle={show => (
