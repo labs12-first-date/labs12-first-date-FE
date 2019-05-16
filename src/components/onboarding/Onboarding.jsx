@@ -27,6 +27,19 @@ const initSettings = user => {
     });
 };
 
+const initProfile = user => {
+  db.collection('profiles')
+    .doc(user.uid)
+    .get()
+    .then(snapshot => {
+      if (!snapshot.exists) {
+        db.collection('profiles')
+          .doc(user.uid)
+          .set({});
+      }
+    });
+};
+
 const Onboarding = ({ history }) => {
   const { user } = useContext(AuthContext);
   const [prompts, setPrompts] = useState(null);
@@ -52,6 +65,7 @@ const Onboarding = ({ history }) => {
   useEffect(() => {
     if (user) {
       initSettings(user);
+      initProfile(user);
     }
   }, [user]);
 
