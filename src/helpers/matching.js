@@ -55,7 +55,11 @@ const runMatchAlgo = (userProfile, potentialMatches) => {
     }
   }
 
-  return foundGender;
+  const filterFoundGender = foundGender.reduce((unique, item) => {
+    return unique.includes(item) ? unique : [...unique, item];
+  }, []);
+
+  return filterFoundGender;
 };
 
 export default runMatchAlgo;

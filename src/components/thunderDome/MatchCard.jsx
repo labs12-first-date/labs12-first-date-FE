@@ -6,15 +6,7 @@ import './ThunderDome.css';
 
 const MatchCard = props => {
   const { i, x, y, rot, scale, trans, bind, data } = props;
-  const {
-    first_name,
-    age,
-    zip_code,
-    bio,
-    gender,
-    profile_picture,
-    id: uid
-  } = data;
+  const { first_name, age, bio, gender, profile_picture, id: uid } = data;
 
   return (
     <animated.div
@@ -41,12 +33,13 @@ const MatchCard = props => {
           <div className='td-card'>
             <img src={profile_picture} alt='profilePicture' />
             <h2>{first_name},</h2>
-            <h2>{age},</h2>
-            <h5>{zip_code}</h5>
-            <h5>{bio}</h5>,
+            <h2>{age}</h2>
+            <h5>
+              <span className='bio'>Bio:</span> {bio}
+            </h5>
             <h5>
               {gender.map(g => {
-                return g.value + '  ';
+                return g.value + ' ';
               })}
             </h5>
           </div>

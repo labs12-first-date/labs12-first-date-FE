@@ -191,7 +191,7 @@ const ThunderDeck = ({ history }) => {
         <Navigation />
         <MessageDisplay>
           You've reached your swipe limit for today! <br />
-          <Link to="/upgrade">Upgrade your account</Link>
+          <Link to='/upgrade'>Upgrade your account</Link>
         </MessageDisplay>
       </div>
     );
@@ -202,7 +202,7 @@ const ThunderDeck = ({ history }) => {
         <Navigation />
         <MessageDisplay>
           Sorry, no matches :/ <br />{' '}
-          <Link to="/settings">Update match settings</Link>
+          <Link to='/settings'>Update match settings</Link>
         </MessageDisplay>
       </div>
     );
@@ -216,7 +216,7 @@ const ThunderDeck = ({ history }) => {
           return (
             <MatchCard
               key={match.id}
-              className="td-card"
+              className='td-card'
               i={i}
               x={x}
               y={y}
