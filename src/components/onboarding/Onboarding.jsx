@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
-import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 
@@ -23,23 +22,6 @@ const initSettings = user => {
             match_age_min: 18,
             match_age_max: 99,
             match_distance: 10
-          });
-      }
-    });
-};
-
-const initProfile = user => {
-  db.collection('profiles')
-    .doc(user.uid)
-    .get()
-    .then(snapshot => {
-      if (!snapshot.exists) {
-        db.collection('profiles')
-          .doc(user.uid)
-          .set({
-            swipes_remaining: appConfig.profileDefaults.swipes_remaining,
-            // last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            last_swipe_timestamp: Date.now()
           });
       }
     });
@@ -69,7 +51,6 @@ const Onboarding = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      initProfile(user);
       initSettings(user);
     }
   }, [user]);
