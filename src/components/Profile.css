@@ -6,7 +6,6 @@
   max-width: 70%;
   border-radius: 10px;
   display: flex;
-
   justify-content: flex-end;
 }
 
@@ -51,7 +50,6 @@
   -moz-box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
   box-shadow: 2px 7px 19px 1px rgba(37, 211, 129, 0.37);
 }
-
 
 .modal-btn1 {
   background-color: #25d381;
@@ -117,56 +115,8 @@ button.bp3-intent-success {
   margin-top: 1rem;
 }
 
-@media (max-width: 500px) {
-  .container {
-    width: 100%;
-    margin-left: 10px;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  .row {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .col.s12 {
-    font-size: 0.8rem;
-    width: 100%;
-    align-content: center;
-  }
-
-  .right-content {
-    margin-left: 40px;
-  }
-}
-
-@media (max-width: 900px) {
-  .content-left img {
-    position: relative;
-    top: 0;
-    left: 0;
-  }
-}
-
-@media (max-width: 580px) {
-  .container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .right-content {
-    align-items: center;
-    width: 100%;
-  }
-}
-
-.bp3-overlay-content {
-  background-color: #242d3b;
+.css-1hwfws3 {
+  background-color:#242d3b;
 }
 
 .uploader {
@@ -187,6 +137,7 @@ button.bp3-intent-success {
   animation-duration: 1.5s;
   animation-name: slidein;
 }
+
 @keyframes slidein {
   from {
     top: -1000px;
@@ -195,6 +146,7 @@ button.bp3-intent-success {
   to {
     top: -380px;
   }
+
 }
 
 .profile-img {
@@ -206,29 +158,63 @@ button.bp3-intent-success {
   flex-direction: column;
   width:470px;
   height:400px;
+  color:black;
+  font-weight: 600;
 }
 
-@media(max-width:400px) {
+@media(max-width:1280px) {
+
   .profile-modal {
     position: relative;
-    right:80px;
-    top: -600px;
+    right:280px;
+    top: -313px;
     margin: 0 auto;
     padding: 30px;
-    width:400px;
-    height:640px;
+    width:490px;
+    height:690px;
     border-radius: 20px;
     background-color: #242d3b;
     animation-duration: 1.5s;
     animation-name: slidein;
   }
+
+  @keyframes slidein {
+    from {
+      top: -1000px;
+    }
+    to {
+      top: -313px;
+    }
+  }
+
+  .modal-btns {
+    margin-left:35px;
+  }
+  
+}
+
+@media(max-width:400px) {
+  .profile-modal {
+    position: relative;
+    right:30px;
+    top: -210px;
+    margin: 0 auto;
+    padding: 30px;
+    width:380px;
+    height:700px;
+    border-radius: 20px;
+    background-color: #242d3b;
+    animation-duration: 1.5s;
+    animation-name: slidein;
+  }
+
   @keyframes slidein {
     from {
       top: -1000px;
     }
   
     to {
-      top: -600px;
+      top: -210px;
     }
   }
 
@@ -246,6 +232,11 @@ button.bp3-intent-success {
     color:#25d381;
   }
 
+  .modal-btns {
+    margin-left:90px;
+    margin-top:20px;
+  }
+
   .modal-btn1 {
     width:190px;
     height:40px;
@@ -255,30 +246,5 @@ button.bp3-intent-success {
     width:190px;
     height:40px;
   }
-}
 
-@media(max-width:1280px) {
-
-  .profile-modal {
-    position: relative;
-    right:280px;
-    top: -350px;
-    margin: 0 auto;
-    padding: 30px;
-    width:490px;
-    height:690px;
-    border-radius: 20px;
-    background-color: #242d3b;
-    animation-duration: 1.5s;
-    animation-name: slidein;
-  }
-  @keyframes slidein {
-    from {
-      top: -1000px;
-    }
-    to {
-      top: -350px;
-    }
-  }
-  
 }
