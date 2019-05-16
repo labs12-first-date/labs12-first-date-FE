@@ -111,8 +111,8 @@ class Form extends React.Component {
   render() {
     return (
       <div className="stripe-container">
-        <h1>Upgrade Your Account</h1>
-        <h2>To receive premium features!</h2>
+        <h1>Get More Swipes</h1>
+        <h2>And Get More Matches!</h2>
         <form className="stripe-form">
           <div className="form-div">
             <label>Name</label>
