@@ -10,7 +10,6 @@ class StripeApp extends React.Component {
   render() {
     return (
       <>
-        <Navigation />
         <StripeProvider apiKey="pk_test_ojgxSZHYR90grl2IAcjSjgoc00Rn3bEDfA">
           <Elements>
             <Form history={this.props.history}/>
