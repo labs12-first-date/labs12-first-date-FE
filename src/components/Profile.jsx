@@ -30,7 +30,7 @@ const ToggleContent = ({ toggle, content }) => {
 
 const Modal = ({ children }) =>
   ReactDOM.createPortal(
-    <div className="modal">{children}</div>,
+    <div className='modal'>{children}</div>,
     document.getElementById('modal-root')
   );
 
@@ -130,13 +130,13 @@ const Profile = ({ history }) => {
             window.location.reload();
           } else {
             return (
-              <div className="box">
-                <div className="container">
-                  <div className="content-left">
-                    <img src={data.profile_picture} alt="profile" />
+              <div className='box'>
+                <div className='container'>
+                  <div className='content-left'>
+                    <img src={data.profile_picture} alt='profile' />
                   </div>
-                  <div className="right-content">
-                    <h2 className="card-title">My Profile</h2>
+                  <div className='right-content'>
+                    <h2 className='card-title'>My Profile</h2>
                     <p>
                       Name: {data.first_name} {data.last_name}
                     </p>
@@ -157,28 +157,25 @@ const Profile = ({ history }) => {
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
                     <p>Likes: {data.likes || 0}</p>
-                    <div id="modal-root" />
+                    <div id='modal-root' />
                     <ToggleContent
                       toggle={show => (
-                        <button className="btn-update" onClick={show}>
+                        <button className='btn-update' onClick={show}>
                           Update Profile
                         </button>
                       )}
                       content={hide => (
-                        <div class="profile-modal">
+                        <div class='profile-modal'>
                           <>
-
                             <img
-                              class="profile-img"
+                              class='profile-img'
                               src={formState.profile_picture}
                               alt='profile'
                             />
                             <FileUploader
-                              class="uploader"
+                              class='uploader'
                               accept='image/*'
                               name='profile_picture'
-
-
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
                               // onUploadStart={handleUploadStart}
@@ -186,12 +183,12 @@ const Profile = ({ history }) => {
                               onUploadSuccess={handleUploadSuccess}
                               onProgress={handleProgress}
                             />
-                            <form id="profileForm">
+                            <form id='profileForm'>
                               What is your first name?
                               <input
-                                type="text"
-                                name="first_name"
-                                placeholder="First Name"
+                                type='text'
+                                name='first_name'
+                                placeholder='First Name'
                                 value={data.first_name}
                                 onChange={e =>
                                   handleChanges({
@@ -202,9 +199,9 @@ const Profile = ({ history }) => {
                               />
                               What is your last name?
                               <input
-                                type="text"
-                                name="last_name"
-                                placeholder="Last Name"
+                                type='text'
+                                name='last_name'
+                                placeholder='Last Name'
                                 value={data.last_name}
                                 onChange={e =>
                                   handleChanges({
@@ -215,9 +212,9 @@ const Profile = ({ history }) => {
                               />
                               How old are you?
                               <input
-                                type="number"
-                                name="age"
-                                placeholder="age"
+                                type='number'
+                                name='age'
+                                placeholder='age'
                                 value={data.age}
                                 onChange={e =>
                                   handleChanges({
@@ -226,11 +223,12 @@ const Profile = ({ history }) => {
                                   })
                                 }
                               />
-                              What do you want your ideal match to know about you?
+                              What do you want your ideal match to know about
+                              you?
                               <input
-                                type="textarea"
-                                name="bio"
-                                placeholder="Bio"
+                                type='textarea'
+                                name='bio'
+                                placeholder='Bio'
                                 value={data.bio}
                                 onChange={e =>
                                   handleChanges({
@@ -279,9 +277,9 @@ const Profile = ({ history }) => {
                               />
                               Care to share some details on your condition?
                               <input
-                                type="textarea"
-                                name="condition_description"
-                                placeholder="condition_description"
+                                type='textarea'
+                                name='condition_description'
+                                placeholder='condition_description'
                                 value={data.condition_description}
                                 onChange={e =>
                                   handleChanges({
@@ -292,21 +290,28 @@ const Profile = ({ history }) => {
                               />
                               What is your zip code?
                               <input
-                                type="number"
-                                name="zip_code"
-                                placeholder="Zip Code"
+                                type='text'
+                                name='zip_code'
+                                placeholder='Zip Code'
                                 value={data.zip_code}
                                 onChange={e =>
                                   handleChanges({
                                     field: 'zip_code',
-                                    value: Number(e.target.value)
+                                    value: e.target.value
                                   })
                                 }
                               />
                             </form>
                           </>
-                          <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
-                          <button class="modal-btn2" onClick={hide}>Close</button>
+                          <button
+                            class='modal-btn1'
+                            onClick={(handleSubmit, hide)}
+                          >
+                            Update
+                          </button>{' '}
+                          <button class='modal-btn2' onClick={hide}>
+                            Close
+                          </button>
                         </div>
                       )}
                     />
