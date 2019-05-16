@@ -43,6 +43,7 @@
   border-style: none;
   border-bottom: 2px #25d381 solid;
   font-size: 19px;
+  width: 100%;
 }
 #form form input::placeholder {
   color: white;
