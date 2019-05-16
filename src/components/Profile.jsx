@@ -159,9 +159,6 @@ const Profile = ({ history }) => {
                     <p>Likes: {data.likes || 0}</p>
                     <div id="modal-root" />
                     <ToggleContent
-
-                      className="modal"
-
                       toggle={show => (
                         <button className="btn-update" onClick={show}>
                           Update Profile
