@@ -12,6 +12,7 @@ import Navigation from '../Navigation';
 import appConfig from '../../appConfig';
 import '../thunderDome/ThunderDome.css';
 import { toast } from 'react-toastify';
+import matchNotify from './matchNotify';
 
 const db = firebase.firestore();
 
@@ -117,8 +118,8 @@ const ThunderDeck = ({ history }) => {
     if (userSettings) fetchProfilesForMatching();
   }, [userSettings, userProfile]);
 
-  const swipe = (swipedUserId, isLike) => {
-    recordSwipe(user.uid, swipedUserId, isLike);
+  const swipe = (swipedUserId, isLike, matchCallback) => {
+    recordSwipe(user.uid, swipedUserId, isLike, matchCallback);
   };
 
   const [gone] = useState(() => new Set());
@@ -129,7 +130,14 @@ const ThunderDeck = ({ history }) => {
   }));
 
   const bind = useGesture(
-    ({ args: [index, uid], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
+    ({
+      args: [index, uid, matchCallback],
+      down,
+      delta: [xDelta],
+      distance,
+      direction: [xDir],
+      velocity
+    }) => {
       const trigger = velocity > 0.2;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -154,7 +162,7 @@ const ThunderDeck = ({ history }) => {
 
         if (isGone) {
           const like = dir === 1;
-          swipe(uid, like);
+          swipe(uid, like, matchCallback);
         }
 
         return {
@@ -168,7 +176,7 @@ const ThunderDeck = ({ history }) => {
 
       if (!down && gone.size === potentialMatches.length) {
         // all cards have been swiped
-        toast.info(`That's all we have for you right now. Check back later!`);
+        toast(`That's all we have for you right now. Check back later!`);
       }
     }
   );
@@ -178,7 +186,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          You've reached your swipe limit for today! <br />
+          You've reached your swipe limit for today! Come back in 24 hours!
+          <br />
           <Link to="/upgrade">Upgrade your account</Link>
         </MessageDisplay>
       </div>
@@ -212,6 +221,7 @@ const ThunderDeck = ({ history }) => {
               trans={trans}
               data={match}
               bind={bind}
+              matchNotify={matchNotify}
             />
           );
         })}

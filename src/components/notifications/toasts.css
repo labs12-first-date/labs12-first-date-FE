@@ -1,0 +1,14 @@
+.notification-container {
+  background: #242d3b;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 2rem 0 rgba(135, 247, 181, 0.651);
+}
+.notification-container button.Toastify__close-button {
+  color: white;
+}
+
+.notification-body {
+  font-size: 1.25em;
+  color: white;
+}

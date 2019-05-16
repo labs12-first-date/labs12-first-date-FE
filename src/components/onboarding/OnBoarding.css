@@ -29,7 +29,62 @@
   max-height: 100%;
   will-change: transform;
   border-radius: 10px;
-  box-shadow: 0 12.5px 40px -10px rgba(135, 247, 181, 0.651);
+  box-shadow: 0 20.5px 90px -10px rgba(135, 247, 181, 0.651);
   text-align: center;
   padding: 20px;
+}
+
+.ob-title {
+  margin-top: 5%;
+  font-size: 2rem;
+  text-align: center;
+  color: #25d482;
+  font-weight: 700;
+}
+
+.ob-prompt {
+  margin-top: 10%;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
+
+.ob-progress {
+  margin-top: 5%;
+}
+
+.ob-nums {
+  margin-top: 5%;
+  width: 35px;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.1rem;
+}
+
+.ob-text {
+  margin-top: 5%;
+  text-align: center;
+  width: 80px;
+  padding: 10px;
+  font-size: 1.1rem;
+}
+
+.ob-textarea {
+  margin-top: 5%;
+  text-align: center;
+  width: 300px;
+  height: 40px;
+  font-size: 1.1rem;
+}
+
+.ob-select {
+  margin-top: 5%;
+  text-align: center;
+}
+
+.ob-uploader {
+  margin-top: 5%;
+  width: 275px;
+  font-size: 1.1rem;
+  padding: 5px;
 }

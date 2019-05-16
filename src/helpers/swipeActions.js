@@ -24,7 +24,7 @@ const resetSwipeLimitAfter = async (userId, intervalHours = 24) => {
   }
 };
 
-const recordSwipe = async (userId, swipedUserId, isLike) => {
+const recordSwipe = async (userId, swipedUserId, isLike, matchCallback) => {
   const userProfileRef = db.collection('profiles').doc(userId);
   const userProfileSnapshot = await userProfileRef.get();
   const userProfile = userProfileSnapshot.data();
@@ -64,8 +64,7 @@ const recordSwipe = async (userId, swipedUserId, isLike) => {
     const swipedUserLikes = swipedUserProfile.liked_users || [];
     if (swipedUserLikes.includes(userId)) {
       // brown chicken, brown cow, it's a match!
-      // TODO make this notification more exciting, add link to start chatting
-      toast.success(`You matched with ${swipedUserProfile.first_name}!`);
+      matchCallback(swipedUserProfile);
       // create a chat for users to share
       const chatRoomRef = db.collection('chatrooms').doc();
       // update user profile
