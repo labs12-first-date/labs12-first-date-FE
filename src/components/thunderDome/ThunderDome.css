@@ -1,8 +1,6 @@
-
 body {
   background-color: black;
 }
-
 
 .td-ani1 {
   position: absolute;
@@ -41,39 +39,32 @@ body {
 }
 
 .td-card img {
-  height: 380px;
+  height: 400px;
   width: 280px;
-  border-radius: 10px;
+  border-radius: 30px;
   margin: 0 auto;
 }
 
 .td-card h2 {
   display: inline-block;
   margin-right: 10px;
+  font-size: 1.75rem;
 }
 
 .td-card h2:nth-of-type(2) {
   opacity: 0.7;
-  font-size: 1.35rem;
+  font-size: 1.45rem;
 }
 
 .td-card h5 {
-  margin-top: -15px;
+  margin-top: 10px;
   margin-left: 2px;
-  color: lightgray;
+  color: #25d381;
 }
 .td-card h5:last-of-type {
-  color: darkgray;
+  color: #25d381;
 }
 
-/* .card > div {
-  height: 380px !important;
-} */
-/* 
-.td-slider-control-bottomcenter {
-  bottom: -15px !important;
+.bio {
+  color: black;
 }
-
-.td-slider-control-bottomcenter > ul > li > button {
-  color: salmon !important;
-} */

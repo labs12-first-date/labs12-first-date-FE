@@ -73,6 +73,7 @@ const HamC = styled.div`
 `;
 const Navigation = () => {
   return (
+
     <ResponsiveMenu
       menuOpenButton={<HamO>&#9776;</HamO>}
       menuCloseButton={<HamC>x</HamC>}
@@ -107,6 +108,7 @@ const Navigation = () => {
         </Menu>
       }
     />
+
   );
 };
 
