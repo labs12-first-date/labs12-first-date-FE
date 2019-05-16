@@ -159,19 +159,26 @@ const Profile = ({ history }) => {
                     <p>Likes: {data.likes || 0}</p>
                     <div id="modal-root" />
                     <ToggleContent
-                      className="modal"
                       toggle={show => (
                         <button className="btn-update" onClick={show}>
                           Update Profile
                         </button>
                       )}
                       content={hide => (
-                        <Modal>
+                        <div class="profile-modal">
                           <>
-                            <img src={formState.profile_picture} alt="profile" />
+
+                            <img
+                              class="profile-img"
+                              src={formState.profile_picture}
+                              alt='profile'
+                            />
                             <FileUploader
-                              accept="image/*"
-                              name="profile_picture"
+                              class="uploader"
+                              accept='image/*'
+                              name='profile_picture'
+
+
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
                               // onUploadStart={handleUploadStart}
@@ -298,9 +305,9 @@ const Profile = ({ history }) => {
                               />
                             </form>
                           </>
-                          <button onClick={(handleSubmit, hide)}>Update</button>{' '}
-                          <button onClick={hide}>Close</button>
-                        </Modal>
+                          <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
+                          <button class="modal-btn2" onClick={hide}>Close</button>
+                        </div>
                       )}
                     />
                   </div>
