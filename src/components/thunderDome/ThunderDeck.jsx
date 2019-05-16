@@ -103,6 +103,7 @@ const ThunderDeck = ({ history }) => {
           .collection('profiles')
           .where('age', '>=', min_age)
           .where('age', '<=', max_age)
+          .where('profile_completed', '==', true)
           .limit(20)
           .get();
         const profiles = profilesSnapshot.docs.map(doc => ({
