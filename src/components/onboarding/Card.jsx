@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { firebase } from '../../firebase';
 import { animated, interpolate } from 'react-spring';
 import { Progress } from 'react-sweet-progress';
@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import './OnBoarding.css';
 import setUserNearbyZips from '../../helpers/setUserNearbyZips';
+import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -18,6 +19,7 @@ const Card = props => {
   const { i, x, y, rot, scale, trans, bind, data, totalSteps } = props;
   const [formValues, setFormValues] = useState({});
   const { cardTitle, onboardingStep, prompts } = data;
+  const uploadingToastId = useRef(null);
   // const [photoValues, setphotoValues] = useState({});
 
   // console.log(user);
@@ -78,11 +80,12 @@ const Card = props => {
 
     handleChange({ field: 'profile_picture', value: photoUrl });
     // uploading a photo is the final step in on-boarding
+    toast.dismiss(uploadingToastId.current);
     completeProfile();
   };
 
-  const handleProgress = filename => {
-    alert('Uploading now!');
+  const handleProgress = () => {
+    uploadingToastId.current = toast.info('Uploading your sexy mug...');
   };
 
   const renderInput = p => {
@@ -90,19 +93,17 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type='text'
+            type="text"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'number':
         return (
           <input
-            type='number'
+            type="number"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -117,13 +118,11 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type='textarea'
+            type="textarea"
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e =>
-              handleChange({ field: p.field_name, value: e.target.value })
-            }
+            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
           />
         );
       case 'multi_select':
@@ -131,9 +130,7 @@ const Card = props => {
           <Select
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value =>
-              handleChange({ field: p.field_name, value: value })
-            }
+            onChange={value => handleChange({ field: p.field_name, value: value })}
             options={p.choices}
             isMulti
           />
@@ -141,8 +138,8 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept='image/*'
-            name='profile_picture'
+            accept="image/*"
+            name="profile_picture"
             randomizeFilename
             storageRef={storage.ref('images')}
             onUploadStart={handleProgress}
@@ -158,20 +155,20 @@ const Card = props => {
 
   return (
     <animated.div
-      className='ob-ani1'
+      className="ob-ani1"
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className='ob-ani2'
+        className="ob-ani2"
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className='ob-card'>
+        <div className="ob-card">
           <form>
             <h2>{cardTitle}</h2>
             {prompts.map(p => (
@@ -181,9 +178,7 @@ const Card = props => {
               </div>
             ))}
             <br />
-            <Progress
-              percent={Math.round((onboardingStep / totalSteps) * 100)}
-            />
+            <Progress percent={Math.round((onboardingStep / totalSteps) * 100)} />
           </form>
         </div>
       </animated.div>

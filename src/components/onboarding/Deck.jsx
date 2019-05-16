@@ -23,8 +23,7 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const Deck = ({ cardsData }) => {
   const [gone] = useState(() => new Set());
@@ -35,14 +34,7 @@ const Deck = ({ cardsData }) => {
   }));
 
   const bind = useGesture(
-    ({
-      args: [index],
-      down,
-      delta: [xDelta],
-      distance,
-      direction: [xDir],
-      velocity
-    }) => {
+    ({ args: [index], down, delta: [xDelta], distance, direction: [xDir], velocity }) => {
       const trigger = velocity > 1.0;
 
       const dir = xDir < 0 ? -1 : 1;
@@ -59,9 +51,9 @@ const Deck = ({ cardsData }) => {
 
         const scale = down ? 1.1 : 1;
         if (dir === 1) {
-          // console.log('Direction: right index:', index);
+          // swipe direction is right
         } else {
-          // console.log('Direction: left index:', index);
+          // left
         }
         return {
           x,
@@ -72,16 +64,15 @@ const Deck = ({ cardsData }) => {
         };
       });
 
-      if (!down && gone.size === cardsData.length)
-        console.log(
-          'Cards are done. Let the DB know this person is ready to date!'
-        );
+      if (!down && gone.size === cardsData.length) {
+        // all cards have been swiped
+      }
     }
   );
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className='ob-card'
+      className="ob-card"
       i={i}
       x={x}
       y={y}

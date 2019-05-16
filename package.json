@@ -22,6 +22,7 @@
     "react-spring": "^8.0.19",
     "react-stripe-elements": "^3.0.0",
     "react-sweet-progress": "^1.1.2",
+    "react-toastify": "^5.1.0",
     "react-with-gesture": "^4.0.8",
     "stripe": "^6.34.0",
     "styled-components": "^4.2.0",
