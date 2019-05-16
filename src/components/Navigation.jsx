@@ -73,42 +73,43 @@ const HamC = styled.div`
 `;
 const Navigation = () => {
   return (
-
     <ResponsiveMenu
       menuOpenButton={<HamO>&#9776;</HamO>}
       menuCloseButton={<HamC>x</HamC>}
-      changeMenuOn="670px"
-      largeMenuClassName="large-menu-classname"
-      smallMenuClassName="small-menu-classname"
+      changeMenuOn='670px'
+      largeMenuClassName='large-menu-classname'
+      smallMenuClassName='small-menu-classname'
       menu={
         <Menu>
           <nav>
             <ul>
-              <NavLink to="/">
-                <img id="logo" src={logo} alt="logo" />
+              <NavLink to='/'>
+                <img id='logo' src={logo} alt='logo' />
               </NavLink>
 
               <li>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to='/'>Home</NavLink>
               </li>
               <li>
-                <NavLink to="/logout">Log out</NavLink>
+                <NavLink to='/thunderdome'>Match</NavLink>
               </li>
               <li>
-                <NavLink to="/chats">Chats</NavLink>
+                <NavLink to='/chats'>Chats</NavLink>
               </li>
               <li>
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to='/profile'>Profile</NavLink>
               </li>
               <li>
-                <NavLink to="/settings">Settings</NavLink>
+                <NavLink to='/settings'>Settings</NavLink>
+              </li>
+              <li>
+                <NavLink to='/logout'>Log out</NavLink>
               </li>
             </ul>
           </nav>
         </Menu>
       }
     />
-
   );
 };
 
