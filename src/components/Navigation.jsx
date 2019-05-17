@@ -53,6 +53,11 @@ const Menu = styled.div`
       display: none;
     }
   }
+  @media (max-width: 1100px) {
+    nav ul img {
+      display: none;
+    }
+  }
 `;
 
 const HamO = styled.div`
@@ -80,9 +85,9 @@ const Navigation = () => {
     <ResponsiveMenu
       menuOpenButton={<HamO>&#9776;</HamO>}
       menuCloseButton={<HamC>x</HamC>}
-      changeMenuOn="670px"
-      largeMenuClassName="large-menu-classname"
-      smallMenuClassName="small-menu-classname"
+      changeMenuOn='670px'
+      largeMenuClassName='large-menu-classname'
+      smallMenuClassName='small-menu-classname'
       menu={
         <Menu>
           <nav>
@@ -96,27 +101,27 @@ const Navigation = () => {
                     return (
                       <ul>
                         <li>
-                          <NavLink to="/">
-                            <img id="logo" src={logo} alt="logo" />
+                          <NavLink to='/'>
+                            <img id='logo' src={logo} alt='logo' />
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink to="/">Home</NavLink>
+                          <NavLink to='/'>Home</NavLink>
                         </li>
                         <li>
-                          <NavLink to="/thunderdome">Match</NavLink>
+                          <NavLink to='/thunderdome'>Match</NavLink>
                         </li>
                         <li>
-                          <NavLink to="/chats">Chats</NavLink>
+                          <NavLink to='/chats'>Chats</NavLink>
                         </li>
                         <li>
-                          <NavLink to="/profile">Profile</NavLink>
+                          <NavLink to='/profile'>Profile</NavLink>
                         </li>
                         <li>
-                          <NavLink to="/settings">Settings</NavLink>
+                          <NavLink to='/settings'>Settings</NavLink>
                         </li>
                         <li>
-                          <NavLink to="/logout">Log out</NavLink>
+                          <NavLink to='/logout'>Log out</NavLink>
                         </li>
                       </ul>
                     );
@@ -126,15 +131,15 @@ const Navigation = () => {
             ) : (
               <ul>
                 <li>
-                  <NavLink to="/">
-                    <img id="logo" src={logo} alt="logo" />
+                  <NavLink to='/'>
+                    <img id='logo' src={logo} alt='logo' />
                   </NavLink>
                 </li>
-                <li className="login">
-                  <NavLink to="/login">Log in</NavLink>
+                <li className='login'>
+                  <NavLink to='/login'>Log in</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/signup">Sign Up</NavLink>
+                  <NavLink to='/signup'>Sign Up</NavLink>
                 </li>
               </ul>
             )}
