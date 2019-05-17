@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FirestoreDocument } from 'react-firestore';
 import { NavLink } from 'react-router-dom';
-import ResponsiveMenu from 'react-responsive-navbar';
-
+import { AuthContext } from '../contexts/AuthContext';
 import styled from 'styled-components';
-import './Navigation.css';
+import ResponsiveMenu from 'react-responsive-navbar';
 import logo from '../image/UnBlush.png';
+import './Navigation.css';
 
 const Menu = styled.div`
   ul {
@@ -71,7 +72,10 @@ const HamC = styled.div`
 
   padding-top: 0;
 `;
+
 const Navigation = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <ResponsiveMenu
       menuOpenButton={<HamO>&#9776;</HamO>}
@@ -82,30 +86,58 @@ const Navigation = () => {
       menu={
         <Menu>
           <nav>
-            <ul>
-              <NavLink to='/'>
-                <img id='logo' src={logo} alt='logo' />
-              </NavLink>
-
-              <li>
-                <NavLink to='/'>Home</NavLink>
-              </li>
-              <li>
-                <NavLink to='/thunderdome'>Match</NavLink>
-              </li>
-              <li>
-                <NavLink to='/chats'>Chats</NavLink>
-              </li>
-              <li>
-                <NavLink to='/profile'>Profile</NavLink>
-              </li>
-              <li>
-                <NavLink to='/settings'>Settings</NavLink>
-              </li>
-              <li>
-                <NavLink to='/logout'>Log out</NavLink>
-              </li>
-            </ul>
+            {user ? (
+              <FirestoreDocument
+                path={`profiles/${user.uid}`}
+                render={({ isLoading, data }) => {
+                  if (isLoading) {
+                    return null;
+                  } else {
+                    return (
+                      <ul>
+                        <li>
+                          <NavLink to='/'>
+                            <img id='logo' src={logo} alt='logo' />
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/'>Home</NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/thunderdome'>Match</NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/chats'>Chats</NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/profile'>Profile</NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/settings'>Settings</NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/logout'>Log out</NavLink>
+                        </li>
+                      </ul>
+                    );
+                  }
+                }}
+              />
+            ) : (
+              <ul>
+                <li>
+                  <NavLink to='/'>
+                    <img id='logo' src={logo} alt='logo' />
+                  </NavLink>
+                </li>
+                <li className='login'>
+                  <NavLink to='/login'>Log in</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/signup'>Sign Up</NavLink>
+                </li>
+              </ul>
+            )}
           </nav>
         </Menu>
       }
