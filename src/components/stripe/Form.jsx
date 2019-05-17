@@ -115,26 +115,28 @@ class Form extends React.Component {
         <h2>And Get More Matches!</h2>
         <form className="stripe-form">
           <div className="form-div">
-            <label>Name</label>
+            <label>Name on Card:</label>
             <input
               type="text"
               className="input"
               value={this.state.name}
               onChange={e => this.setState({ name: e.target.value })}
             />
-
-            <label>CC Number -- Exp. Date -- CVC</label>
+            <div id="cc-input">
             <CardElement className="stripe-card" />
+            </div>
             <label className="charge">Charge it!</label>
-            <button className="btn" onClick={this.purchaseOneHundo}>
-              100 swipes: $2.99
+            <div className="stripe-btns-container">
+            <button className="stripe-btn" onClick={this.purchaseOneHundo}>
+              100 swipes: <br/>$2.99
             </button>
-            <button className="btn" onClick={this.purchaseTwoFitty}>
-              250 swipes: $5.99
+            <button className="stripe-btn" onClick={this.purchaseTwoFitty}>
+              250 swipes: <br/> $5.99
             </button>
-            <button className="btn" onClick={this.purchaseOneThou}>
-              1000 swipes: $9.99
+            <button className="stripe-btn" onClick={this.purchaseOneThou}>
+              1000 swipes: <br/> $9.99
             </button>
+            </div>
           </div>
         </form>
       </div>

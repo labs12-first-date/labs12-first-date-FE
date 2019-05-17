@@ -245,7 +245,7 @@ const Settings = ({ history }) => {
                           <>
                             <StripeApp />
                           </>
-                          <button onClick={hideUpgrade}>Close</button>
+                          <button id="close" onClick={hideUpgrade}>Close</button>
                         </UpgradeModal>
                       )}
                     />

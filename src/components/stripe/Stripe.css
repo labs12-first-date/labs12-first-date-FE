@@ -1,24 +1,74 @@
+h1 {
+  color: #25d482;
+}
+
+h2 {
+  color: #25d482;
+  padding-bottom: 20px;
+}
+
+.charge {
+  color: #25d482;
+}
+
+.stripe-btns-container {
+  margin: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.stripe-btn {
+  cursor:pointer;
+  border-radius:5px;
+  background-color: #25d482;
+  color: white;
+  width:25%;
+  font-size: 1.2rem;
+  border: 1px solid black;
+}
+
+.stripe-form .form-div .input {
+  background-color: white; 
+  color: black;
+  width: 50%;
+}
+
+.stripe-card {
+  height: 50px;
+  background-color: white;
+  height: 100%;
+  margin: 25px 10%;
+}
+
+@media(max-width:600px) {
+  div.stripe-btns-container {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+  }
+
+  div.stripe-btns-container .stripe-btn {
+    cursor:pointer;
+    border-radius:5px;
+    background-color: #25d482;
+    width:75%;
+    font-size: 1rem;
+    margin-top: 10px, 0;
+  }
+}
+
 /* @media(max-width:1920px) {
 
-    h1 {
-      color: #25d482;
-    }
 
-    h2 {
-      color: #25d482;
-    }
 
     .charge {
       margin-left:220px;
     }
 
-    .btn {
-      cursor:pointer;
-      border-radius:5px;
-      background-color: #25d482;
-      width:150px;
-      margin-left:180px;
-    }
+
 
     .stripe-container {
       width: 400px;
