@@ -10,6 +10,7 @@ import Select from 'react-select';
 import './OnBoarding.css';
 import setUserNearbyZips from '../../helpers/setUserNearbyZips';
 import { toast } from 'react-toastify';
+import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -53,6 +54,10 @@ const Card = props => {
     });
   };
 
+  const sleep = milliseconds => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  };
+
   const completeProfile = async () => {
     const profileRef = db.collection('profiles').doc(user.uid);
     const profileSnapshot = await profileRef.get();
@@ -67,9 +72,14 @@ const Card = props => {
       .collection('profiles')
       .doc(user.uid)
       .update({
-        profile_completed: true
+        profile_completed: true,
+        swipes_remaining: appConfig.profileDefaults.swipes_remaining,
+        // last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        last_swipe_timestamp: Date.now()
       });
-    props.history.replace('/thunderdome');
+    sleep(1000).then(() => {
+      props.history.replace('/thunderdome');
+    });
   };
 
   const handleUploadSuccess = async filename => {
@@ -93,17 +103,21 @@ const Card = props => {
       case 'text':
         return (
           <input
-            type="text"
+            className='ob-text'
+            type='text'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'number':
         return (
           <input
-            type="number"
+            className='ob-nums'
+            type='number'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
@@ -118,19 +132,25 @@ const Card = props => {
       case 'text_area':
         return (
           <input
-            type="textarea"
+            className='ob-textarea'
+            type='textarea'
             placeholder={p.input_placeholder}
             name={p.field_name}
             value={formValues[p.field_name] || ''}
-            onChange={e => handleChange({ field: p.field_name, value: e.target.value })}
+            onChange={e =>
+              handleChange({ field: p.field_name, value: e.target.value })
+            }
           />
         );
       case 'multi_select':
         return (
           <Select
+            className='ob-select'
             value={formValues[p.field_name] || []}
             name={p.field_name}
-            onChange={value => handleChange({ field: p.field_name, value: value })}
+            onChange={value =>
+              handleChange({ field: p.field_name, value: value })
+            }
             options={p.choices}
             isMulti
           />
@@ -138,8 +158,9 @@ const Card = props => {
       case 'image':
         return (
           <FileUploader
-            accept="image/*"
-            name="profile_picture"
+            className='ob-uploader'
+            accept='image/*'
+            name='profile_picture'
             randomizeFilename
             storageRef={storage.ref('images')}
             onUploadStart={handleProgress}
@@ -155,30 +176,33 @@ const Card = props => {
 
   return (
     <animated.div
-      className="ob-ani1"
+      className='ob-ani1'
       key={i}
       style={{
         transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
       }}
     >
       <animated.div
-        className="ob-ani2"
+        className='ob-ani2'
         {...bind(i)}
         style={{
           transform: interpolate([rot, scale], trans)
         }}
       >
-        <div className="ob-card">
+        <div className='ob-card'>
           <form>
-            <h2>{cardTitle}</h2>
+            <h2 className='ob-title'>{cardTitle}</h2>
             {prompts.map(p => (
               <div key={p.id}>
-                <h3>{p.prompt}</h3>
+                <h3 className='ob-prompt'>{p.prompt}</h3>
                 {p.field_name && renderInput(p)}
               </div>
             ))}
             <br />
-            <Progress percent={Math.round((onboardingStep / totalSteps) * 100)} />
+            <Progress
+              className='ob-progress'
+              percent={Math.round((onboardingStep / totalSteps) * 100)}
+            />
           </form>
         </div>
       </animated.div>

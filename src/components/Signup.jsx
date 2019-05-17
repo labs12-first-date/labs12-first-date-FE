@@ -4,7 +4,7 @@ import logo from '../image/UnBlush.png';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import { withRouter } from 'react-router-dom';
-import Navigation from '../components/LoggedoutNavigation';
+import Navigation from '../components/Navigation';
 import './Signup.css';
 
 const uiConfig = {

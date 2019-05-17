@@ -42,22 +42,26 @@ input::placeholder {
 
 .set-container .modal {
   position: relative;
-  top: -300px;
+
+  top: -360px;
+
   margin: 0 auto;
   padding: 30px;
   width: 60%;
+
   border-radius: 20px;
   background-color: #242d3b;
   animation-duration: 1.5s;
   animation-name: slidein;
 }
+
 @keyframes slidein {
   from {
     top: -1000px;
   }
 
   to {
-    top: -300px;
+    top: -460px;
   }
 }
 

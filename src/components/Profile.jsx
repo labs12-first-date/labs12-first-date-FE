@@ -12,7 +12,7 @@ import './Profile.css';
 import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
-
+const storage = firebase.storage();
 // TODO: get cancel button to work. right now we are editing everything live so if you hit close the changes are saved. no way to cancel
 
 const ToggleContent = ({ toggle, content }) => {
@@ -103,14 +103,13 @@ const Profile = ({ history }) => {
     });
   };
 
-  const handleUploadSuccess = filename => {
+  const handleUploadSuccess = async filename => {
     toast.dismiss(uploadingToastId.current);
-    db.ref('images')
+    const photoUrl = await storage
+      .ref('images')
       .child(filename)
-      .getDownloadURL()
-      .then(url => {
-        handleChanges({ field: 'profile_picture', value: url });
-      });
+      .getDownloadURL();
+    handleChanges({ field: 'profile_picture', value: photoUrl });
   };
 
   const handleProgress = filename => {
@@ -149,6 +148,12 @@ const Profile = ({ history }) => {
                       })}
                     </p>
                     <p>
+                      Their condition(s):{' '}
+                      {data.match_conditions.map(e => {
+                        return e.value + ', ';
+                      })}
+                    </p>
+                    <p>
                       My condition(s):{' '}
                       {data.conditions.map(e => {
                         return e.value + ', ';
@@ -156,7 +161,7 @@ const Profile = ({ history }) => {
                     </p>
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
-                    <p>Likes: {data.likes || 0}</p>
+                    <p>Remaining Swipes: {data.swipes_remaining}</p>
                     <div id="modal-root" />
                     <ToggleContent
                       toggle={show => (
@@ -167,18 +172,18 @@ const Profile = ({ history }) => {
                       content={hide => (
                         <div class="profile-modal">
                           <>
-
                             <img
                               class="profile-img"
                               src={formState.profile_picture}
-                              alt='profile'
+                              alt="profile"
                             />
+                            <button id="close" onClick={hide}>
+                              Close
+                            </button>
                             <FileUploader
                               class="uploader"
-                              accept='image/*'
-                              name='profile_picture'
-
-
+                              accept="image/*"
+                              name="profile_picture"
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
                               // onUploadStart={handleUploadStart}
@@ -186,6 +191,7 @@ const Profile = ({ history }) => {
                               onUploadSuccess={handleUploadSuccess}
                               onProgress={handleProgress}
                             />
+
                             <form id="profileForm">
                               What is your first name?
                               <input
@@ -226,7 +232,8 @@ const Profile = ({ history }) => {
                                   })
                                 }
                               />
-                              What do you want your ideal match to know about you?
+                              What do you want your ideal match to know about
+                              you?
                               <input
                                 type="textarea"
                                 name="bio"
@@ -256,6 +263,25 @@ const Profile = ({ history }) => {
                                   })
                                 }
                                 options={genderState}
+                                isMulti
+                              />
+                              What condition(s) are you OK with?
+                              <Select
+                                value={data.match_conditions.map(e => {
+                                  return e;
+                                })}
+                                name={
+                                  stdState.map(e => {
+                                    return e;
+                                  }) || ''
+                                }
+                                onChange={value =>
+                                  handleChanges({
+                                    field: 'match_conditions',
+                                    value: value
+                                  })
+                                }
+                                options={stdState}
                                 isMulti
                               />
                               What condition(s) do you have?
@@ -292,21 +318,19 @@ const Profile = ({ history }) => {
                               />
                               What is your zip code?
                               <input
-                                type="number"
+                                type="text"
                                 name="zip_code"
                                 placeholder="Zip Code"
                                 value={data.zip_code}
                                 onChange={e =>
                                   handleChanges({
                                     field: 'zip_code',
-                                    value: Number(e.target.value)
+                                    value: e.target.value
                                   })
                                 }
                               />
                             </form>
                           </>
-                          <button class="modal-btn1" onClick={(handleSubmit, hide)}>Update</button>{' '}
-                          <button class="modal-btn2" onClick={hide}>Close</button>
                         </div>
                       )}
                     />

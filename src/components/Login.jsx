@@ -3,7 +3,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
 import logo from '../image/UnBlush.png';
-import Navigation from '../components/LoggedoutNavigation';
+import Navigation from '../components/Navigation';
 import './Login.css';
 
 // Configure FirebaseUI.
@@ -27,24 +27,24 @@ const Login = () => {
   return (
     <>
       <Navigation />
-      <div id="login-signup">
-        <img src={logo} alt="logo" />
+      <div id='login-signup'>
+        <img src={logo} alt='logo' />
 
         <StyledFirebaseAuth
           uiConfig={uiConfig}
           firebaseAuth={firebase.auth()}
         />
-        <div id="form">
+        <div id='form'>
           <form onSubmit={handleSubmit}>
             <input
-              name="email"
-              type="email"
-              placeholder="Email"
+              name='email'
+              type='email'
+              placeholder='Email'
               value={values.email || ''}
               onChange={handleChange}
             />
           </form>
-          <button id="btn-reset">Reset Password</button>
+          <button id='btn-reset'>Reset Password</button>
         </div>
       </div>
     </>

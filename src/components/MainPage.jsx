@@ -1,12 +1,12 @@
 import React from 'react';
-import Navigation from './LoggedoutNavigation';
+import Navigation from './Navigation';
 import largePhone from '../image/phoneMokc.png';
 import Line from '../image/Line.png';
 import bio from '../image/Group 1.png';
 import hobbies from '../image/Group 2.png';
 import location from '../image/Group 3.png';
 import messaging from '../image/pics.png';
-import heart from '../image/heart.png';
+import heart from '../image/heart.gif';
 import email from '../image/email.png';
 import insta from '../image/insta.png';
 import web from '../image/website.png';
@@ -16,8 +16,8 @@ import './MainPage.css';
 const MainPage = () => {
   return (
     <div>
+      <Navigation />
       <div className='MPcontainer'>
-        <Navigation />
         <section className='section1'>
           <div className='s1LeftSide'>
             <h1>

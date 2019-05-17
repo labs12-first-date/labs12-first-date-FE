@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firebase } from '../../firebase';
 import { AuthContext } from '../../contexts/AuthContext';
 import Deck from './Deck';
-import appConfig from '../../appConfig';
 
 const db = firebase.firestore();
 
@@ -36,10 +35,7 @@ const initProfile = user => {
       if (!snapshot.exists) {
         db.collection('profiles')
           .doc(user.uid)
-          .set({
-            swipes_remaining: appConfig.profileDefaults.swipes_remaining,
-            last_swipe_timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
+          .set({});
       }
     });
 };
@@ -68,8 +64,8 @@ const Onboarding = ({ history }) => {
 
   useEffect(() => {
     if (user) {
-      initProfile(user);
       initSettings(user);
+      initProfile(user);
     }
   }, [user]);
 
@@ -97,11 +93,13 @@ const Onboarding = ({ history }) => {
           const cardPrompts = prompts
             .filter(p => p.onboarding_step === step)
             .map(p => {
-              const includesConditions = p.field_name && p.field_name.includes('conditions');
+              const includesConditions =
+                p.field_name && p.field_name.includes('conditions');
               return includesConditions ? { ...p, choices: STDs } : p;
             })
             .map(p => {
-              const includesGender = p.field_name && p.field_name.includes('gender');
+              const includesGender =
+                p.field_name && p.field_name.includes('gender');
               return includesGender ? { ...p, choices: genders } : p;
             })
             .sort((a, b) => a.prompt_order - b.prompt_order);
@@ -117,7 +115,11 @@ const Onboarding = ({ history }) => {
     }
   }, [prompts, STDs, genders]);
 
-  return cardsData ? <Deck className="ob-deck" cardsData={cardsData} /> : <div>Loading...</div>;
+  return cardsData ? (
+    <Deck className='ob-deck' cardsData={cardsData} />
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 export default Onboarding;
