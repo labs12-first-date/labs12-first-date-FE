@@ -1,15 +1,7 @@
 nav ul {
   background: #45484d; /* Old browsers */
-  background: -moz-linear-gradient(
-    top,
-    #45484d 0%,
-    #000000 100%
-  ); /* FF3.6-15 */
-  background: -webkit-linear-gradient(
-    top,
-    #45484d 0%,
-    #000000 100%
-  ); /* Chrome10-25,Safari5.1-6 */
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(
     to bottom,
     #45484d 0%,
@@ -28,7 +20,7 @@ nav ul {
 }
 nav ul img {
   margin-left: 20%;
-  width: 70%;
+  width: 160%;
 }
 
 nav li {

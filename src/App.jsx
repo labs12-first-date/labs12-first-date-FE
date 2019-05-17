@@ -22,8 +22,7 @@ const toastConfig = {
   transition: Flip,
   closeOnClick: true,
   toastClassName: 'notification-container',
-  bodyClassName: 'notification-body',
-  autoClose: false
+  bodyClassName: 'notification-body'
 };
 
 const App = () => {
