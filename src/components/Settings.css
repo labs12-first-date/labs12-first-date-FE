@@ -42,7 +42,7 @@ input::placeholder {
 
 .set-container .modal {
   position: relative;
-  top: -300px;
+  top: -380px;
   margin: 0 auto;
   padding: 30px;
   width: 60%;
@@ -57,7 +57,7 @@ input::placeholder {
   }
 
   to {
-    top: -300px;
+    top: 0px;
   }
 }
 
