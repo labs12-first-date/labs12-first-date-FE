@@ -12,7 +12,7 @@ import './Profile.css';
 import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
-
+const storage = firebase.storage();
 // TODO: get cancel button to work. right now we are editing everything live so if you hit close the changes are saved. no way to cancel
 
 const ToggleContent = ({ toggle, content }) => {
@@ -103,14 +103,13 @@ const Profile = ({ history }) => {
     });
   };
 
-  const handleUploadSuccess = filename => {
+  const handleUploadSuccess = async filename => {
     toast.dismiss(uploadingToastId.current);
-    db.ref('images')
+    const photoUrl = await storage
+      .ref('images')
       .child(filename)
-      .getDownloadURL()
-      .then(url => {
-        handleChanges({ field: 'profile_picture', value: url });
-      });
+      .getDownloadURL();
+    handleChanges({ field: 'profile_picture', value: photoUrl });
   };
 
   const handleProgress = filename => {
