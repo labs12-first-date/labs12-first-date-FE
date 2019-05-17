@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import styled from 'styled-components';
 import ResponsiveMenu from 'react-responsive-navbar';
+import logo from '../image/UnBlush.png';
 import './Navigation.css';
 
 const Menu = styled.div`
@@ -72,12 +73,6 @@ const HamC = styled.div`
   padding-top: 0;
 `;
 
-const LoggedOut = styled.div`
-  .login {
-    margin-left: 30%;
-  }
-`;
-
 const Navigation = () => {
   const { user } = useContext(AuthContext);
 
@@ -100,6 +95,11 @@ const Navigation = () => {
                   } else {
                     return (
                       <ul>
+                        <li>
+                          <NavLink to='/'>
+                            <img id='logo' src={logo} alt='logo' />
+                          </NavLink>
+                        </li>
                         <li>
                           <NavLink to='/'>Home</NavLink>
                         </li>
@@ -124,16 +124,19 @@ const Navigation = () => {
                 }}
               />
             ) : (
-              <LoggedOut>
-                <ul>
-                  <li className='login'>
-                    <NavLink to='/login'>Log in</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/signup'>Sign Up</NavLink>
-                  </li>
-                </ul>
-              </LoggedOut>
+              <ul>
+                <li>
+                  <NavLink to='/'>
+                    <img id='logo' src={logo} alt='logo' />
+                  </NavLink>
+                </li>
+                <li className='login'>
+                  <NavLink to='/login'>Log in</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/signup'>Sign Up</NavLink>
+                </li>
+              </ul>
             )}
           </nav>
         </Menu>
