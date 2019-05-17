@@ -24,6 +24,7 @@ h2 {
   background-color: #25d482;
   width:25%;
   font-size: 1.2rem;
+  border: 1px solid black;
 }
 
 .stripe-form .form-div .input {
