@@ -25,7 +25,7 @@ const Menu = styled.div`
       color: white;
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 670px) {
     padding: 10px 0;
     nav ul {
       height: 100%;
@@ -85,7 +85,7 @@ const Navigation = () => {
     <ResponsiveMenu
       menuOpenButton={<HamO>&#9776;</HamO>}
       menuCloseButton={<HamC>x</HamC>}
-      changeMenuOn='600px'
+      changeMenuOn='670px'
       largeMenuClassName='large-menu-classname'
       smallMenuClassName='small-menu-classname'
       menu={
