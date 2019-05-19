@@ -111,10 +111,10 @@ input.uploader {
   border-radius: 20px;
   background-color: #242d3b;
   animation-duration: 1.5s;
-  animation-name: slidein;
+  animation-name: pslidein;
 }
 
-@keyframes slidein {
+@keyframes pslidein {
   from {
     top: -1000px;
   }

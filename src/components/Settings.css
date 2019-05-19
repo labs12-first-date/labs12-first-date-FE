@@ -66,16 +66,16 @@ input::placeholder {
   border-radius: 20px;
   background-color: #242d3b;
   animation-duration: 1.5s;
-  animation-name: slidein;
+  animation-name: sslidein;
 }
 
-@keyframes slidein {
+@keyframes sslidein {
   from {
     top: -1000px;
   }
 
   to {
-    top: -460px;
+    top: -360px;
   }
 }
 
