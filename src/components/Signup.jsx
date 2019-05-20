@@ -6,6 +6,7 @@ import { auth, firebase } from '../firebase';
 import { withRouter } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import './Signup.css';
+import { toast } from 'react-toastify';
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
@@ -24,11 +25,15 @@ const sleep = milliseconds => {
 };
 
 const Signup = ({ history }) => {
-  const { values, handleChange, handleSubmit } = useForm(() => {
-    auth.createUserWithEmail(values.email, values.password);
-    sleep(500).then(() => {
-      history.replace('/welcome');
-    });
+  const { values, handleChange, handleSubmit } = useForm(async () => {
+    try {
+      await auth.createUserWithEmail(values.email, values.password);
+      sleep(500).then(() => {
+        history.replace('/welcome');
+      });
+    } catch (error) {
+      toast(error.message);
+    }
   });
   return (
     <>
