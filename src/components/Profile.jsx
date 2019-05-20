@@ -10,6 +10,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import './Profile.css';
 import { toast } from 'react-toastify';
+import setUserNearbyZips from '../helpers/setUserNearbyZips';
 
 const db = firebase.firestore();
 const storage = firebase.storage();
@@ -37,6 +38,15 @@ const Profile = ({ history }) => {
   const [genderState, setgenderState] = useState({});
   const [toggleState, settoggleState] = useState(false);
   const uploadingToastId = useRef(null);
+
+  const getNearbyZips = async () => {
+    const profileSnapshot = await db
+      .collection('profiles')
+      .doc(user.uid)
+      .get();
+    const zip = profileSnapshot.data().zip_code || null;
+    if (zip && zip.length === 5) console.log('running zip') || setUserNearbyZips(user.uid, zip);
+  };
 
   useEffect(() => {
     const docRef = db.collection('profiles').doc(user.uid);
@@ -185,11 +195,14 @@ const Profile = ({ history }) => {
                             <button
                               id="close"
                               onClick={() => {
+                                getNearbyZips();
                                 hide();
                                 settoggleState(false);
                               }}
                             >
-                              Close
+
+                              Save
+
                             </button>
 
                             <FileUploader
@@ -244,8 +257,7 @@ const Profile = ({ history }) => {
                                   })
                                 }
                               />
-                              What do you want your ideal match to know about
-                              you?
+                              What do you want your ideal match to know about you?
                               <input
                                 type="textarea"
                                 name="bio"
