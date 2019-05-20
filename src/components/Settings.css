@@ -1,4 +1,6 @@
 .set-container {
+  position: relative;
+  z-index: 0;
   margin: 0 auto;
   color: white;
   font-size: 19px;
@@ -21,6 +23,8 @@
 }
 
 .buttons {
+  position: relative;
+  z-index: 0;
   display: flex;
   justify-content: space-between;
   padding-top: 40px;
@@ -39,10 +43,20 @@ input::placeholder {
   font-size: 30px;
   margin-bottom: 20px;
 }
+#grayout {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+}
 
 .set-container .modal {
   position: relative;
-
+  z-index: 4;
   top: -360px;
 
   margin: 0 auto;
@@ -52,16 +66,16 @@ input::placeholder {
   border-radius: 20px;
   background-color: #242d3b;
   animation-duration: 1.5s;
-  animation-name: slidein;
+  animation-name: sslidein;
 }
 
-@keyframes slidein {
+@keyframes sslidein {
   from {
     top: -1000px;
   }
 
   to {
-    top: -460px;
+    top: -360px;
   }
 }
 
@@ -99,6 +113,8 @@ input::placeholder {
   }
 }
 .btn-update-settings {
+  position: relative;
+  z-index: -1;
   background-color: #25d381;
   border-radius: 40px;
   font-size: 18px;
@@ -115,6 +131,8 @@ input::placeholder {
 }
 
 .btn-red-settings {
+  position: relative;
+  z-index: -1;
   background-color: #e41a0b;
   border-radius: 40px;
   font-size: 18px;
