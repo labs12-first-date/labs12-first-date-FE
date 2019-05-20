@@ -223,19 +223,7 @@ const Settings = ({ history }) => {
                     )}
                   />
 
-                  <button className="btn-red-settings">Reset Password</button>
-                  {/*sends an email to user to reset password */}
-                  <button
-                    onClick={() => {
-                      history.replace('/');
-                      auth.deleteProfile();
-                    }}
-                    className="btn-red-settings"
-                  >
-                    Delete Your Account
-                  </button>
-                  {/*deletes the user profile */}
-                  <ToggleUpgrade
+<ToggleUpgrade
                     className="modal"
                     toggle={showUpgrade => (
                       <button
@@ -265,6 +253,20 @@ const Settings = ({ history }) => {
                       </UpgradeModal>
                     )}
                   />
+
+                  <button className="btn-red-settings">Reset Password</button>
+                  {/*sends an email to user to reset password */}
+                  <button
+                    onClick={() => {
+                      history.replace('/');
+                      auth.deleteProfile();
+                    }}
+                    className="btn-red-settings"
+                  >
+                    Delete Your Account
+                  </button>
+                  {/*deletes the user profile */}
+                  
                   <div id={toggleState ? 'grayout' : null} />
                 </div>
               </div>

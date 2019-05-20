@@ -46,7 +46,8 @@ const Card = props => {
           console.log('Error getting document:', error);
         });
     }
-  }, []);
+  }, [user]);
+  //JAMES-YARN: ^^ added user to dependency array
 
   const handleChange = ({ field, value }) => {
     setFormValues(previousValues => {

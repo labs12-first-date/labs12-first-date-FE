@@ -18,6 +18,7 @@
   width: 100%;
 }
 
+
 .set-container span {
   padding: 0 10px;
 }
@@ -108,9 +109,8 @@ input::placeholder {
   .buttons {
     display: flex;
     justify-content: space-between;
-    width: 355px;
-    padding-right: 35px;
   }
+
 }
 .btn-update-settings {
   position: relative;
@@ -156,8 +156,18 @@ input::placeholder {
     margin: 10px 0;
   }
   .buttons {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
+  .btn-update-settings {
+    height: 35px;
+    }
+    
+    .btn-red-settings {
+    height: 35px;
+    }
+    
 }
