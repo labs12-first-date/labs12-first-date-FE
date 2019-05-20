@@ -9,6 +9,7 @@ import Loading from './Loading';
 import React from 'react';
 import Navigation from './Navigation';
 import './Profile.css';
+
 import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
@@ -248,6 +249,7 @@ const Profile = ({ history }) => {
                               />
                               How does your ideal match define their gender?
                               <Select
+                                className="mutliSlect"
                                 value={data.match_gender.map(e => {
                                   return e;
                                 })}
@@ -267,6 +269,7 @@ const Profile = ({ history }) => {
                               />
                               What condition(s) are you OK with?
                               <Select
+                                className="mutliSlect"
                                 value={data.match_conditions.map(e => {
                                   return e;
                                 })}
@@ -286,6 +289,7 @@ const Profile = ({ history }) => {
                               />
                               What condition(s) do you have?
                               <Select
+                                className="mutliSlect"
                                 value={data.conditions.map(e => {
                                   return e;
                                 })}
