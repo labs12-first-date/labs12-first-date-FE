@@ -41,6 +41,7 @@ const Profile = ({ history }) => {
   const [formState, setformState] = useState({});
   const [stdState, setstdState] = useState({});
   const [genderState, setgenderState] = useState({});
+  const [toggleState, settoggleState] = useState(false);
   const uploadingToastId = useRef(null);
 
   const getNearbyZips = async () => {
@@ -129,6 +130,7 @@ const Profile = ({ history }) => {
   return (
     <div>
       <Navigation />
+
       <FirestoreDocument
         path={`profiles/${user.uid}`}
         render={({ isLoading, data }) => {
@@ -172,10 +174,18 @@ const Profile = ({ history }) => {
                     <p>Condition details: {data.condition_description}</p>
                     <p>Zip Code: {data.zip_code}</p>
                     <p>Remaining Swipes: {data.swipes_remaining}</p>
+
                     <div id="modal-root" />
+
                     <ToggleContent
                       toggle={show => (
-                        <button className="btn-update" onClick={show}>
+                        <button
+                          className="btn-update"
+                          onClick={() => {
+                            show();
+                            settoggleState(true);
+                          }}
+                        >
                           Update Profile
                         </button>
                       )}
@@ -192,10 +202,12 @@ const Profile = ({ history }) => {
                               onClick={() => {
                                 getNearbyZips();
                                 hide();
+                                settoggleState(false);
                               }}
                             >
                               Save
                             </button>
+
                             <FileUploader
                               class="uploader"
                               accept="image/*"
@@ -349,6 +361,7 @@ const Profile = ({ history }) => {
                         </div>
                       )}
                     />
+                    <div id={toggleState ? 'grayout' : null} />
                   </div>
                 </div>
               </div>
