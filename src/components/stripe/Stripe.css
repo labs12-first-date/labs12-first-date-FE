@@ -41,6 +41,14 @@ h2 {
   margin: 25px 10%;
 }
 
+@media(max-width:850px) {
+  div.stripe-btns-container .stripe-btn {
+    font-size: 1rem;
+    
+  }
+}
+
+
 @media(max-width:600px) {
   div.stripe-btns-container {
     margin: 15px 0;
@@ -59,68 +67,3 @@ h2 {
     margin-top: 10px, 0;
   }
 }
-
-/* @media(max-width:1920px) {
-
-
-
-    .charge {
-      margin-left:220px;
-    }
-
-
-
-    .stripe-container {
-      width: 400px;
-      height:130px;
-      margin-top:140px;
-      margin-left:740px;
-    }
-
-    .form-div {
-      width:500px;
-      height:200px;
-      display:flex;
-      flex-direction: column;
-      justify-content: space-around;
-    }
-
-    .stripe-form {
-      background-color:white;  
-      width:500px;    
-      height:200px;
-      margin:0, auto;
-    }
-
-    .stripe-card {
-      border: solid lightgray 1px;
-      width:498px;
-      background-color: white;
-    }
-
-    input {
-      border: solid lightgray 1px;
-      font-size: 1rem;
-    }
-
-  }
-
-
-
-  
-  @media(max-width:400px) {
-
-    .stripe-container {
-      margin-top:0px;
-      margin-left:0px;
-    }
-
-    .btn {
-      margin-left:120px;
-    }
-
-    .charge {
-      margin-left:160px;
-    }
-
-  } */
