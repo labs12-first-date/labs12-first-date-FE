@@ -1,6 +1,5 @@
 import { firebase } from '../firebase';
 import appConfig from '../appConfig';
-import { toast } from 'react-toastify';
 
 const db = firebase.firestore();
 

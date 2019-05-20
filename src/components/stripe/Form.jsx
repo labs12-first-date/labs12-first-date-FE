@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CardElement, injectStripe, ReactStripeElements } from 'react-stripe-elements';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 import '../../index';
 import './Stripe.css';
 import { firebase, auth } from '../../firebase';
