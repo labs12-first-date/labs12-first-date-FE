@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StripeProvider, Elements } from 'react-stripe-elements';
-import Navigation from '../Navigation';
 import Form from './Form';
 import { withRouter } from 'react-router-dom';
 
