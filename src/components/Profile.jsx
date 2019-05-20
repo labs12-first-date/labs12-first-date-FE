@@ -28,11 +28,6 @@ const ToggleContent = ({ toggle, content }) => {
   );
 };
 
-const Modal = ({ children }) =>
-  ReactDOM.createPortal(
-    <div className="modal">{children}</div>,
-    document.getElementById('modal-root')
-  );
 
 const Profile = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
