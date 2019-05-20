@@ -54,11 +54,125 @@ const ThunderDeck = ({ history }) => {
           .get();
         const profile = snapshot.data();
         // is user's profile complete?
+
         if (userProfile && !userProfile.profile_completed) {
           history.replace('/welcome');
         } else {
+          if (profile.age < 18) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('Grow some hair call me on your 18Th Bday.');
+          }
+          console.log('PROFILE', profile);
           setUserProfile(profile);
+          if (!profile.bio) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('Please fill out your bio');
+          }
+          if (!profile.condition_description) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('Fill out your description');
+          }
+          if (!profile.conditions) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('What you got sucker! You dirty.');
+          }
+          if (!profile.first_name) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('You need name!!');
+          }
+          if (!profile.gender) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('I am confused sound like you are too Choose a gender');
+          }
+          if (!profile.last_name) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('What is your handle');
+          }
+          if (!profile.match_conditions) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('Nobodys perfect what is your condition');
+          }
+          if (!profile.match_gender) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('You playin pick up sticks or clam jam?');
+          }
+          if (!profile.profile_picture) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('Send nudes!');
+          }
+          if (!profile.zip_code) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('I got hoes.. I need your area code!');
+          } else if (profile.zip_code.length < 5) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+            console.log('I got hoes.. I need your area code!');
+          }
+          if (!profile.profile_completed) {
+            toast(`That's all we have for you right now. Check back later!`);
+            history.replace('/welcome');
+          }
         }
+
+        // if (userProfile && !userProfile.profile_completed) {
+        //   history.replace('/welcome');
+        // } else {
+        //   if (userProfile.age < 18) {
+        //     console.log('too young!!!!');
+        //   }
+        //   console.log('PROFILE', profile);
+        //   setUserProfile(profile);
+        // }
+
+        // if (userProfile) {
+        //   if (profile.age <= 18) {
+        //     console.log('Grow some hair call me on your 18Th Bday.');
+        //   }
+        // if (profile.bio === '') {
+        //   console.log('Please fill out your bio');
+        // }
+        // if (profile.condition_description === '') {
+        //   console.log('Fill out your description');
+        // }
+        // if (profile.conditions.length === 0) {
+        //   console.log('What you got sucker! You dirty.');
+        // }
+        // if (profile.first_name === '') {
+        //   console.log('You need name!!');
+        // }
+        // if (profile.gender.length === 0) {
+        //   console.log('I am confused sound like you are too Choose a gender');
+        // }
+        // if (profile.first_last === '') {
+        //   console.log('What is your handle');
+        // }
+        // if (profile.match_conditions.length === 0) {
+        //   console.log('Nobodys perfect what is your condition');
+        // }
+        // if (profile.match_gender.length === 0) {
+        //   console.log('You playin pick up sticks or clam jam?');
+        // }
+        // if (profile.profile_picture === '') {
+        //   console.log('Send nudes!');
+        // }
+        // if (profile.zip_codes.length !== 5) {
+        //   console.log('I got hoes.. I need your area code!');
+        // }
+        // if (!userProfile.profile_completed) {
+        //   history.replace('/welcome');
+        // }
+        // }
       } catch (error) {
         console.error('Error getting user profile: ', error);
       }
@@ -195,7 +309,7 @@ const ThunderDeck = ({ history }) => {
           <MessageDisplay>
             You've reached your swipe limit for today! Come back in 24 hours!
             <br />
-            <Link to='/upgrade'>Upgrade your account</Link>
+            <Link to="/upgrade">Upgrade your account</Link>
           </MessageDisplay>
         </div>
       </>
@@ -207,7 +321,7 @@ const ThunderDeck = ({ history }) => {
         <Navigation />
         <MessageDisplay>
           Sorry, no matches :/ <br />{' '}
-          <Link to='/settings'>Update match settings</Link>
+          <Link to="/settings">Update match settings</Link>
         </MessageDisplay>
       </div>
     );
@@ -215,7 +329,7 @@ const ThunderDeck = ({ history }) => {
   if (potentialMatches.length) {
     return (
       <>
-        <div id='nav'>
+        <div id="nav">
           <Navigation />
         </div>
         <div>
@@ -224,7 +338,7 @@ const ThunderDeck = ({ history }) => {
             return (
               <MatchCard
                 key={match.id}
-                className='td-card'
+                className="td-card"
                 i={i}
                 x={x}
                 y={y}
