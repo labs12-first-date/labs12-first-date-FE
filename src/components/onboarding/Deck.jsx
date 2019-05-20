@@ -3,6 +3,7 @@ import { useSprings } from 'react-spring';
 import { useGesture } from 'react-with-gesture';
 import Card from './Card';
 import './OnBoarding.css';
+import { toast } from 'react-toastify';
 
 //Questions
 //1. Intro(first and last name,)
@@ -65,6 +66,8 @@ const Deck = ({ cardsData }) => {
       });
 
       if (!down && gone.size === cardsData.length) {
+        setTimeout(() => gone.clear() || set(i => to(i)), 600);
+        toast.info('Please read the directions!');
         // all cards have been swiped
       }
     }
