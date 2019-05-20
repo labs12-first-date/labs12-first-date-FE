@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useForm from '../hooks/useForm';
 import { auth, firebase } from '../firebase';
@@ -21,31 +21,37 @@ const uiConfig = {
 };
 
 const Login = () => {
+  const [showReset, setShowReset] = useState(false);
   const { values, handleChange, handleSubmit } = useForm(() => {
     auth.resetPasswordNoLogin(values.email);
   });
+
   return (
     <>
       <Navigation />
-      <div id='login-signup'>
-        <img src={logo} alt='logo' />
+      <div id="login-signup">
+        <img src={logo} alt="logo" />
 
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
-        <div id='form'>
-          <form onSubmit={handleSubmit}>
-            <input
-              name='email'
-              type='email'
-              placeholder='Email'
-              value={values.email || ''}
-              onChange={handleChange}
-            />
-          </form>
-          <button id='btn-reset'>Reset Password</button>
-        </div>
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        {showReset ? (
+          <div id="form">
+            <h2>Reset password</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={values.email || ''}
+                onChange={handleChange}
+              />
+            </form>
+            <button id="btn-reset">Reset</button>
+          </div>
+        ) : (
+          <button id="btn-show-reset" onClick={() => setShowReset(true)}>
+            Forgot password?
+          </button>
+        )}
       </div>
     </>
   );
