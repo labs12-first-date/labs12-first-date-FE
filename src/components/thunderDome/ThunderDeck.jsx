@@ -110,7 +110,7 @@ const ThunderDeck = ({ history }) => {
           ...doc.data(),
           id: doc.id
         }));
-        const potentialMatches = runMatchAlgo(userProfile, profiles);
+        const potentialMatches = runMatchAlgo(userProfile, profiles, user);
         if (!potentialMatches.length) {
           setNoMatches(true);
         } else {
