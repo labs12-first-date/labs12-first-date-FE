@@ -6,8 +6,7 @@ const cors = require('cors');
 
 app.use(cors({ origin: true }));
 
-const API_KEY =
-  'ElfcJlFIXxr0ySR9hkgoiqDjnNdw8yhTbB7qGU0wMvvWprpzVyfZbIn83AE7wDEr';
+const API_KEY = functions.config().zipapi.key;
 
 app.get('/', async (req, res) => {
   try {
