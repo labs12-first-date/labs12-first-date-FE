@@ -89,7 +89,7 @@ const Settings = ({ history }) => {
     });
   };
 
-  const { values, handleChange, handleSubmit } = useForm(() => {
+  const { values, handleSubmit } = useForm(() => {
     const getNearbyZips = async () => {
       const profileSnapshot = await db
         .collection('profiles')
@@ -132,15 +132,11 @@ const Settings = ({ history }) => {
                       {data.match_age_min}
                     </li>
                     <li className="col s12">
-                      <span className="red-text text-darken-2">
-                        Maximum Match Age:
-                      </span>{' '}
+                      <span className="red-text text-darken-2">Maximum Match Age:</span>{' '}
                       {data.match_age_max}
                     </li>
 
-                    <li className="col s12">
-                      Match Distance Range:{data.match_distance}
-                    </li>
+                    <li className="col s12">Match Distance Range:{data.match_distance}</li>
                   </ul>
                 </div>
                 <div className="buttons">
@@ -161,8 +157,7 @@ const Settings = ({ history }) => {
                       <Modal className="modal">
                         <>
                           <p>
-                            What is the Minimum Age you would like to match
-                            with?
+                            What is the Minimum Age you would like to match with?
                             <input
                               type="number"
                               name="match_age_min"
@@ -177,8 +172,7 @@ const Settings = ({ history }) => {
                             />
                           </p>
                           <p>
-                            What is the Maximum Age you would like to match
-                            with?
+                            What is the Maximum Age you would like to match with?
                             <input
                               type="number"
                               name="match_age_max"
@@ -222,7 +216,7 @@ const Settings = ({ history }) => {
                     )}
                   />
 
-<ToggleUpgrade
+                  <ToggleUpgrade
                     className="modal"
                     toggle={showUpgrade => (
                       <button
@@ -265,7 +259,7 @@ const Settings = ({ history }) => {
                     Delete Your Account
                   </button>
                   {/*deletes the user profile */}
-                  
+
                   <div id={toggleState ? 'grayout' : null} />
                 </div>
               </div>

@@ -108,7 +108,7 @@ const ThunderDeck = ({ history }) => {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, []); // ignore warning in console
 
   // 2. after we have a user, get user settings
   useEffect(() => {

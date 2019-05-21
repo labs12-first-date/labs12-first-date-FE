@@ -3,7 +3,6 @@ import { firebase, auth } from '../firebase';
 import { FirestoreDocument } from 'react-firestore';
 import Select from 'react-select';
 import FileUploader from 'react-firebase-file-uploader';
-import ReactDOM from 'react-dom';
 import useForm from '../hooks/useForm';
 import Loading from './Loading';
 import React from 'react';
@@ -29,7 +28,6 @@ const ToggleContent = ({ toggle, content }) => {
     </>
   );
 };
-
 
 const Profile = ({ history }) => {
   const [user] = useState(auth.getCurrentUser());
@@ -95,7 +93,7 @@ const Profile = ({ history }) => {
     }
   }, [formValues, user]);
 
-  const { values, handleSubmit } = useForm(() => {
+  const { values } = useForm(() => {
     db.collection('profiles')
       .doc(user.uid)
       .update(values)
@@ -201,9 +199,7 @@ const Profile = ({ history }) => {
                                 settoggleState(false);
                               }}
                             >
-
                               Save
-
                             </button>
 
                             <FileUploader
