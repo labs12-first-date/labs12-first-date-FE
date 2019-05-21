@@ -5,14 +5,6 @@ import Card from './Card';
 import './OnBoarding.css';
 import { toast } from 'react-toastify';
 
-//Questions
-//1. Intro(first and last name,)
-//2. Intro2( gender, birthday, interests/bio)
-//3. General(zip code, age)
-//4. Looking for(match gender, ideal match, match distance)
-//5. Conditions(what you are open to)
-//6. Conditions2(what you have, description)
-//7. Add a picture
 
 const to = i => ({
   x: 10,
@@ -49,7 +41,6 @@ const Deck = ({ cardsData }) => {
       const dir = xDir < 0 ? -1 : 1;
 
       if (!down && trigger) gone.add(index); // If button/finger's up and trigger velocity is reached, we flag the card ready to fly out
-      // console.log(index);
       set(i => {
         if (index !== i) return;
         const isGone = gone.has(index);
