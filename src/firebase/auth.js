@@ -1,5 +1,4 @@
 import firebase from './config';
-import { toast } from 'react-toastify';
 
 const loginWithEmail = async (email, password) => {
   await firebase.auth().signInWithEmailAndPassword(email, password);

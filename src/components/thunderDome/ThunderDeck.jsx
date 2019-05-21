@@ -33,8 +33,7 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r /
-    10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const user = auth.getCurrentUser();
@@ -117,7 +116,7 @@ const ThunderDeck = ({ history }) => {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, []); // ignore warning in console
 
   // 2. after we have a user, get user settings
   useEffect(() => {
@@ -146,12 +145,8 @@ const ThunderDeck = ({ history }) => {
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age =
-          userSettings.match_age_min ||
-          appConfig.settingsDefaults.match_age_min;
-        const max_age =
-          userSettings.match_age_max ||
-          appConfig.settingsDefaults.match_age_max;
+        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
+        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
@@ -190,7 +185,7 @@ const ThunderDeck = ({ history }) => {
 
   const bind = useGesture(
     ({
-      args: [index, uid, matchCallback],
+      args: [index, uid, matchCallback, matchesCount],
       down,
       delta: [xDelta],
       distance,
@@ -227,7 +222,7 @@ const ThunderDeck = ({ history }) => {
         };
       });
 
-      if (!down && gone.size === potentialMatches.length) {
+      if (!down && gone.size === matchesCount) {
         // all cards have been swiped
         toast(`That's all we have for you right now. Check back later!`);
       }
@@ -253,8 +248,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          Sorry, no matches :/ <br />{' '}
-          <Link to='/settings'>Update match settings</Link>
+          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
+
         </MessageDisplay>
       </div>
     );
@@ -281,6 +276,7 @@ const ThunderDeck = ({ history }) => {
                 data={match}
                 bind={bind}
                 matchNotify={matchNotify}
+                matchesCount={potentialMatches.length}
               />
             );
           })}
