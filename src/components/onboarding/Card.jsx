@@ -21,9 +21,6 @@ const Card = props => {
   const [formValues, setFormValues] = useState({});
   const { cardTitle, onboardingStep, prompts } = data;
   const uploadingToastId = useRef(null);
-  // const [photoValues, setphotoValues] = useState({});
-
-  // console.log(user);
 
   // save form input values
   useEffect(() => {

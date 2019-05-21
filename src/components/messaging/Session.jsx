@@ -88,10 +88,6 @@ const Session = ({ match }) => {
     }
   }, [user, chatId]);
 
-  // useEffect(() => {
-  //   console.log(participants);
-  // }, [participants]);
-
   // live-stream new messages
   useEffect(() => {
     const listenForMessages = () => {
@@ -108,10 +104,6 @@ const Session = ({ match }) => {
     // clean up on unmount
     return unsubscribe;
   }, [messagesCollectionPath]);
-
-  // useEffect(() => {
-  //   console.log(user.uid);
-  // }, [user]);
 
   // fancy stuff to keep the chat window scrolled to the bottom
   useEffect(() => {
