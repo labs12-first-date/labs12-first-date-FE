@@ -83,7 +83,7 @@ const Deck = ({ cardsData }) => {
 
   return props.map(({ x, y, rot, scale }, i) => (
     <Card
-      className="ob-card"
+      className='ob-card'
       i={i}
       x={x}
       y={y}
