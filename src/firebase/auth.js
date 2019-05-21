@@ -64,12 +64,10 @@ const resetPasswordNoLogin = email => {
 //DELETE PROFILE
 const deleteProfile = () => {
   const user = firebase.auth().currentUser;
-  console.log('delete button clicked');
   user
     .delete()
     .then(() => {
       console.log('profile deleted');
-
       // User deleted.
     })
     .catch(error => {
