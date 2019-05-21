@@ -44,11 +44,6 @@ const ThunderDeck = ({ history }) => {
   const [noMatches, setNoMatches] = useState(false);
   const [swipeLimitReached, setSwipeLimitReached] = useState(false);
 
-  const validator = cardInfo => {
-    toast(`${cardInfo}`);
-    history.replace('/welcome');
-  };
-
   // 1. on mount, get user profile, check if complete
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -60,14 +55,29 @@ const ThunderDeck = ({ history }) => {
         const profile = snapshot.data();
         // is user's profile complete?
 
+        const validator = cardInfo => {
+          toast(`${cardInfo}`);
+          db.collection('profiles')
+            .doc(user.uid)
+            .get()
+            .then(snapshot => {
+              if (snapshot.exists) {
+                db.collection('profiles')
+                  .doc(user.uid)
+                  .update({
+                    profile_completed: false
+                  });
+                history.replace('/welcome');
+              }
+            });
+        };
+
         if (userProfile && !userProfile.profile_completed) {
           history.replace('/welcome');
         } else {
           if (profile.age < 18) {
             validator('You must be 18 or older to ride this ride');
           }
-          console.log('PROFILE', profile);
-          setUserProfile(profile);
           if (!profile.bio) {
             validator('Please fill out your bio');
           }
@@ -100,9 +110,7 @@ const ThunderDeck = ({ history }) => {
           } else if (profile.zip_code.length < 5) {
             validator('Zip-code not long enough');
           }
-          if (!profile.profile_completed) {
-            validator('Uh-oh you did not complete your profile');
-          }
+          setUserProfile(profile);
         }
       } catch (error) {
         console.error('Error getting user profile: ', error);
@@ -234,7 +242,7 @@ const ThunderDeck = ({ history }) => {
           <MessageDisplay>
             You've reached your swipe limit for today! Come back in 24 hours!
             <br />
-            <Link to="/upgrade">Upgrade your account</Link>
+            <Link to='/upgrade'>Upgrade your account</Link>
           </MessageDisplay>
         </div>
       </>
@@ -246,7 +254,7 @@ const ThunderDeck = ({ history }) => {
         <Navigation />
         <MessageDisplay>
           Sorry, no matches :/ <br />{' '}
-          <Link to="/settings">Update match settings</Link>
+          <Link to='/settings'>Update match settings</Link>
         </MessageDisplay>
       </div>
     );
@@ -254,7 +262,7 @@ const ThunderDeck = ({ history }) => {
   if (potentialMatches.length) {
     return (
       <>
-        <div id="nav">
+        <div id='nav'>
           <Navigation />
         </div>
         <div>
@@ -263,7 +271,7 @@ const ThunderDeck = ({ history }) => {
             return (
               <MatchCard
                 key={match.id}
-                className="td-card"
+                className='td-card'
                 i={i}
                 x={x}
                 y={y}
