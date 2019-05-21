@@ -27,7 +27,7 @@ const initSettings = user => {
     });
 };
 
-const initProfile = user => {
+const initProfile = (user, history) => {
   db.collection('profiles')
     .doc(user.uid)
     .get()
@@ -36,6 +36,8 @@ const initProfile = user => {
         db.collection('profiles')
           .doc(user.uid)
           .set({});
+      } else if (snapshot.data().profile_completed) {
+        history.replace('/thunderdome');
       }
     });
 };
@@ -65,7 +67,7 @@ const Onboarding = ({ history }) => {
   useEffect(() => {
     if (user) {
       initSettings(user);
-      initProfile(user);
+      initProfile(user, history);
     }
   }, [user]);
 
