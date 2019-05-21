@@ -124,55 +124,6 @@ const ThunderDeck = ({ history }) => {
             history.replace('/welcome');
           }
         }
-
-        // if (userProfile && !userProfile.profile_completed) {
-        //   history.replace('/welcome');
-        // } else {
-        //   if (userProfile.age < 18) {
-        //     console.log('too young!!!!');
-        //   }
-        //   console.log('PROFILE', profile);
-        //   setUserProfile(profile);
-        // }
-
-        // if (userProfile) {
-        //   if (profile.age <= 18) {
-        //     console.log('Grow some hair call me on your 18Th Bday.');
-        //   }
-        // if (profile.bio === '') {
-        //   console.log('Please fill out your bio');
-        // }
-        // if (profile.condition_description === '') {
-        //   console.log('Fill out your description');
-        // }
-        // if (profile.conditions.length === 0) {
-        //   console.log('What you got sucker! You dirty.');
-        // }
-        // if (profile.first_name === '') {
-        //   console.log('You need name!!');
-        // }
-        // if (profile.gender.length === 0) {
-        //   console.log('I am confused sound like you are too Choose a gender');
-        // }
-        // if (profile.first_last === '') {
-        //   console.log('What is your handle');
-        // }
-        // if (profile.match_conditions.length === 0) {
-        //   console.log('Nobodys perfect what is your condition');
-        // }
-        // if (profile.match_gender.length === 0) {
-        //   console.log('You playin pick up sticks or clam jam?');
-        // }
-        // if (profile.profile_picture === '') {
-        //   console.log('Send nudes!');
-        // }
-        // if (profile.zip_codes.length !== 5) {
-        //   console.log('I got hoes.. I need your area code!');
-        // }
-        // if (!userProfile.profile_completed) {
-        //   history.replace('/welcome');
-        // }
-        // }
       } catch (error) {
         console.error('Error getting user profile: ', error);
       }
@@ -273,12 +224,6 @@ const ThunderDeck = ({ history }) => {
         const rot = xDelta / 100 + (isGone ? dir * 10 * velocity : 0);
 
         const scale = down ? 1.1 : 1;
-        // if (dir === 1) {
-        //   console.log('WHAT?', potentialMatches);
-        //   // console.log('Direction: right index:', index);
-        // } else {
-        //   // console.log('Direction: left index:', index);
-        // }
 
         if (isGone) {
           const like = dir === 1;

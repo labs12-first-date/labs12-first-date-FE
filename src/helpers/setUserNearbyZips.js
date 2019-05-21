@@ -5,9 +5,6 @@ const db = firebase.firestore();
 
 async function getZipsInRadius(zipCode, distanceMiles) {
   try {
-    // const response = await axios(
-    //   `https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=${zipCode}&minimumradius=0&maximumradius=${distanceMiles}&key=${API_KEY}`
-    // );
     const { data } = await axios(
       `https://us-central1-awk-dating.cloudfunctions.net/getZip?zip=${zipCode}&distance=${distanceMiles}`
     );
