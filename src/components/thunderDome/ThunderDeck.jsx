@@ -44,6 +44,11 @@ const ThunderDeck = ({ history }) => {
   const [noMatches, setNoMatches] = useState(false);
   const [swipeLimitReached, setSwipeLimitReached] = useState(false);
 
+  const validator = cardInfo => {
+    toast(`${cardInfo}`);
+    history.replace('/welcome');
+  };
+
   // 1. on mount, get user profile, check if complete
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -59,69 +64,44 @@ const ThunderDeck = ({ history }) => {
           history.replace('/welcome');
         } else {
           if (profile.age < 18) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('Grow some hair call me on your 18Th Bday.');
+            validator('You must be 18 or older to ride this ride');
           }
           console.log('PROFILE', profile);
           setUserProfile(profile);
           if (!profile.bio) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('Please fill out your bio');
+            validator('Please fill out your bio');
           }
           if (!profile.condition_description) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('Fill out your description');
+            validator('Fill out your description');
           }
           if (!profile.conditions) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('What you got sucker! You dirty.');
+            validator('What are your conditions ');
           }
           if (!profile.first_name) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('You need name!!');
+            validator('You need name!! ');
           }
           if (!profile.gender) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('I am confused sound like you are too Choose a gender');
+            validator('I am confused sound like you are too Choose a gender');
           }
           if (!profile.last_name) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('What is your handle');
+            validator('Need a last name');
           }
           if (!profile.match_conditions) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('Nobodys perfect what is your condition');
+            validator('Nobodys perfect what is your condition');
           }
           if (!profile.match_gender) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('You playin pick up sticks or clam jam?');
+            validator('You will to choose a gender');
           }
           if (!profile.profile_picture) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('Send nudes!');
+            validator('Upload a picture to complete your profile');
           }
           if (!profile.zip_code) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('I got hoes.. I need your area code!');
+            validator('Need zip-code to match');
           } else if (profile.zip_code.length < 5) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
-            console.log('I got hoes.. I need your area code!');
+            validator('Zip-code not long enough');
           }
           if (!profile.profile_completed) {
-            toast(`That's all we have for you right now. Check back later!`);
-            history.replace('/welcome');
+            validator('Uh-oh you did not complete your profile');
           }
         }
 
