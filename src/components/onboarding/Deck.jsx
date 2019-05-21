@@ -5,6 +5,7 @@ import Card from './Card';
 import './OnBoarding.css';
 import { toast } from 'react-toastify';
 
+
 const to = i => ({
   x: 10,
   y: i * -10,

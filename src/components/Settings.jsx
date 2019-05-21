@@ -75,7 +75,6 @@ const Settings = ({ history }) => {
   useEffect(() => {
     // TODO don't make network call for every keystroke
     const persistFormValues = async () => {
-      console.log('setting');
       db.collection('settings')
         .doc(user.uid)
         .update(formValues);

@@ -40,7 +40,6 @@ const ToastContainer = ({ matchProfile }) => {
   const [pop, setPop] = useState(false);
 
   useEffect(() => {
-    console.log('pop run');
     const timeout = setTimeout(() => {
       setPop(true);
     }, 5);
