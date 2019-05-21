@@ -53,3 +53,22 @@
 #google-auth-btn {
   align-content: center;
 }
+
+#firebaseui_container .firebaseui-card-content form ul.firebaseui-idp-list li.firebaseui-list-item button span.firebaseui-idp-icon-wrapper{
+width: 35%;
+}
+
+@media(max-width:600px) {
+
+  #firebaseui_container .firebaseui-card-content form ul.firebaseui-idp-list li.firebaseui-list-item button span.firebaseui-idp-icon-wrapper {
+    display: none;
+    }
+
+  #firebaseui_container .firebaseui-card-content form ul.firebaseui-idp-list li.firebaseui-list-item button span.firebaseui-idp-text-long {
+      width: 100%;
+      display: flex; 
+      justify-content: center;
+      font-size: .8rem;
+      padding: 0 0 0 0;
+    }
+}
