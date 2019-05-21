@@ -69,16 +69,15 @@ const MainPage = () => {
             <img src={heart} alt='heart' />
           </div>
           <footer>
-            <a href='#'>
+            <a href='/'>
               <img src={email} alt='letter' />
               <span id='footerText'>Blush@UnBlush.com</span>
             </a>
-
-            <a href='#'>
+            <a href='/'>
               <img src={insta} alt='letter' />
               <span id='footerText'>@UnBlush.com</span>
             </a>
-            <a href='#'>
+            <a href='/'>
               <img src={web} alt='letter' />
               <span id='footerText'>@UnBlush.com</span>
             </a>
