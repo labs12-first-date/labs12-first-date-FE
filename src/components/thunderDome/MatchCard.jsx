@@ -5,7 +5,7 @@ import { animated, interpolate } from 'react-spring';
 import './ThunderDome.css';
 
 const MatchCard = props => {
-  const { i, x, y, rot, scale, trans, bind, data, matchNotify } = props;
+  const { i, x, y, rot, scale, trans, bind, data, matchNotify, matchesCount } = props;
   const { first_name, age, bio, gender, profile_picture, id: uid } = data;
 
   return (
@@ -25,7 +25,7 @@ const MatchCard = props => {
       >
         <animated.div
           className="td-ani2"
-          {...bind(i, uid, matchNotify)}
+          {...bind(i, uid, matchNotify, matchesCount)}
           style={{
             transform: interpolate([rot, scale], trans)
           }}
