@@ -88,7 +88,8 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
 	All packages used to create this application:
 		* @types/react-stripe-elements
 		* @types/stripe
-		* axiosfirebase
+		* axios
+		* firebase
 		* moment
 		* prop-types
 		* react    
