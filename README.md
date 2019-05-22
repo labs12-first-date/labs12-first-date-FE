@@ -10,3 +10,15 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
 #### You can find the project at [**UnBlush**](https://awk-dating.firebaseapp.com)
 
 #### Our project is also on IOS [**IOS UnBlush**](https://github.com/labs12-first-date/labs12-first-date-iOS)
+
+## Key Features ![](https://img.shields.io/badge/-Features-blue.svg)
+    * Sign up via email or Google Account
+    * Upload image to Profile
+    * Add bio information
+    * Check off which STD(s) the user has
+    * Check off which STD(s) the user is open to a partner having
+    * Match recommendations based off user's disclosed/"open to" STD(s), age, gender, and distance
+    * Swipe yes/no on other users' profiles resulting in a match if a yes is reciprocated
+    * In-App chat once users are matched
+
+    
