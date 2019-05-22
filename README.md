@@ -112,3 +112,23 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
 		* stripe
 		* styled-components
 		* typescript
+
+## Other Scripts
+![Scripts](https://img.shields.io/badge/Server-Scripts-brightgreen.svg)
+
+	"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  	}
+  	
+# Licensing
+![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+
+[MIT](https://opensource.org/licenses/MIT)
+
+# Contributing ![Contribute](https://img.shields.io/badge/-Contributing-brightgreen.svg)
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
