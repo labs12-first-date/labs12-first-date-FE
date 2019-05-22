@@ -21,4 +21,16 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
     * Swipe yes/no on other users' profiles resulting in a match if a yes is reciprocated
     * In-App chat once users are matched
 
-    
+##  Tech Stack ![Tech](https://img.shields.io/badge/Tech-Stack-grey.svg)
+### Front end built using: 
+![React](https://img.shields.io/badge/React-JS-blue.svg)
+![Firebase](https://img.shields.io/badge/Firebase-DB-orange.svg)
+![Node](https://img.shields.io/badge/Node-JS-green.svg)
+![Stripe](https://img.shields.io/badge/Stripe-API-blue.svg)
+![ZipCode](https://img.shields.io/badge/ZipCode-API-yellow.svg)
+
+    * React w/ React Hooks
+    * Firebase/Cloud Firestore, Firebase Functions
+    * Node.js
+    * Stripe 
+    * ZipCodeAPI.com
