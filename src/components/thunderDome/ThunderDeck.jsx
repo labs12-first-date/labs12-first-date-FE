@@ -33,7 +33,8 @@ const to = i => ({
 const from = i => ({ x: 0, rot: 0, scale: 2, y: -1000 });
 
 const trans = (r, s) =>
-  `perspective(1500px) rotateX(20deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`;
+  `perspective(1500px) rotateX(20deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const ThunderDeck = ({ history }) => {
   const user = auth.getCurrentUser();
@@ -74,6 +75,9 @@ const ThunderDeck = ({ history }) => {
         if (userProfile && !userProfile.profile_completed) {
           history.replace('/welcome');
         } else {
+          if (!profile.age) {
+            validator('You must enter your age');
+          }
           if (profile.age < 18) {
             validator('You must be 18 or older to ride this ride');
           }
@@ -81,33 +85,36 @@ const ThunderDeck = ({ history }) => {
             validator('Please fill out your bio');
           }
           if (!profile.condition_description) {
-            validator('Fill out your description');
+            validator('Please fill out the description of your condition');
           }
           if (!profile.conditions) {
-            validator('What are your conditions ');
+            validator('What are your condition(s)?');
           }
           if (!profile.first_name) {
-            validator('You need name!! ');
+            validator('Please enter your first name');
           }
           if (!profile.gender) {
-            validator('I am confused sound like you are too Choose a gender');
+            validator('Please choose your gender');
           }
           if (!profile.last_name) {
-            validator('Need a last name');
+            validator('Please enter your last name');
           }
           if (!profile.match_conditions) {
-            validator('Nobodys perfect what is your condition');
+            validator('What condition(s) are you ok with?');
           }
           if (!profile.match_gender) {
-            validator('You will to choose a gender');
+            validator('What gender would you like to match with?');
           }
           if (!profile.profile_picture) {
             validator('Upload a picture to complete your profile');
           }
           if (!profile.zip_code) {
-            validator('Need zip-code to match');
-          } else if (profile.zip_code.length < 5) {
-            validator('Zip-code not long enough');
+            validator('Please enter your zipcode');
+          } else if (
+            profile.zip_code.length < 5 ||
+            profile.zip_code.length > 5
+          ) {
+            validator('Zipcode not correct');
           }
           setUserProfile(profile);
         }
@@ -145,8 +152,12 @@ const ThunderDeck = ({ history }) => {
       if (swipesRemaining) {
         setSwipeLimitReached(false);
         setNoMatches(false);
-        const min_age = userSettings.match_age_min || appConfig.settingsDefaults.match_age_min;
-        const max_age = userSettings.match_age_max || appConfig.settingsDefaults.match_age_max;
+        const min_age =
+          userSettings.match_age_min ||
+          appConfig.settingsDefaults.match_age_min;
+        const max_age =
+          userSettings.match_age_max ||
+          appConfig.settingsDefaults.match_age_max;
         const profilesSnapshot = await db
           .collection('profiles')
           .where('age', '>=', min_age)
@@ -248,8 +259,8 @@ const ThunderDeck = ({ history }) => {
       <div>
         <Navigation />
         <MessageDisplay>
-          Sorry, no matches :/ <br /> <Link to="/settings">Update match settings</Link>
-
+          Sorry, no matches :/ <br />{' '}
+          <Link to='/settings'>Update match settings</Link>
         </MessageDisplay>
       </div>
     );
