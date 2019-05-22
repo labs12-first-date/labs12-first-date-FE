@@ -34,3 +34,51 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
     * Node.js
     * Stripe 
     * ZipCodeAPI.com
+
+### Back end built using:
+![Firebase](https://img.shields.io/badge/Firebase-DB-orange.svg)
+![Node](https://img.shields.io/badge/Node-JS-green.svg)
+
+    * Firestore/Cloud Firestore noSQL database Firebase Functions
+    * Node.js
+
+# APIs ![API](https://img.shields.io/badge/-API-brightgreen.svg)
+## Firebase Authentication
+![Firebase](https://img.shields.io/badge/Firebase-DB-orange.svg)
+
+	Authentication for users was accomplished by using the built-in auth feature in firebase
+	A simple login function that includes firebase.auth().signInWithEmailAndPassword(email, password);
+	And a simple logout function that includes firebase.auth().signOut();
+	There are no endpoints to point to but a list of functions as this is a noSQL database 
+	
+	Documentation - https://firebase.google.com/docs
+
+
+## Stripe API
+![Stripe](https://img.shields.io/badge/Stripe-API-blue.svg)
+
+	We used Stripe API for our payment system, a sample function would look like so:
+	
+	const stripe = require('stripe')('INSERT_YOUR_API-KEY');
+	(async () => {const charge = await stripe.charges.create({
+    amount: 999,
+    currency: 'usd',
+    source: 'tok_visa',
+    receipt_email: 'jenny.rosen@example.com',
+    	});
+    })();
+    
+    The only necessary endpoint is to point your <StripeProvider apiKey="YOUR-API-KEY"/> to your API key
+    
+    Documentation - https://stripe.com/docs
+
+
+## ZipCodeAPI.com 
+![ZipCode](https://img.shields.io/badge/ZipCode-API-yellow.svg)
+
+	We used ZipCodeAPI.com to be able to match our users by the distance they choose in their profile settings
+	The only endpoint you need for this API is 
+	const endPoint = 'https://www.zipcodeapi.com/rest/<YOUR-API-KEY>/radius.json/<USER-ZIPCODE>/<USER-DISTANCE>/mile';
+	
+	Documentation - https://www.zipcodeapi.com/API
+
