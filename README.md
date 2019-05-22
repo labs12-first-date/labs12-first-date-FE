@@ -73,7 +73,7 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
     Documentation - https://stripe.com/docs
 
 
-## ZipCodeAPI.com 
+## ZipCodeAPI
 ![ZipCode](https://img.shields.io/badge/ZipCode-API-yellow.svg)
 
 	We used ZipCodeAPI.com to be able to match our users by the distance they choose in their profile settings
