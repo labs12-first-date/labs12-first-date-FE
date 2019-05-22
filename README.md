@@ -82,3 +82,33 @@ UnBlush is the first dating app for people of all or no genders with STD(s). UnB
 	
 	Documentation - https://www.zipcodeapi.com/API
 
+# NPM Packages 
+![Node](https://img.shields.io/badge/Node-JS-green.svg)
+
+	All packages used to create this application:
+		* @types/react-stripe-elements
+		* @types/stripe
+		* axiosfirebase
+		* moment
+		* prop-types
+		* react    
+		* react-dom
+		* react-dom-confetti
+		* react-firebase-file-uploader
+		* react-firebaseui
+		* react-firestore
+		* react-icons
+		* react-responsive-navbar
+		* react-router
+		* react-router-dom
+		* react-scripts
+		* react-select
+		* react-spinners
+		* react-spring
+		* react-stripe-elements
+		* react-sweet-progress
+		* react-toastify
+		* react-with-gesture
+		* stripe
+		* styled-components
+		* typescript
