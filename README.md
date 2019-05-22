@@ -4,3 +4,9 @@
 |                                [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/gabada)                                |                            [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/jbasile6)                             |                          [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/murbar)                           |                          [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/UnknownMonk)                           |                           [<img src="https://github.com/favicon.ico" width="35"> ](https://github.com/VaderSteve76)  
 <br>
 
+## Project Overview ![UnBlush](https://img.shields.io/badge/Un-Blush-brightgreen.svg)
+UnBlush is the first dating app for people of all or no genders with STD(s). UnBlush is an online-dating application available on Web and iOS. With 1 in three people in the US contracting an STD before the age of 25, STDs are much more common than the average person would think. Our dating app allows users to disclose their condition(s) and list the condition(s) that they are open to a potential match having. By allowing users to disclose this taboo information upfront, the stigma of having an STD and fear of judgement is removed and you can focus on actually getting to know your matches. Finally an app that is aimed at taking the stigma out of being **positive!!**
+
+#### You can find the project at [**UnBlush**](https://awk-dating.firebaseapp.com)
+
+#### Our project is also on IOS [**IOS UnBlush**](https://github.com/labs12-first-date/labs12-first-date-iOS)
