@@ -247,7 +247,7 @@ const Profile = ({ history }) => {
                               <input
                                 type='number'
                                 name='age'
-                                placeholder='age'
+                                placeholder='Age'
                                 value={data.age}
                                 onChange={e =>
                                   handleChanges({
@@ -334,7 +334,7 @@ const Profile = ({ history }) => {
                               <input
                                 type='textarea'
                                 name='condition_description'
-                                placeholder='condition_description'
+                                placeholder='Condition Description'
                                 value={data.condition_description}
                                 onChange={e =>
                                   handleChanges({
