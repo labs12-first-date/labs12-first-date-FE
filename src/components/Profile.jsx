@@ -186,15 +186,15 @@ const Profile = ({ history }) => {
                         </button>
                       )}
                       content={hide => (
-                        <div class="profile-modal">
+                        <div className='profile-modal'>
                           <>
                             <img
-                              class="profile-img"
+                              className='profile-img'
                               src={formState.profile_picture}
-                              alt="profile"
+                              alt='profile'
                             />
                             <button
-                              id="close"
+                              id='close'
                               onClick={() => {
                                 getNearbyZips();
                                 hide();
@@ -205,9 +205,9 @@ const Profile = ({ history }) => {
                             </button>
 
                             <FileUploader
-                              class="uploader"
-                              accept="image/*"
-                              name="profile_picture"
+                              className='uploader'
+                              accept='image/*'
+                              name='profile_picture'
                               randomizeFilename
                               storageRef={firebase.storage().ref('images')}
                               // onUploadStart={handleUploadStart}
@@ -272,7 +272,7 @@ const Profile = ({ history }) => {
                               />
                               How does your ideal match define their gender?
                               <Select
-                                className='mutliSlect'
+                                className='multiSelect'
                                 value={data.match_gender.map(e => {
                                   return e;
                                 })}
@@ -292,7 +292,7 @@ const Profile = ({ history }) => {
                               />
                               What condition(s) are you OK with?
                               <Select
-                                className='mutliSlect'
+                                className='multiSelect'
                                 value={data.match_conditions.map(e => {
                                   return e;
                                 })}
@@ -312,7 +312,7 @@ const Profile = ({ history }) => {
                               />
                               What condition(s) do you have?
                               <Select
-                                className='mutliSlect'
+                                className='multiSelect'
                                 value={data.conditions.map(e => {
                                   return e;
                                 })}
