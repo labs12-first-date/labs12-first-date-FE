@@ -26,7 +26,7 @@ const ToggleUpgrade = ({ toggle, upgrade }) => {
 
 const UpgradeModal = ({ children }) =>
   ReactDOM.createPortal(
-    <div className="modal">{children}</div>,
+    <div className='modal'>{children}</div>,
     document.getElementById('modal-root')
   );
 
@@ -45,7 +45,7 @@ const ToggleContent = ({ toggle, content }) => {
 
 const Modal = ({ children }) =>
   ReactDOM.createPortal(
-    <div className="modal">{children}</div>,
+    <div className='modal'>{children}</div>,
     document.getElementById('modal-root')
   );
 
@@ -122,29 +122,33 @@ const Settings = ({ history }) => {
           return isLoading ? (
             <Loading />
           ) : (
-            <div className="set-container">
-              <div className="card grey lighten-1  ">
-                <div className="set-card-content ">
-                  <span id="set-settings">Settings</span>
-                  <ul id="setting-ul" className="row">
-                    <li className="col s12">
+            <div className='set-container'>
+              <div className='card grey lighten-1  '>
+                <div className='set-card-content '>
+                  <span id='set-settings'>Settings</span>
+                  <ul id='setting-ul' className='row'>
+                    <li className='col s12'>
                       Minimum Match Age:
                       {data.match_age_min}
                     </li>
-                    <li className="col s12">
-                      <span className="red-text text-darken-2">Maximum Match Age:</span>{' '}
+                    <li className='col s12'>
+                      <span className='red-text text-darken-2'>
+                        Maximum Match Age:
+                      </span>{' '}
                       {data.match_age_max}
                     </li>
 
-                    <li className="col s12">Match Distance Range:{data.match_distance}</li>
+                    <li className='col s12'>
+                      Match Distance Range:{data.match_distance}
+                    </li>
                   </ul>
                 </div>
-                <div className="buttons">
+                <div className='buttons'>
                   <ToggleContent
-                    className="modal"
+                    className='modal'
                     toggle={show => (
                       <button
-                        className="btn-update-settings"
+                        className='btn-update-settings'
                         onClick={() => {
                           show();
                           settoggleState(true);
@@ -154,14 +158,15 @@ const Settings = ({ history }) => {
                       </button>
                     )}
                     content={hide => (
-                      <Modal className="modal">
+                      <Modal className='modal'>
                         <>
                           <p>
-                            What is the Minimum Age you would like to match with?
+                            What is the Minimum Age you would like to match
+                            with?
                             <input
-                              type="number"
-                              name="match_age_min"
-                              placeholder="Min Age"
+                              type='number'
+                              name='match_age_min'
+                              placeholder='Minimum Age'
                               value={data.match_age_min}
                               onChange={e =>
                                 handleChanges({
@@ -172,11 +177,12 @@ const Settings = ({ history }) => {
                             />
                           </p>
                           <p>
-                            What is the Maximum Age you would like to match with?
+                            What is the Maximum Age you would like to match
+                            with?
                             <input
-                              type="number"
-                              name="match_age_max"
-                              placeholder="Max Age"
+                              type='number'
+                              name='match_age_max'
+                              placeholder='Maximum Age'
                               value={data.match_age_max}
                               onChange={e =>
                                 handleChanges({
@@ -189,9 +195,9 @@ const Settings = ({ history }) => {
                           <p>
                             How far would you travel for love?
                             <input
-                              type="number"
-                              name="match_distance"
-                              placeholder="distance"
+                              type='number'
+                              name='match_distance'
+                              placeholder='Distance'
                               value={data.match_distance}
                               onChange={e =>
                                 handleChanges({
@@ -203,7 +209,7 @@ const Settings = ({ history }) => {
                           </p>
                         </>
                         <button
-                          id="update"
+                          id='update'
                           onClick={e => {
                             handleSubmit(e);
                             hide(e);
@@ -217,10 +223,10 @@ const Settings = ({ history }) => {
                   />
 
                   <ToggleUpgrade
-                    className="modal"
+                    className='modal'
                     toggle={showUpgrade => (
                       <button
-                        className="btn-update-settings"
+                        className='btn-update-settings'
                         onClick={() => {
                           settoggleState(true);
                           showUpgrade();
@@ -230,12 +236,12 @@ const Settings = ({ history }) => {
                       </button>
                     )}
                     upgrade={hideUpgrade => (
-                      <UpgradeModal className="modal">
+                      <UpgradeModal className='modal'>
                         <>
                           <StripeApp />
                         </>
                         <button
-                          id="close"
+                          id='close'
                           onClick={() => {
                             settoggleState(false);
                             hideUpgrade();
@@ -247,14 +253,14 @@ const Settings = ({ history }) => {
                     )}
                   />
 
-                  <button className="btn-red-settings">Reset Password</button>
+                  <button className='btn-red-settings'>Reset Password</button>
                   {/*sends an email to user to reset password */}
                   <button
                     onClick={() => {
                       history.replace('/');
                       auth.deleteProfile();
                     }}
-                    className="btn-red-settings"
+                    className='btn-red-settings'
                   >
                     Delete Your Account
                   </button>
@@ -263,8 +269,8 @@ const Settings = ({ history }) => {
                   <div id={toggleState ? 'grayout' : null} />
                 </div>
               </div>
-              <div className="dropForm">
-                <div id="modal-root" />
+              <div className='dropForm'>
+                <div id='modal-root' />
               </div>
             </div>
           );
