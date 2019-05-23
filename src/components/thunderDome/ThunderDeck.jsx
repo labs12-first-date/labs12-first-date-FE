@@ -65,9 +65,9 @@ const ThunderDeck = ({ history }) => {
                 db.collection('profiles')
                   .doc(user.uid)
                   .update({
-                    profile_completed: false
+                    profile_completed: true
                   });
-                history.replace('/welcome');
+                history.replace('/profile');
               }
             });
         };
